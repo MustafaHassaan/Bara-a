@@ -1,0 +1,1039 @@
+# English (US) translation — Baraa Pharmacy Theme
+# Copyright (C) 2025 Baraa Pharmacies
+msgid ""
+msgstr ""
+"Project-Id-Version: Baraa Pharmacy 1.0.0\n"
+"POT-Creation-Date: 2025-11-05T00:00:00+00:00\n"
+"PO-Revision-Date: 2025-11-05T00:00:00+00:00\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Domain: baraa-pharmacy\n"
+
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
+msgid "Free shipping"
+msgstr "Free shipping"
+
+msgid "Nothing to display yet."
+msgstr "Nothing to display yet."
+
+msgid "Shipment"
+msgstr "Shipment"
+
+msgid "ابحث باسم الدواء، المادة الفعالة، أو العَرَض..."
+msgstr "Search by medicine name, active ingredient, or symptom..."
+
+msgid "ابحث بالاسم العلمي، التجاري، المادة الفعالة أو الأعراض..."
+msgstr "Search by scientific name, trade name, active ingredient or symptoms..."
+
+msgid "ابحث عن منتج"
+msgstr "Search products"
+
+msgid "اتصل بـ 19822"
+msgstr "Call 19822"
+
+msgid "اختر اللغة"
+msgstr "Choose language"
+
+msgid "أدخل كود الكوبون"
+msgstr "Enter coupon code"
+
+msgid "أدوية مسكنة وOTC"
+msgstr "Analgesics & OTC"
+
+msgid "إزالة"
+msgstr "Remove"
+
+msgid "استخدم هذا المنتج طبقاً للتعليمات المدونة على العبوة أو بتوجيه من كادر صحي مؤهل."
+msgstr "Use this product only as directed on the packaging or by a qualified healthcare professional."
+
+msgid "استشارات مجانية للجرعات والتداخلات الدوائية مع استشاري دواء."
+msgstr "Free consultations on dosages and drug interactions with a pharmaceutical consultant."
+
+msgid "استشارة صيدلي"
+msgstr "Pharmacist consultation"
+
+msgid "استشارة صيدلي عبر واتساب"
+msgstr "Chat with a pharmacist on WhatsApp"
+
+msgid "استشاري صيدلة إكلينيكية"
+msgstr "Clinical Pharmacy Consultant"
+
+msgid "أسطول مجهز بحقائب مبردة لتغطية الطوارئ الحادة على مدار اليوم."
+msgstr "Fleet equipped with cool bags for acute emergency coverage around the clock."
+
+msgid "أسعار مدعومة لأجهزة الفحص الدوري وأشهر منتجات العناية والفيتامينات العالمية."
+msgstr "Subsidised prices on monitoring devices and top global care products and vitamins."
+
+msgid "إضافة %s للمفضلة"
+msgstr "Add %s to wishlist"
+
+msgid "أضف للسلة"
+msgstr "Add to cart"
+
+msgid "اطلب دواءك بروشتة واحدة"
+msgstr "Order your medicine with one prescription"
+
+msgid "الاتصال بالخط الساخن المباشر (19822)"
+msgstr "Call the direct hotline (19822)"
+
+msgid "الأحدث أولاً"
+msgstr "Latest first"
+
+msgid "الأدوية والمستلزمات الأكثر طلباً"
+msgstr "Most requested medicines and supplies"
+
+msgid "الأسعار طبقاً لكتالوج المتجر"
+msgstr "Prices follow the store catalogue"
+
+msgid "الأسعار طبقاً للتسعيرة الجبرية لوزارة الصحة"
+msgstr "Prices per Ministry of Health official price list"
+
+msgid "الأعلى تقييماً"
+msgstr "Highest rated"
+
+msgid "الأقسام العلاجية المتخصصة"
+msgstr "Specialised therapeutic departments"
+
+msgid "الأكثر طلباً:"
+msgstr "Most requested:"
+
+msgid "الأكثر مبيعاً"
+msgstr "Best selling"
+
+msgid "البريد الإلكتروني الطبي:"
+msgstr "Medical email:"
+
+msgid "الترتيب الافتراضي"
+msgstr "Default sorting"
+
+msgid "التصنيفات"
+msgstr "Categories"
+
+msgid "التقط صورة للروشتة أو اختر ملف"
+msgstr "Take a photo of the prescription or choose a file"
+
+msgid "التنقل بين الأقسام"
+msgstr "Navigate categories"
+
+msgid "الحد الأدنى"
+msgstr "Minimum"
+
+msgid "الحد الأدنى للسعر"
+msgstr "Minimum price"
+
+msgid "الحد الأقصى"
+msgstr "Maximum"
+
+msgid "الحد الأقصى للسعر"
+msgstr "Maximum price"
+
+msgid "الدفع نقدًا عند الاستلام"
+msgstr "Cash on delivery"
+
+msgid "الرئيسية"
+msgstr "Home"
+
+msgid "السعر: الأعلى أولاً"
+msgstr "Price: high to low"
+
+msgid "السعر: الأقل أولاً"
+msgstr "Price: low to high"
+
+msgid "السلة"
+msgstr "Cart"
+
+msgid "السلة — %s منتج"
+msgstr "Cart — %s item"
+
+msgid "الشروط والأحكام"
+msgstr "Terms of Service"
+
+msgid "الصيدلية الإلكترونية الأولى المعتمدة من هيئة الدواء المصرية"
+msgstr "Egypt's first e-pharmacy certified by the Egyptian Drug Authority"
+
+msgid "العيادة الصيدلانية الرقمية المباشرة"
+msgstr "Live digital pharmaceutical clinic"
+
+msgid "الكل"
+msgstr "All"
+
+msgid "المتجر"
+msgstr "Shop"
+
+msgid "المنتجات في سلتك"
+msgstr "Products in your cart"
+
+msgid "الوقت المتبقي على انتهاء العرض"
+msgstr "Time remaining until the offer ends"
+
+msgid "بحث"
+msgstr "Search"
+
+msgid "تأكيد البحث"
+msgstr "Search"
+
+msgid "تتطلب روشتة (Rx)"
+msgstr "Requires prescription (Rx)"
+
+msgid "تحدث مع الصيدلي عبر واتساب"
+msgstr "Chat with the pharmacist on WhatsApp"
+
+msgid "تذكير تلقائي بتجديد دواء الأمراض المزمنة"
+msgstr "Automatic reminder to renew chronic disease medication"
+
+msgid "ترتيب:"
+msgstr "Sort:"
+
+msgid "ترخيص وزارة الصحة رقم 4921/2012"
+msgstr "Ministry of Health licence no. 4921/2012"
+
+msgid "تساؤل عن منتج أو طلب؟"
+msgstr "Questions about a product or order?"
+
+msgid "تسوق حسب الحالة الصحية"
+msgstr "Shop by health condition"
+
+msgid "تصفح أدويتك ومستلزماتك بإشراف صيدلي متخصص لكل تخصص طبي."
+msgstr "Browse medicines and supplies supervised by a specialist pharmacist for every medical specialty."
+
+msgid "تصفح أدويتنا ومستلزماتنا الصحية المعتمدة من صيدليات براءة."
+msgstr "Browse our certified health products and medicines from Baraa Pharmacies."
+
+msgid "تصفح الصفحات"
+msgstr "Browse pages"
+
+msgid "تصفح المتجر"
+msgstr "Browse the shop"
+
+msgid "تصفح المتجر وأضف المنتجات التي تحتاجها إلى سلتك."
+msgstr "Browse the shop and add the products you need to your cart."
+
+msgid "تصفية المنتجات"
+msgstr "Filter products"
+
+msgid "تصفية بالسعر"
+msgstr "Filter by price"
+
+msgid "تصنيفات المنتجات"
+msgstr "Product categories"
+
+msgid "تطبيق"
+msgstr "Apply"
+
+msgid "تطبيق الترتيب"
+msgstr "Apply sorting"
+
+msgid "تطبيق الفلتر"
+msgstr "Apply filter"
+
+msgid "تفاصيل التوصيل"
+msgstr "Delivery details"
+
+msgid "تفريغ السلة"
+msgstr "Clear cart"
+
+msgid "تقسيط بدون فوائد"
+msgstr "Instalment with no interest"
+
+msgid "تقليل الكمية"
+msgstr "Decrease quantity"
+
+msgid "توصيل إسعافي 30 دقيقة"
+msgstr "Emergency delivery in 30 minutes"
+
+msgid "توصيل سريع"
+msgstr "Fast delivery"
+
+msgid "توصيل سريع مجاني للطلبات فوق 350 ج.م في القاهرة والجيزة والمدن الرئيسية ⚡"
+msgstr "Free fast delivery on orders above 350 EGP in Cairo, Giza and major cities ⚡"
+
+msgid "توصيل قياسي 15-45 دقيقة"
+msgstr "Standard delivery 15–45 minutes"
+
+msgid "جميع الأقسام"
+msgstr "All categories"
+
+msgid "جميع المنتجات"
+msgstr "All products"
+
+msgid "حتى باب بيتك خلال دقائق"
+msgstr "To your door in minutes"
+
+msgid "خدمات صيدليات براءة"
+msgstr "Baraa Pharmacy services"
+
+msgid "خدمة صيدلي 24/7 عبر الخط الساخن:"
+msgstr "24/7 pharmacist service via hotline:"
+
+msgid "خصم"
+msgstr "Discount"
+
+msgid "خلال أقل من 3 دقائق"
+msgstr "In under 3 minutes"
+
+msgid "خيارات الشحن تُحدد عند الدفع"
+msgstr "Shipping options confirmed at checkout"
+
+msgid "دفع عند الاستلام أو فيزا وميزة"
+msgstr "Cash on delivery or Visa / Meeza"
+
+msgid "دقة 100%"
+msgstr "100% accuracy"
+
+msgid "دواء أصلي 100% موثق"
+msgstr "100% genuine certified medicine"
+
+msgid "دواء أصلي معتمد، واستشارة صيدلية موثوقة"
+msgstr "Certified genuine medicine and trusted pharmaceutical advice"
+
+msgid "راجع منتجاتك وكمياتها قبل إتمام الطلب."
+msgstr "Review your products and quantities before completing your order."
+
+msgid "رفع الروشتة الآن"
+msgstr "Upload prescription now"
+
+msgid "رفع صورة الروشتة"
+msgstr "Upload prescription image"
+
+msgid "روشتة أونلاين"
+msgstr "Online prescription"
+
+msgid "زيادة الكمية"
+msgstr "Increase quantity"
+
+msgid "ستظهر الأقسام هنا بعد إضافتها للمتجر."
+msgstr "Categories will appear here once added to the store."
+
+msgid "ستظهر المنتجات هنا بعد إضافتها للمتجر."
+msgstr "Products will appear here once added to the store."
+
+msgid "سعر الوحدة:"
+msgstr "Unit price:"
+
+msgid "سلامتك الدوائية هي جوهر عملنا. يقدم صيادلتنا المتخصصون تدقيقاً مجانياً للروشتات المزمنة، وتوجيهات لمرضى السكري والضغط، وتأكيد تعارض الأدوية مع المكملات الغذائية قبل الاستخدام."
+msgstr "Your medication safety is the heart of our work. Our specialist pharmacists offer free review of chronic prescriptions, guidance for diabetes and blood-pressure patients, and drug–supplement interaction checks before use."
+
+msgid "سلتك فارغة"
+msgstr "Your cart is empty"
+
+msgid "سياسة الخصوصية"
+msgstr "Privacy Policy"
+
+msgid "شبكة صيدليات رائدة مرخصة رسميًا من وزارة الصحة والسكان المصرية. نلتزم بأعلى معايير جودة الرعاية الصيدلانية، وتوفير الدواء الأصلي، والتوصيل الآمن بدرجات حرارة معتمدة على مدار الساعة."
+msgstr "A leading pharmacy network officially licensed by the Egyptian Ministry of Health. We uphold the highest standards of pharmaceutical care, genuine medicines, and safe temperature-controlled delivery around the clock."
+
+msgid "صوّر الروشتة الورقية أو التحليل؛ وسيقوم صيدلي مرخص بمراجعتها فوراً وتجهيز بدائلها وأسعارها الرسمية للتأكيد معك."
+msgstr "Photograph your paper prescription or test results; a licensed pharmacist will review them immediately and prepare alternatives with official prices for your confirmation."
+
+msgid "صيادلة متاحون 24/7"
+msgstr "Pharmacists available 24/7"
+
+msgid "صيدلي استشاري"
+msgstr "Consulting pharmacist"
+
+msgid "صيدليات براءة"
+msgstr "Baraa Pharmacies"
+
+msgid "صيدليات براءة — جميع الحقوق محفوظة"
+msgstr "Baraa Pharmacies — All rights reserved"
+
+msgid "صيدليات براءة المعتمدة"
+msgstr "Certified Baraa Pharmacies"
+
+msgid "صيدلية الشعب الآمنة"
+msgstr "Your trusted community pharmacy"
+
+msgid "صيدليتك الذكية في مصر.."
+msgstr "Your smart pharmacy in Egypt.."
+
+msgid "ضمانات الشراء"
+msgstr "Purchase guarantees"
+
+msgid "طرق الدفع المعتمدة في مصر:"
+msgstr "Accepted payment methods in Egypt:"
+
+msgid "طرق الدفع متاحة عند الشراء"
+msgstr "Payment methods available at checkout"
+
+msgid "طوارئ واستفسارات صيدلانية"
+msgstr "Pharmaceutical emergencies and enquiries"
+
+msgid "عرض"
+msgstr "Offer"
+
+msgid "عرض %1$s–%2$s من %3$s منتج"
+msgstr "Showing %1$s–%2$s of %3$s products"
+
+msgid "عرض المنتج"
+msgstr "View product"
+
+msgid "عرض جميع المنتجات"
+msgstr "View all products"
+
+msgid "عرض كافة الأقسام (%s تصنيف)"
+msgstr "View all categories (%s)"
+
+msgid "عروض اليوم المحدودة"
+msgstr "Today's limited offers"
+
+msgid "عروض اليوم والتوفير الصحي"
+msgstr "Today's deals and health savings"
+
+msgid "عناية بالبشرة علاجية"
+msgstr "Therapeutic skincare"
+
+msgid "عنوانك وخيارات الشحن المتاحة تُحدد عند إتمام الطلب."
+msgstr "Your address and available shipping options are confirmed at checkout."
+
+msgid "غير متوفر حالياً"
+msgstr "Currently unavailable"
+
+msgid "فرع التجمع الخامس (شارع التسعين الشمالي)"
+msgstr "New Cairo branch (90th Street North)"
+
+msgid "فرع الشيخ زايد (مول أركان)"
+msgstr "Sheikh Zayed branch (Arkan Mall)"
+
+msgid "فرع المعادي (شارع النصر)"
+msgstr "Maadi branch (Al-Nasr Street)"
+
+msgid "فرع المنصورة (شارع الجمهورية)"
+msgstr "Mansoura branch (Al-Gumhuria Street)"
+
+msgid "فرع المهندسين (شارع جامعة الدول)"
+msgstr "Mohandeseen branch (Arab League Street)"
+
+msgid "فرع سموحة (شارع ألبرت الأول)"
+msgstr "Smouha branch (Albert I Street)"
+
+msgid "فرع طنطا (شارع النحاس)"
+msgstr "Tanta branch (Al-Nahas Street)"
+
+msgid "فرع لوران (طريق الكورنيش)"
+msgstr "Laurent branch (Corniche Road)"
+
+msgid "فرع مصر الجديدة (ميدان تريومف)"
+msgstr "Heliopolis branch (Triumph Square)"
+
+msgid "فروع الإسكندرية والمحافظات"
+msgstr "Alexandria and governorate branches"
+
+msgid "فروع القاهرة والجيزة"
+msgstr "Cairo and Giza branches"
+
+msgid "فريقنا جاهز للمساعدة في أي وقت."
+msgstr "Our team is ready to help at any time."
+
+msgid "فلاتر المنتجات"
+msgstr "Product filters"
+
+msgid "قارئ الروشتة الذكي بالذكاء الاصطناعي"
+msgstr "AI-powered smart prescription reader"
+
+msgid "قسط أجهزتك وعلاجك الشهري بسهولة عبر ValU وMNT-Halan."
+msgstr "Easily install your devices and monthly treatment via ValU and MNT-Halan."
+
+msgid "قم بتثبيت WooCommerce وتفعيله لعرض المنتجات والأقسام."
+msgstr "Install and activate WooCommerce to display products and categories."
+
+msgid "كشف التداخلات الدوائية الضارة Drug Interactions"
+msgstr "Detecting harmful drug interactions"
+
+msgid "لا توجد عروض خاصة حالياً. تصفح منتجاتنا المتوفرة."
+msgstr "No special offers at the moment. Browse our available products."
+
+msgid "لا توجد منتجات تطابق الفلاتر الحالية."
+msgstr "No products match the current filters."
+
+msgid "لديك كوبون خصم؟"
+msgstr "Have a coupon?"
+
+msgid "متابعة التسوق"
+msgstr "Continue shopping"
+
+msgid "متاح 24 ساعة يوميًا للرد الفوري على التفاعلات الدوائية وحالات الطوارئ."
+msgstr "Available 24 hours a day for immediate response to drug interactions and emergencies."
+
+msgid "متاح الآن"
+msgstr "Available now"
+
+msgid "متوفر في المخزن"
+msgstr "In stock"
+
+msgid "مجاني فوق 350 ج.م"
+msgstr "Free above 350 EGP"
+
+msgid "محادثة واتساب فورية مع صيدلي مناوب"
+msgstr "Instant WhatsApp chat with an on-duty pharmacist"
+
+msgid "مراجعة السلة وإتمام الطلب"
+msgstr "Review cart and complete order"
+
+msgid "مراجعة صيدلانية"
+msgstr "Pharmaceutical review"
+
+msgid "مرخص رسميًا وخاضع لتتبع الباركود بهيئة الدواء المصرية."
+msgstr "Officially licensed and barcode-tracked by the Egyptian Drug Authority."
+
+msgid "مسار التنقل"
+msgstr "Breadcrumb"
+
+msgid "مسح الفلتر"
+msgstr "Clear filter"
+
+msgid "معتمد من هيئة الدواء المصرية"
+msgstr "Certified by the Egyptian Drug Authority"
+
+msgid "ملخص الطلب"
+msgstr "Order summary"
+
+msgid "منتج"
+msgstr "product"
+
+msgid "منتجات السلة"
+msgstr "Cart items"
+
+msgid "نقل بارد مخصص للأنسولين واللقاحات"
+msgstr "Cold chain transport for insulin and vaccines"
+
+msgid "نوفر جميع الأدوية المعتمدة محلياً ومستوردة، وحفظ حراري آمن مع سلسلة تبريد معتمدة لضمان أمان عائلتك في القاهرة والجيزة والمحافظات."
+msgstr "We provide all locally approved and imported medicines with safe thermal storage and a certified cold chain to ensure your family's safety across Cairo, Giza and the governorates."
+
+msgid "هل تتناول أكثر من علاج معاً؟ نساعدك في فحص التفاعلات وتعديل الجرعات مجاناً"
+msgstr "Taking more than one treatment at once? We help you check interactions and adjust doses for free"
+
+msgid "هل تريد تفريغ السلة بالكامل؟"
+msgstr "Are you sure you want to empty the cart?"
+
+msgid "واتساب"
+msgstr "WhatsApp"
+
+msgid "وفر حتى 35%"
+msgstr "Save up to 35%"
+
+msgid "يدعم JPG, PNG, PDF حتى 15 ميجابايت"
+msgstr "Supports JPG, PNG, PDF up to 15 MB"
+
+msgid "يمكنك اختيار طريقة الدفع من بين الخيارات المتاحة في المتجر عند إتمام الطلب."
+msgstr "You can choose a payment method from those available in the store at checkout."
+
+msgid "ينتهي العرض خلال:"
+msgstr "Offer ends in:"
+
+msgid "%s منتج محدد"
+msgid_plural "%s منتج محدد"
+msgstr[0] "%s item selected"
+msgstr[1] "%s items selected"
+
+msgid "%s منتج"
+msgid_plural "%s منتجات"
+msgstr[0] "%s product"
+msgstr[1] "%s products"
+
+msgid "عرض %s منتج"
+msgid_plural "عرض جميع %s منتجات"
+msgstr[0] "Showing %s product"
+msgstr[1] "Showing all %s products"
+
+msgid "إزالة %s من السلة"
+msgstr "Remove %s from cart"
+
+msgid "(%s تقييم موثق)"
+msgstr "(%s verified rating)"
+
+msgid "Rx يتطلب روشتة معتمدة"
+msgstr "Rx — Requires a valid prescription"
+
+msgid "ابحث عن الأدوية الأخرى التي تتناولها بانتظام لفحص مدى أمانها الفوري مع هذا الدواء."
+msgstr "Search for other medicines you take regularly to check their immediate safety with this drug."
+
+msgid "ابحث عن دواء للتحقق من التفاعل..."
+msgstr "Search for a medicine to check for interactions..."
+
+msgid "أبرز التفاعلات المسجلة في قاعدة البيانات الصيدلانية:"
+msgstr "Key interactions registered in the pharmaceutical database:"
+
+msgid "أبلغ الصيدلي عن جميع الأمراض والأدوية الحالية قبل استخدام هذا المنتج."
+msgstr "Inform the pharmacist of all current conditions and medications before using this product."
+
+msgid "اتصل 19822"
+msgstr "Call 19822"
+
+msgid "احصل على رقم دفع مرجعي وسدد من أي منفذ أو كشك"
+msgstr "Get a reference payment number and pay at any outlet or kiosk"
+
+msgid "اختر وسيلة الدفع المفضلة"
+msgstr "Choose your preferred payment method"
+
+msgid "أدخل كود الخصم..."
+msgstr "Enter coupon code..."
+
+msgid "أدوية مرخصة ومعتمدة من هيئة الدواء المصرية تحتوي على نفس التركيبة الدوائية وبنفس الكفاءة العلاجية، وتُعتبر خيارات بديلة في حال البحث عن توفير اقتصادي أو في حال نقص المخزون."
+msgstr "Licensed and approved alternatives from the Egyptian Drug Authority containing the same active ingredient with equivalent therapeutic efficacy."
+
+msgid "إذا شعرت بأعراض جانبية، اتصل فوراً بالخط الساخن 19822 للتحدث مع أخصائي الصيدلة الإكلينيكية ببراءة."
+msgstr "If you experience side effects, call hotline 19822 immediately to speak with a Baraa clinical pharmacy specialist."
+
+msgid "إرجاع مجاني خلال 14 يوم"
+msgstr "Free returns within 14 days"
+
+msgid "إرشادات الجرعة وطريقة الاستخدام"
+msgstr "Dosage and usage instructions"
+
+msgid "إرشادات صيدليات براءة لسلامة المرضى ومستخدمي أدوية الأمراض المزمنة"
+msgstr "Baraa Pharmacies patient safety guidelines for chronic disease medication users"
+
+msgid "ارفع صورة الروشتة الآن لتجهيز باقتك الدوائية الدورية مع فحص التداخلات الكيميائية مجاناً، وتمتع بـ"
+msgstr "Upload your prescription now to prepare your monthly medication bundle with free drug interaction checks, and enjoy"
+
+msgid "استبدال طبقاً للقواعد الصحية"
+msgstr "Exchange per health regulations"
+
+msgid "استشارة صيدلي إكلينيكي 24/7"
+msgstr "Clinical pharmacist consultation 24/7"
+
+msgid "استشر صيدلي براءة قبل دمج أي مكمل غذائي مع أدويتك الدائمة."
+msgstr "Consult a Baraa pharmacist before combining any supplement with your regular medications."
+
+msgid "أصلي 100% مستورد/محلي رسمي"
+msgstr "100% genuine — official imported/local"
+
+msgid "أصلي 100% ومفحوص"
+msgstr "100% genuine and verified"
+
+msgid "إضافة %s للسلة"
+msgstr "Add %s to cart"
+
+msgid "إضافة للروشتة الشهرية"
+msgstr "Add to monthly prescription"
+
+msgid "إعادة ضبط"
+msgstr "Reset"
+
+msgid "افتراضي"
+msgstr "Default"
+
+msgid "أقراص (Tablets)"
+msgstr "Tablets"
+
+msgid "الآثار الجانبية الشائعة"
+msgstr "Common side effects"
+
+msgid "الأدوية والمستلزمات في السلة"
+msgstr "Medicines and supplies in cart"
+
+msgid "الأكثر شعبية"
+msgstr "Most popular"
+
+msgid "الأكثر مبيعاً وتكراراً"
+msgstr "Best selling and most reordered"
+
+msgid "الانتظام في مواعيد الجرعات"
+msgstr "Keeping to dosage schedules"
+
+msgid "البدائل الدوائية المتكافئة"
+msgstr "Bioequivalent drug alternatives"
+
+msgid "البدائل والمثائل الدوائية المتكافئة حيوياً"
+msgstr "Bioequivalent pharmaceutical alternatives"
+
+msgid "الترتيب حسب:"
+msgstr "Sort by:"
+
+msgid "الدفع عند الاستلام (كاش أو POS كارت)"
+msgstr "Cash or POS card on delivery"
+
+msgid "الدفع لمندوب الصيدلية نقدًا أو بماكينة الدفع المحمولة"
+msgstr "Pay the pharmacy courier in cash or via mobile POS machine"
+
+msgid "السعر الجبري الرسمي"
+msgstr "Official regulated price"
+
+msgid "السعر: من الأعلى للأقل"
+msgstr "Price: high to low"
+
+msgid "السعر: من الأقل للأعلى"
+msgstr "Price: low to high"
+
+msgid "الشكل الصيدلاني"
+msgstr "Dosage form"
+
+msgid "العلبة والباركود"
+msgstr "Box and barcode"
+
+msgid "المادة الفعالة والآثار الجانبية"
+msgstr "Active ingredient and side effects"
+
+msgid "المادة الفعالة:"
+msgstr "Active ingredient:"
+
+msgid "المحافظ الإلكترونية الذكية"
+msgstr "Smart digital wallets"
+
+msgid "المنزل - التجمع الخامس"
+msgstr "Home — New Cairo"
+
+msgid "المهندسين (جامعة الدول)"
+msgstr "Mohandeseen (Arab League St.)"
+
+msgid "النشرة المعتمدة"
+msgstr "Approved leaflet"
+
+msgid "آلية العمل الصيدلانية"
+msgstr "Mechanism of action"
+
+msgid "اليوم خلال 45 دقيقة ⚡"
+msgstr "Today within 45 minutes ⚡"
+
+msgid "بالنقر على تأكيد الطلب، فإنك توافق على الشروط الطبية وضوابط صرف الوصفات بوزارة الصحة المصرية."
+msgstr "By clicking confirm order, you agree to the medical terms and prescription dispensing regulations of the Egyptian Ministry of Health."
+
+msgid "بدون روشتة OTC"
+msgstr "No prescription required OTC"
+
+msgid "بروتوكول التخزين والحفظ الصيدلاني"
+msgstr "Pharmaceutical storage protocol"
+
+msgid "بروتوكول سلسلة التبريد الدوائي الحصري (Cold Chain Safety)"
+msgstr "Exclusive pharmaceutical cold chain protocol (Cold Chain Safety)"
+
+msgid "بطاقات بنكية (Visa / MasterCard / ميزة)"
+msgstr "Bank cards (Visa / MasterCard / Meeza)"
+
+msgid "تأكيد الوصفات الطبية، سلسلة التبريد المعتمدة، وسداد آمن مرخص من وزارة الصحة"
+msgstr "Prescription verification, certified cold chain, and secure payment licensed by the Ministry of Health"
+
+msgid "تأمين دوائي معتمد"
+msgstr "Certified pharmaceutical insurance"
+
+msgid "تحت 25° مئوية بعيداً عن الرطوبة والشمس المباشرة لحفظ الفاعلية."
+msgstr "Below 25°C away from humidity and direct sunlight to preserve efficacy."
+
+msgid "تحديث التسعيرة الجبرية: يناير 2025"
+msgstr "Official price list update: January 2025"
+
+msgid "تحقق من الباركود"
+msgstr "Verify barcode"
+
+msgid "تداخل شديد — يُمنع الاستخدام المتزامن عبر الوريد لخطورة التباطؤ المفرط لعضلة القلب."
+msgstr "Severe interaction — concurrent IV use is prohibited due to risk of excessive cardiac depression."
+
+msgid "تشفير مصرفي 256-Bit"
+msgstr "256-Bit bank-grade encryption"
+
+msgid "تصفية الأدوية"
+msgstr "Filter medicines"
+
+msgid "تضمن صيدليات براءة الحفظ المثالي بدرجات 2-8 مئوية للأدوية الحساسة داخل حقائب مبردة معتمدة."
+msgstr "Baraa Pharmacies guarantees optimal storage at 2-8°C for sensitive medicines in certified cold bags."
+
+msgid "تغيير أو إضافة عنوان جديد"
+msgstr "Change or add a new address"
+
+msgid "تفاصيل المادة الفعالة وآلية عملها متاحة في النشرة الطبية الرسمية للمنتج."
+msgstr "Details of the active ingredient and its mechanism are available in the official product leaflet."
+
+msgid "تفاصيل المنتج"
+msgstr "Product details"
+
+msgid "تفعيل الوضع الداكن"
+msgstr "Enable dark mode"
+
+msgid "تفعيل الوضع الفاتح"
+msgstr "Enable light mode"
+
+msgid "تقسيط طبي بدون فوائد (ValU / سهولة)"
+msgstr "Interest-free medical instalment (ValU / Souhoola)"
+
+msgid "تكبير"
+msgstr "Zoom"
+
+msgid "تمت إضافة الصنف بنجاح للسلة."
+msgstr "Item successfully added to cart."
+
+msgid "تمت إضافة عبوة «غسول يدين معقم صيدلي براءة 250 مل» تلقائيًا إلى طلبك"
+msgstr "A pack of Baraa Pharmacy antiseptic hand wash 250ml has been automatically added to your order"
+
+msgid "تمت الإضافة"
+msgstr "Added"
+
+msgid "تنبيه سريري: لا تتوقف عن تناول الدواء بشكل مفاجئ دون استشارة الطبيب المعالج."
+msgstr "Clinical warning: Do not stop taking this medicine abruptly without consulting your treating physician."
+
+msgid "تنويه صيدلاني ملزم:"
+msgstr "Mandatory pharmaceutical notice:"
+
+msgid "تواصل مجاناً مع فريق الصيادلة للتأكد من مواعيد الجرعات والتفاعلات عبر الهاتف أو الدردشة."
+msgstr "Contact our pharmacist team for free to verify dosage schedules and interactions by phone or chat."
+
+msgid "تؤخذ الجرعة طبقاً لتوجيهات الطبيب أو المدونة على العبوة. لا تزيد عن الجرعة الموصوفة."
+msgstr "Take the dose as directed by your doctor or as stated on the packaging. Do not exceed the prescribed dose."
+
+msgid "توريد مباشر من الوكلاء والشركات المصنعة مع باركود التتبع."
+msgstr "Sourced directly from authorised agents and manufacturers with tracking barcodes."
+
+msgid "توصيل خلال 45-60 دقيقة"
+msgstr "Delivery within 45–60 minutes"
+
+msgid "توصيل صيدلي سريع خلال 45 دقيقة"
+msgstr "Express pharmacy delivery within 45 minutes"
+
+msgid "توفر الدواء في أقرب فروع صيدليات براءة إليك:"
+msgstr "Medicine availability at your nearest Baraa Pharmacy branches:"
+
+msgid "جاهز للتوصيل السريع (30-45 دقيقة)"
+msgstr "Ready for express delivery (30–45 minutes)"
+
+msgid "جدولة التذكير الشهري"
+msgstr "Schedule monthly reminder"
+
+msgid "جدولة تذكير الجرعة"
+msgstr "Schedule dose reminder"
+
+msgid "جميع الأدوية المصروفة خاضعة للإشراف التام من الهيئة المصرية للشراء الموحد وهيئة الدواء المصرية (EDA)."
+msgstr "All dispensed medicines are under full supervision of the Egyptian Unified Procurement Authority and the Egyptian Drug Authority (EDA)."
+
+msgid "جميع الأسعار"
+msgstr "All prices"
+
+msgid "حاصرات قنوات الكالسيوم (فيراباميل، ديلتيازيم):"
+msgstr "Calcium channel blockers (verapamil, diltiazem):"
+
+msgid "حتى"
+msgstr "Up to"
+
+msgid "حذف من السلة"
+msgstr "Remove from cart"
+
+msgid "حرارة الحقيبة الآن"
+msgstr "Bag temperature now"
+
+msgid "حقائب نقل حرارية مبردة ومعتمدة لحماية جودة وفاعلية الدواء في شوارع القاهرة والجيزة."
+msgstr "Certified thermal cool bags protecting medicine quality and efficacy across Cairo and Giza streets."
+
+msgid "حقن"
+msgstr "Injections"
+
+msgid "خدمة صرف الروشتات الشهرية المنتظمة"
+msgstr "Regular monthly prescription dispensing service"
+
+msgid "خدمة متابعة الروشتة 24/7"
+msgstr "Prescription follow-up service 24/7"
+
+msgid "خصم 10% إضافي"
+msgstr "an extra 10% discount"
+
+msgid "داكن"
+msgstr "Dark"
+
+msgid "دليلك المعتمد للأدوية الأصلية المسجلة بهيئة الدواء المصرية (EDA). وفر جرعاتك الشهرية مع استشارة إكلينيكية فورية وتذكير تلقائي قبل نفاد العبوة."
+msgstr "Your certified guide to genuine medicines registered with the Egyptian Drug Authority (EDA). Save on your monthly doses with instant clinical consultation and automatic reminders before stock runs out."
+
+msgid "دواعي الاستعمال الطبية الرئيسية"
+msgstr "Primary medical indications"
+
+msgid "دواعي الاستعمال والجرعات"
+msgstr "Indications and dosage"
+
+msgid "راجع النشرة الطبية المرفقة مع العبوة أو تحدث مع الصيدلي."
+msgstr "Refer to the medical leaflet enclosed in the package or speak with the pharmacist."
+
+msgid "رفع الروشتة الشهرية فوراً"
+msgstr "Upload monthly prescription now"
+
+msgid "رقم التسجيل لدى هيئة الدواء المصرية"
+msgstr "Registration number with the Egyptian Drug Authority"
+
+msgid "رمز الدواء الموحد: %s"
+msgstr "Unified drug code: %s"
+
+msgid "سداد مشفر آمن ببطاقات البنوك المصرية"
+msgstr "Secure encrypted payment with Egyptian bank cards"
+
+msgid "سلة المشتريات والطلب السريع"
+msgstr "Shopping cart and express order"
+
+msgid "سلسلة تبريد دوائي معتمدة"
+msgstr "Certified pharmaceutical cold chain"
+
+msgid "سلسلة تبريد مخصصة 2-8°م"
+msgstr "Dedicated cold chain 2–8°C"
+
+msgid "سموحة (الإسكندرية)"
+msgstr "Smouha (Alexandria)"
+
+msgid "سيتم عرض البدائل الدوائية تلقائياً من قِبل الصيادلة عند تأكيد الطلب."
+msgstr "Drug alternatives will be presented automatically by pharmacists upon order confirmation."
+
+msgid "شراب ونقط"
+msgstr "Syrups and drops"
+
+msgid "شروط حفظ صيدلانية"
+msgstr "Pharmaceutical storage conditions"
+
+msgid "شريط الأقراص"
+msgstr "Blister strip"
+
+msgid "صرف بالتأمين الطبي"
+msgstr "Dispense with medical insurance"
+
+msgid "صنف دوائي متوفر"
+msgstr "pharmaceutical item available"
+
+msgid "صيدلي مناوب متاح للرد على أي تفاعل دوائي"
+msgstr "On-duty pharmacist available to answer any drug interaction query"
+
+msgid "ضمان استبدال وإرجاع المستلزمات الطبية والأجهزة خلال 14 يوماً مع مراعاة سلامة تخزين الأدوية."
+msgstr "Guaranteed exchange and return of medical supplies and devices within 14 days, subject to medicine storage safety."
+
+msgid "عبوات"
+msgstr "packs"
+
+msgid "عبوة"
+msgstr "pack"
+
+msgid "عدم التغيير دون استشارة الصيدلي"
+msgstr "Do not switch without pharmacist advice"
+
+msgid "عرض %1$s–%2$s من أصل %3$s منتج"
+msgstr "Showing %1$s–%2$s of %3$s products"
+
+msgid "عرض %s"
+msgstr "View %s"
+
+msgid "عنوان التوصيل المختار"
+msgstr "Selected delivery address"
+
+msgid "غير متوفر حالياً في المخزون"
+msgstr "Currently out of stock"
+
+msgid "فاتح"
+msgstr "Light"
+
+msgid "فاحص التداخلات الدوائية"
+msgstr "Drug interaction checker"
+
+msgid "فاحص التداخلات الدوائية التفاعلي"
+msgstr "Interactive drug interaction checker"
+
+msgid "فحص فوري"
+msgstr "Instant check"
+
+msgid "فرع التسعين (التجمع)"
+msgstr "90th Street branch (New Cairo)"
+
+msgid "فرع المعادي (النصر)"
+msgstr "Maadi branch (Al-Nasr)"
+
+msgid "فرع زايد (أركان)"
+msgstr "Zayed branch (Arkan)"
+
+msgid "فوار وأكياس"
+msgstr "Effervescent and sachets"
+
+msgid "فودافون كاش، أورنج كاش، وي باي، إتصالات كاش"
+msgstr "Vodafone Cash, Orange Cash, WE Pay, Etisalat Cash"
+
+msgid "فوري باي (Fawry Pay)"
+msgstr "Fawry Pay"
+
+msgid "قائمة الأدوية الدورية"
+msgstr "Recurring medicines list"
+
+msgid "قد تقلل من فاعلية خفض ضغط الدم عند الاستخدام المتكرر. استشر الصيدلي عن بديل."
+msgstr "May reduce blood pressure-lowering efficacy with frequent use. Consult the pharmacist about an alternative."
+
+msgid "قسّط جهاز الضغط وأدويتك حتى 12 شهر"
+msgstr "Install your blood pressure device and medications over up to 12 months"
+
+msgid "كبسولات"
+msgstr "Capsules"
+
+msgid "كوبون الخصم أو كود التأمين الطبي"
+msgstr "Discount coupon or medical insurance code"
+
+msgid "لا تبدّل دواء الضغط أو السكر بالبدائل التجارية دون التأكد من تكافؤ المادة الفعالة الحيوية وموافقة الطبيب."
+msgstr "Do not switch blood pressure or diabetes medicines to commercial alternatives without confirming bioequivalence and doctor approval."
+
+msgid "مبروك! طلبيتك مؤهلة لهدية طبية مجانية"
+msgstr "Congratulations! Your order qualifies for a free medical gift"
+
+msgid "متوفر"
+msgstr "Available"
+
+msgid "متوفر — توصيل سريع خلال 45-60 دقيقة"
+msgstr "In stock — express delivery within 45–60 minutes"
+
+msgid "متوفر بالمخزون"
+msgstr "In stock"
+
+msgid "مراجعة التفاعلات"
+msgstr "Check interactions"
+
+msgid "مراجعة طبية إكلينيكية معتمدة بالتعاون مع نقابة صيادلة مصر"
+msgstr "Certified clinical medical review in collaboration with the Egyptian Pharmacists Syndicate"
+
+msgid "مسح فلتر السعر"
+msgstr "Clear price filter"
+
+msgid "مصر الجديدة (تريومف)"
+msgstr "Heliopolis (Triumph Sq.)"
+
+msgid "مضادات الالتهاب غير الستيرويدية NSAIDs (إيبوبروفين، ديكلوفيناك):"
+msgstr "Non-steroidal anti-inflammatory drugs NSAIDs (ibuprofen, diclofenac):"
+
+msgid "منتجات أصلية 100% مضمونة"
+msgstr "100% genuine products guaranteed"
+
+msgid "موانع الاستعمال"
+msgstr "Contraindications"
+
+msgid "نطاق السعر (ج.م)"
+msgstr "Price range (EGP)"
+
+msgid "نوع الصرف الدوائي"
+msgstr "Dispensing type"
+
+msgid "هدية بقيمة 45 ج.م"
+msgstr "Gift worth 45 EGP"
+
+msgid "هل تحتاج مساعدة صيدلي قبل الدفع؟"
+msgstr "Need pharmacist help before checkout?"
+
+msgid "هل تود بالتأكيد إفراغ جميع عناصر السلة؟"
+msgstr "Are you sure you want to empty all cart items?"
+
+msgid "هل لديك روشتة شهرية للأمراض المزمنة؟"
+msgstr "Do you have a monthly prescription for chronic conditions?"
+
+msgid "وتوصيل دوري مبرّد تلقائياً لباب منزلك."
+msgstr "and automatic recurring cold delivery to your door."
+
+msgid "وقت الاستلام المتوقع"
+msgstr "Expected delivery time"
+
+msgid "وكيل معتمد"
+msgstr "Authorised agent"
+
+msgid "يتطلب روشتة معتمدة"
+msgstr "Requires a valid prescription"
+
+msgid "يتم نقل وتوصيل الأدوية الحساسة في حقائب حرارية مبردة مخصصة تضمن ثبات درجة الحرارة بين 2° إلى 8° مئوية من لحظة خروجها من مخزن الفرع وحتى باب منزلك مع مجس إلكتروني لتسجيل درجات الحرارة."
+msgstr "Sensitive medicines are transported in dedicated thermal cool bags maintaining a temperature of 2–8°C from the branch warehouse to your door, with an electronic sensor recording temperatures throughout."
+
+msgid "يُحفظ تحت درجة حرارة أقل من 25° مئوية في بيئة جافة بعيداً عن أشعة الشمس المباشرة. يتم نقل الدواء في سيارات براءة المجهزة بنظام تبريد مراقب آلياً (Cold-Chain Logistics)."
+msgstr "Store below 25°C in a dry environment away from direct sunlight. Medicine is transported in Baraa vehicles equipped with an automated temperature monitoring cold-chain logistics system."
+
+msgid "يخضع هذا الدواء لضوابط الصرف بالروشتة الطبية المعتمدة. سيقوم الصيدلي المختص بمراجعة تاريخ الروشتة وتطابق الجرعة أثناء تأكيد الطلب قبل مغادرة مندوب التوصيل."
+msgstr "This medicine is subject to prescription dispensing controls. The specialist pharmacist will verify the prescription date and dose match when confirming the order before the courier departs."
+
+msgid "يساعد ضبط منبه الهاتف أو منظم الجرعات الأسبوعي في الحفاظ على تركيز ثابت للدواء في مجرى الدم."
+msgstr "Setting a phone alarm or using a weekly pill organiser helps maintain a stable drug concentration in the bloodstream."
+
+msgid "يُستخدم لعلاج الحالات المزمنة. راجع الصيدلي لمزيد من التفاصيل."
+msgstr "Used to treat chronic conditions. Consult the pharmacist for further details."

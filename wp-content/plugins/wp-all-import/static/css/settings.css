@@ -1,0 +1,688 @@
+/*--------------------------------------------------------------------------
+*
+*	Settings screen
+*
+*	Scoped under .wpai-set so none of this leaks into the import wizard.
+*	Values follow the existing WPAI system: #425f9a titles, #fff/#dcdcde
+*	cards at 4px radius, WP admin ink at #1d2327.
+*
+*-------------------------------------------------------------------------*/
+
+.wpallimport-plugin .wpai-set {
+	--wpai-set-ink: #1d2327;
+	--wpai-set-muted: #50575e;
+	--wpai-set-brand: #425f9a;
+	--wpai-set-line: #dcdcde;
+	--wpai-set-line-soft: #f0f0f1;
+	--wpai-set-surface: #fff;
+	--wpai-set-radius: 4px;
+	--wpai-set-label-col: 210px;
+	--wpai-set-field-col: 640px;
+	--wpai-set-gap: 24px;
+
+	max-width: 1100px;
+	color: var(--wpai-set-ink);
+	/* Lets the last row scroll clear of the pinned save bar. */
+	padding-bottom: 80px;
+}
+
+/*@+ Header */
+.wpallimport-plugin .wpai-set__header {
+	overflow: hidden;
+	padding-top: 10px;
+	margin-bottom: 4px;
+}
+.wpallimport-plugin .wpai-set__header .wpallimport-links {
+	float: right;
+	margin-top: 26px;
+	font-size: 13px;
+}
+/*@*/
+
+/*@+ Tabs */
+.wpallimport-plugin .wpai-set__tabs {
+	margin: 0 0 -1px;
+	padding-top: 6px;
+	border-bottom: 1px solid var(--wpai-set-line);
+}
+.wpallimport-plugin .wpai-set__tabs .nav-tab {
+	font-size: 14px;
+	font-weight: 500;
+	margin-left: 0;
+	margin-right: 4px;
+	transition: color 160ms cubic-bezier(0.22, 1, 0.36, 1),
+	            background-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.wpallimport-plugin .wpai-set__tabs .nav-tab:focus-visible {
+	outline: 2px solid var(--wpai-set-brand);
+	outline-offset: -2px;
+	box-shadow: none;
+}
+.wpallimport-plugin .wpai-set__tabs .nav-tab-active,
+.wpallimport-plugin .wpai-set__tabs .nav-tab-active:hover {
+	color: var(--wpai-set-brand);
+	font-weight: 600;
+	background: var(--wpai-set-surface);
+	border-bottom-color: var(--wpai-set-surface);
+}
+/*@*/
+
+/*@+ Panel */
+.wpallimport-plugin .wpai-set__panel {
+	margin-top: 0;
+	padding: 4px 28px 28px;
+	border-top-left-radius: 0;
+}
+.wpallimport-plugin .wpai-set__errors {
+	margin: 16px 0 0;
+}
+/* These are `.error.inline` so WordPress leaves them inside the alert region; core styles
+ * inline notices for a form-table, not for a card, so restate the spacing. */
+.wpallimport-plugin .wpai-set__errors .error {
+	margin: 0 0 8px;
+	padding: 1px 12px;
+	background: var(--wpai-set-surface);
+	border: 1px solid var(--wpai-set-line);
+	border-left: 4px solid #b32d2e;
+	border-radius: var(--wpai-set-radius);
+}
+.wpallimport-plugin .wpai-set__errors .error:last-child {
+	margin-bottom: 0;
+}
+.wpallimport-plugin .wpai-set__errors:focus-visible {
+	outline: 2px solid var(--wpai-set-brand);
+	outline-offset: 2px;
+}
+/*@*/
+
+/*@+ Group heading */
+.wpallimport-plugin .wpai-set-group {
+	margin: 32px 0 4px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid var(--wpai-set-line-soft);
+}
+.wpallimport-plugin .wpai-set-group:first-child {
+	margin-top: 24px;
+}
+.wpallimport-plugin .wpai-set-group__title {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.4;
+	letter-spacing: 0.01em;
+	color: var(--wpai-set-brand);
+}
+/* Three classes deep on purpose: admin-wp-3.8.css forces 12px through
+ * `.wpallimport-plugin p:not(...):not(...)`, which outweighs a two-class selector even
+ * with !important on both sides. */
+.wpallimport-plugin .wpai-set .wpai-set-group__desc {
+	margin: 6px 0 0;
+	max-width: 58ch;
+	font-size: 13px !important;
+	line-height: 1.6;
+	color: var(--wpai-set-muted);
+}
+/*@*/
+
+/*@+ Field row */
+.wpallimport-plugin .wpai-set-row {
+	display: grid;
+	grid-template-columns: var(--wpai-set-label-col) minmax(0, var(--wpai-set-field-col));
+	gap: 4px var(--wpai-set-gap);
+	padding: 18px 0;
+	border-bottom: 1px solid var(--wpai-set-line-soft);
+}
+.wpallimport-plugin .wpai-set-row:last-child {
+	border-bottom: 0;
+}
+/* Wide controls (a report textarea, a file picker) need the room, but dropping the label
+ * above them broke the label column that every other row shares. Keep the column and give
+ * the control the rest of the width instead. */
+.wpallimport-plugin .wpai-set-row--stack {
+	grid-template-columns: var(--wpai-set-label-col) minmax(0, 1fr);
+}
+.wpallimport-plugin .wpai-set-row__label {
+	padding-top: 5px;
+}
+.wpallimport-plugin .wpai-set-row__label label,
+.wpallimport-plugin .wpai-set-row__label-text {
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.5;
+	color: var(--wpai-set-ink);
+	margin: 0 !important;
+}
+.wpallimport-plugin .wpai-set-row__label label {
+	cursor: pointer;
+}
+.wpallimport-plugin .wpai-set-row__field {
+	min-width: 0;
+}
+/*@*/
+
+/*@+ Help text. The legacy `form.settings p` rule uses !important, so this must too. */
+.wpallimport-plugin .wpai-set-help {
+	margin: 8px 0 0;
+	max-width: 58ch;
+	font-size: 13px !important;
+	line-height: 1.6;
+	color: var(--wpai-set-muted);
+}
+/* Size only: admin-wp-3.8.css's `p:not(...)` rule scores 0-2-2 and beats the rule above. */
+.wpallimport-plugin .wpai-set p.wpai-set-help {
+	font-size: 13px !important;
+}
+.wpallimport-plugin .wpai-set-help code {
+	font-size: 12px;
+	padding: 1px 5px;
+	background: var(--wpai-set-line-soft);
+	border-radius: 3px;
+	overflow-wrap: anywhere;
+}
+/*@*/
+
+/*@+ Inputs */
+.wpallimport-plugin .wpai-set-input {
+	box-sizing: border-box;
+	min-height: 32px;
+	padding: 0 10px;
+	font-size: 14px;
+	line-height: 30px;
+	color: var(--wpai-set-ink);
+	background: var(--wpai-set-surface);
+	border: 1px solid #8c8f94;
+	border-radius: var(--wpai-set-radius);
+	box-shadow: none;
+	transition: border-color 140ms cubic-bezier(0.22, 1, 0.36, 1),
+	            box-shadow 140ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.wpallimport-plugin .wpai-set-input:focus {
+	border-color: var(--wpai-set-brand);
+	box-shadow: 0 0 0 1px var(--wpai-set-brand);
+	outline: 2px solid transparent;
+}
+.wpallimport-plugin .wpai-set-input--number {
+	width: 110px;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+.wpallimport-plugin .wpai-set-input--key {
+	width: 340px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 13px;
+	letter-spacing: 0.02em;
+}
+.wpallimport-plugin .wpai-set-input.wpai-set-input--invalid,
+.wpallimport-plugin .wpai-set-input:invalid {
+	border-color: #b32d2e;
+}
+.wpallimport-plugin .wpai-set-input.wpai-set-input--invalid:focus {
+	box-shadow: 0 0 0 1px #b32d2e;
+}
+
+.wpallimport-plugin .wpai-set-numeric,
+.wpallimport-plugin .wpai-set-inputgroup {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+.wpallimport-plugin .wpai-set-inputgroup--file {
+	gap: 12px;
+}
+/* A bare file input next to a styled button is the one control that still looks like raw
+ * browser chrome. Match the text inputs, and give its own button the secondary style. */
+.wpallimport-plugin .wpai-set-inputgroup--file input[type="file"] {
+	/* Same border and box height as the text inputs. A paler, taller field reads as a
+	 * different control rather than a matching one. */
+	height: 32px;
+	padding: 4px 8px;
+	border: 1px solid #8c8f94;
+	border-radius: var(--wpai-set-radius);
+	background: var(--wpai-set-surface);
+	font-size: 13px;
+	line-height: 1.5;
+	box-sizing: border-box;
+}
+.wpallimport-plugin .wpai-set-inputgroup--file input[type="file"]::file-selector-button {
+	margin: 0 10px 0 0;
+	padding: 3px 10px;
+	border: 1px solid var(--wpai-set-line);
+	border-radius: var(--wpai-set-radius);
+	background: #f6f7f7;
+	color: var(--wpai-set-ink);
+	font-size: 13px;
+	cursor: pointer;
+}
+.wpallimport-plugin .wpai-set-inputgroup--file input[type="file"]:focus {
+	border-color: var(--wpai-set-brand);
+	box-shadow: 0 0 0 1px var(--wpai-set-brand);
+	outline: 2px solid transparent;
+}
+.wpallimport-plugin .wpai-set-unit {
+	font-size: 13px;
+	color: var(--wpai-set-muted);
+}
+
+/* Inline warnings that aren't errors. */
+.wpallimport-plugin .wpai-set-note {
+	display: flex;
+	gap: 7px;
+	margin: 8px 0 0;
+	max-width: 58ch;
+	font-size: 13px !important;
+	line-height: 1.6;
+	color: #8a5200;
+}
+.wpallimport-plugin .wpai-set-note:empty {
+	display: none;
+}
+.wpallimport-plugin .wpai-set-note::before {
+	content: "!";
+	flex: 0 0 auto;
+	width: 15px;
+	height: 15px;
+	margin-top: 2px;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 15px;
+	text-align: center;
+	color: #fff;
+	background: #bd8600;
+	border-radius: 50%;
+}
+/*@*/
+
+/*@+ Checkbox rows */
+.wpallimport-plugin .wpai-set-check {
+	display: inline-flex;
+	align-items: flex-start;
+	gap: 9px;
+	margin: 5px 0 0 !important;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--wpai-set-ink);
+	cursor: pointer;
+}
+.wpallimport-plugin .wpai-set-check input[type="checkbox"] {
+	flex: 0 0 auto;
+	margin: 2px 0 0;
+}
+/*@*/
+
+/*@+ Small buttons inside input groups */
+.wpallimport-plugin .wpai-set-iconbtn {
+	flex: 0 0 auto;
+	min-height: 32px;
+	padding: 0 11px;
+	font-size: 13px;
+	line-height: 30px;
+	color: #2c3338;
+	background: #f6f7f7;
+	border: 1px solid #8c8f94;
+	border-radius: var(--wpai-set-radius);
+	cursor: pointer;
+	transition: background-color 140ms cubic-bezier(0.22, 1, 0.36, 1),
+	            color 140ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.wpallimport-plugin .wpai-set-iconbtn:hover {
+	background: #f0f0f1;
+	border-color: #7e8285;
+}
+.wpallimport-plugin .wpai-set-iconbtn:focus-visible {
+	outline: 2px solid var(--wpai-set-brand);
+	outline-offset: 1px;
+}
+.wpallimport-plugin .wpai-set-iconbtn--danger {
+	color: #b32d2e;
+	border-color: #b32d2e;
+	background: var(--wpai-set-surface);
+}
+.wpallimport-plugin .wpai-set-iconbtn--danger:hover {
+	color: #fff;
+	background: #b32d2e;
+	border-color: #b32d2e;
+}
+.wpallimport-plugin .wpai-set-iconbtn.is-done {
+	color: #007017;
+	border-color: #007017;
+}
+
+/* Destructive actions must not read as the primary path. */
+.wpallimport-plugin .wpai-set-danger,
+.wpallimport-plugin a.wpai-set-danger {
+	color: #b32d2e;
+	border-color: #b32d2e;
+	background: var(--wpai-set-surface, #fff);
+	text-shadow: none;
+	box-shadow: none;
+}
+.wpallimport-plugin .wpai-set-danger:hover,
+.wpallimport-plugin a.wpai-set-danger:hover,
+.wpallimport-plugin .wpai-set-danger:focus,
+.wpallimport-plugin a.wpai-set-danger:focus {
+	color: #fff;
+	background: #b32d2e;
+	border-color: #b32d2e;
+}
+/* The confirm action inside a dialog is the destructive one; make it read that way. */
+.wpallimport-plugin .wpai-set-dialog__actions .wpai-set-danger {
+	color: #fff;
+	background: #b32d2e;
+	border-color: #b32d2e;
+}
+.wpallimport-plugin .wpai-set-dialog__actions .wpai-set-danger:hover,
+.wpallimport-plugin .wpai-set-dialog__actions .wpai-set-danger:focus {
+	background: #8f2426;
+	border-color: #8f2426;
+}
+/*@*/
+
+/*@+ Templates + empty state */
+.wpallimport-plugin .wpai-set-templates {
+	margin: 18px 0 0;
+	padding: 0;
+	border: 0;
+}
+.wpallimport-plugin .wpai-set-templates__list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: 2px 24px;
+}
+.wpallimport-plugin .wpai-set-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 18px 0 0;
+}
+.wpallimport-plugin .wpai-set-empty {
+	margin: 18px 0 0;
+	padding: 22px 24px;
+	background: #fbfbfc;
+	border: 1px solid var(--wpai-set-line-soft);
+	border-radius: var(--wpai-set-radius);
+}
+.wpallimport-plugin .wpai-set-empty__title {
+	margin: 0;
+	font-size: 14px !important;
+	font-weight: 600;
+	color: var(--wpai-set-ink);
+}
+.wpallimport-plugin .wpai-set-empty__body {
+	margin: 5px 0 0;
+	max-width: 62ch;
+	font-size: 13px !important;
+	line-height: 1.6;
+	color: var(--wpai-set-muted);
+}
+/*@*/
+
+/*@+ Contributed rows
+ * Third-party markup arriving via pmxi_settings_advanced: a WP form-table we do not own.
+ * We can't change what add-ons emit, so map it onto the local vocabulary instead,
+ * or it reads as a foreign object on the page.
+ */
+.wpallimport-plugin .wpai-set-addon-settings h3 {
+	margin: 32px 0 4px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid var(--wpai-set-line-soft);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.4;
+	letter-spacing: 0.01em;
+	color: var(--wpai-set-brand);
+}
+.wpallimport-plugin .wpai-set-addon-settings .form-table {
+	margin: 0;
+	max-width: none;
+	border-collapse: collapse;
+}
+/* `form.settings .form-table td` in admin.css scores 0-3-2 and would otherwise win over
+ * a 0-3-1 selector here, re-imposing its 15px/10px padding and shifting contributed rows
+ * 10px right of the native ones. Matching form.settings takes these to 0-4-2. */
+.wpallimport-plugin form.settings .wpai-set-addon-settings .form-table th,
+.wpallimport-plugin .wpai-set-addon-settings .form-table th {
+	width: var(--wpai-set-label-col);
+	padding: 18px var(--wpai-set-gap) 18px 0;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.5;
+	color: var(--wpai-set-ink);
+	vertical-align: top;
+}
+.wpallimport-plugin .wpai-set-addon-settings .form-table th label {
+	font-weight: 600;
+	margin: 0 !important;
+}
+.wpallimport-plugin form.settings .wpai-set-addon-settings .form-table td,
+.wpallimport-plugin .wpai-set-addon-settings .form-table td {
+	padding: 18px 0;
+	vertical-align: top;
+}
+
+/* WP core gives these `margin: -4px 4px 0 0`, which lifts the box 6px above its own
+ * label text and adds 4px on top of the flex gap. Match the native rows exactly. */
+.wpallimport-plugin .wpai-set-addon-settings .form-table input[type="checkbox"] {
+	margin: 2px 0 0;
+}
+.wpallimport-plugin .wpai-set-addon-settings .form-table tr {
+	border-bottom: 1px solid var(--wpai-set-line-soft);
+}
+.wpallimport-plugin .wpai-set-addon-settings .form-table tr:last-child {
+	border-bottom: 0;
+}
+.wpallimport-plugin .wpai-set-addon-settings fieldset {
+	padding: 0;
+	border: 0;
+	margin: 0;
+}
+.wpallimport-plugin .wpai-set-addon-settings .form-table td label {
+	display: inline-flex;
+	align-items: flex-start;
+	gap: 9px;
+	font-size: 14px;
+	line-height: 1.5;
+	margin: 0 !important;
+}
+.wpallimport-plugin .wpai-set-addon-settings p.description {
+	margin: 8px 0 0;
+	max-width: 58ch;
+	font-size: 13px !important;
+	line-height: 1.6;
+	color: var(--wpai-set-muted);
+}
+/*@*/
+
+/*@+ System report */
+.wpallimport-plugin .wpai-set-report {
+	margin-top: 4px;
+}
+/* Every other Copy sits to the right of the value it copies. A textarea can't take one
+ * inline, so align it to the field's right edge rather than leaving it adrift left. */
+.wpallimport-plugin .wpai-set-report .wpai-set-actions {
+	max-width: 720px;
+	margin-top: 10px;
+	justify-content: flex-end;
+}
+.wpallimport-plugin .wpai-set-report__text {
+	width: 100%;
+	max-width: 720px;
+	padding: 12px 14px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 12px;
+	line-height: 1.6;
+	color: var(--wpai-set-ink);
+	background: #fbfbfc;
+	border: 1px solid var(--wpai-set-line);
+	border-radius: var(--wpai-set-radius);
+	resize: vertical;
+	white-space: pre;
+	overflow: auto;
+}
+.wpallimport-plugin .wpai-set-report__text:focus {
+	border-color: var(--wpai-set-brand);
+	box-shadow: 0 0 0 1px var(--wpai-set-brand);
+	outline: 2px solid transparent;
+}
+.wpallimport-plugin .wpai-set-addon-form .wpai-set-addon-settings {
+	margin-bottom: 8px;
+}
+/*@*/
+
+/*@+ Functions panel */
+.wpallimport-plugin .wpai-set__panel--functions .CodeMirror {
+	border: 1px solid var(--wpai-set-line);
+	border-radius: var(--wpai-set-radius);
+}
+/*@*/
+
+/*@+ Save row */
+.wpallimport-plugin .wpai-set-actions--save {
+	margin-top: 26px;
+}
+/*@*/
+
+/*@+ Confirm dialog */
+.wpallimport-plugin .wpai-set-dialog {
+	width: min(460px, calc(100vw - 32px));
+	max-height: calc(100vh - 64px);
+	padding: 0;
+	overflow: auto;
+	/* Literal fallbacks: the dialog is promoted to the top layer, so never rely on
+	   inheriting tokens from an ancestor. */
+	border: 1px solid var(--wpai-set-line, #dcdcde);
+	border-radius: 6px;
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+	color: var(--wpai-set-ink, #1d2327);
+	background: var(--wpai-set-surface, #fff);
+}
+dialog.wpai-set-dialog::backdrop,
+.wpallimport-plugin .wpai-set-dialog::backdrop {
+	background: rgba(0, 0, 0, 0.45);
+}
+.wpallimport-plugin .wpai-set-dialog__body {
+	padding: 22px 24px 0;
+}
+.wpallimport-plugin .wpai-set-dialog__title {
+	margin: 0 0 8px;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+.wpallimport-plugin .wpai-set-dialog__text {
+	margin: 0;
+	font-size: 13px !important;
+	line-height: 1.6;
+	color: var(--wpai-set-muted, #50575e);
+}
+.wpallimport-plugin .wpai-set-dialog__actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	padding: 20px 24px 22px;
+}
+/*@*/
+
+/*@+ Responsive */
+
+@media screen and (max-width: 960px) {
+	.wpallimport-plugin .wpai-set-row {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 6px;
+	}
+	.wpallimport-plugin .wpai-set-row__label {
+		padding-top: 0;
+	}
+	/* The WPAI header lays out on floats, so the links need their own line. */
+	.wpallimport-plugin .wpai-set__header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0 10px;
+	}
+	.wpallimport-plugin .wpai-set__header .wpallimport-logo,
+	.wpallimport-plugin .wpai-set__header .wpallimport-title {
+		float: none;
+	}
+	.wpallimport-plugin .wpai-set__header .wpallimport-links {
+		float: none;
+		order: 3;
+		flex: 1 0 100%;
+		margin-top: 0;
+		padding-bottom: 10px;
+	}
+	.wpallimport-plugin .wpai-set__panel {
+		padding: 4px 18px 22px;
+	}
+
+	/* Native rows collapse to one column here, but a contributed form-table keeps its
+	 * 210px label cell until WP's own stacking at 782px, leaving a 783-960px band where
+	 * contributed rows sit 234px right of everything else. Stack them at the same point. */
+	.wpallimport-plugin .wpai-set-addon-settings .form-table th,
+	.wpallimport-plugin .wpai-set-addon-settings .form-table td,
+	.wpallimport-plugin form.settings .wpai-set-addon-settings .form-table th,
+	.wpallimport-plugin form.settings .wpai-set-addon-settings .form-table td {
+		display: block;
+		width: auto;
+		padding: 0;
+	}
+	.wpallimport-plugin .wpai-set-addon-settings .form-table th {
+		padding-top: 18px;
+		padding-bottom: 6px;
+	}
+	.wpallimport-plugin .wpai-set-addon-settings .form-table td {
+		padding-bottom: 18px;
+	}
+}
+
+/* A11Y: an unbreakable template name must not blow out the page. */
+.wpallimport-plugin .wpai-set-templates__list li,
+.wpallimport-plugin .wpai-set-check { min-width: 0; }
+.wpallimport-plugin .wpai-set-check span { min-width: 0; overflow-wrap: anywhere; }
+.wpallimport-plugin .wpai-set-inputgroup--file input[type="file"] { max-width: 100%; }
+
+@media screen and (max-width: 782px) {
+	.wpallimport-plugin .wpai-set__tabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+		border-bottom: 0;
+		padding-bottom: 8px;
+	}
+	.wpallimport-plugin .wpai-set__tabs .nav-tab {
+		margin: 0;
+		border-radius: var(--wpai-set-radius);
+		border-bottom: 1px solid #c3c4c7;
+	}
+	.wpallimport-plugin .wpai-set__panel {
+		border-radius: var(--wpai-set-radius);
+	}
+	.wpallimport-plugin .wpai-set-input--key {
+		width: 100%;
+	}
+	.wpallimport-plugin .wpai-set-iconbtn,
+	.wpallimport-plugin .wpai-set-input {
+		min-height: 40px;
+		line-height: 38px;
+	}
+	.wpallimport-plugin .wpai-set-check input[type="checkbox"],
+	.wpallimport-plugin .wpai-set-addon-settings .form-table input[type="checkbox"] {
+		/* WP core sizes its own checkboxes at 1.5625rem here; match the native rows. */
+		width: 22px;
+		height: 22px;
+	}
+}
+/*@*/
+
+@media (prefers-reduced-motion: reduce) {
+	.wpallimport-plugin .wpai-set *,
+	.wpallimport-plugin .wpai-set *::before {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>معاينة تصميم صيدليات براءة</title>
+    <link rel="stylesheet" href="assets/css/homepage.css">
+    <style>
+        .baraa-preview-notice {
+            align-items: center;
+            background: #fff7e6;
+            border-bottom: 1px solid #f1dfb8;
+            color: #68460d;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            padding: 10px clamp(16px, 5vw, 64px);
+        }
+
+        .baraa-preview-notice p {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .baraa-preview-switch {
+            background: #fff;
+            border: 1px solid #d5bd85;
+            border-radius: 7px;
+            color: #68460d;
+            cursor: pointer;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 12px;
+        }
+
+        .baraa-preview-visual {
+            align-items: center;
+            background: linear-gradient(145deg, #edf7f5, #fff);
+            color: var(--baraa-primary);
+            display: flex;
+            font-size: 54px;
+            height: 100%;
+            justify-content: center;
+            min-height: 170px;
+            width: 100%;
+        }
+
+        .baraa-preview .baraa-product__image {
+            color: var(--baraa-primary);
+        }
+
+        .baraa-preview .baraa-product__image img {
+            display: none;
+        }
+
+        .baraa-preview .baraa-product__image .baraa-preview-visual {
+            position: absolute;
+        }
+
+        .baraa-preview-toast {
+            background: var(--baraa-ink);
+            border-radius: 10px;
+            bottom: 20px;
+            color: #fff;
+            inset-inline-start: 20px;
+            opacity: 0;
+            padding: 12px 18px;
+            pointer-events: none;
+            position: fixed;
+            transform: translateY(12px);
+            transition: opacity .2s ease, transform .2s ease;
+            z-index: 20;
+        }
+
+        .baraa-preview-toast.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 640px) {
+            .baraa-preview-notice {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="baraa-home baraa-preview" dir="rtl" data-theme="system">
+    <div class="baraa-preview-notice">
+        <p data-ar="معاينة للتصميم فقط — المنتجات والأسعار للعرض، والطلب غير مفعّل في هذه الصفحة."
+           data-en="Design preview only — sample products and prices; ordering is not available on this page.">
+            معاينة للتصميم فقط — المنتجات والأسعار للعرض، والطلب غير مفعّل في هذه الصفحة.
+        </p>
+    </div>
+    <header class="baraa-header" dir="rtl">
+        <div class="baraa-header__main">
+            <a class="baraa-brand" href="#home" aria-label="صيدليات براءة">
+                <span class="baraa-brand__mark" aria-hidden="true" data-ar="ب" data-en="B">ب</span>
+                <span>
+                    <strong data-ar="صيدليات براءة" data-en="Baraa Pharmacies">صيدليات براءة</strong>
+                    <small data-ar="رعاية تثق بها" data-en="Care you can trust">رعاية تثق بها</small>
+                </span>
+            </a>
+            <form class="baraa-search" role="search">
+                <label class="screen-reader-text" for="preview-search" data-ar="ابحث عن المنتجات" data-en="Search products">ابحث عن المنتجات</label>
+                <input id="preview-search" type="search" placeholder="ابحث عن الأدوية والمنتجات الصحية..." data-placeholder-ar="ابحث عن الأدوية والمنتجات الصحية..." data-placeholder-en="Search medicines and health products...">
+                <button type="submit" data-ar="بحث" data-en="Search">بحث</button>
+            </form>
+            <div class="baraa-header__actions">
+                <nav class="baraa-language-switch" aria-label="اختر اللغة">
+                    <a href="#" lang="ar" hreflang="ar" data-preview-language="ar" aria-current="true">العربية</a>
+                    <span aria-hidden="true">|</span>
+                    <a href="#" lang="en" hreflang="en" data-preview-language="en">English</a>
+                </nav>
+                <button class="baraa-theme-toggle" type="button" aria-pressed="false" aria-label="تبديل المظهر"
+                        data-dark-label-ar="الوضع الداكن" data-dark-label-en="Dark mode"
+                        data-light-label-ar="الوضع الفاتح" data-light-label-en="Light mode">
+                    <span class="baraa-theme-toggle__icon" aria-hidden="true">☾</span>
+                    <span class="baraa-theme-toggle__label">الوضع الداكن</span>
+                </button>
+                <a class="baraa-cart" href="#popular-products">
+                    <span aria-hidden="true">🛒</span>
+                    <span data-ar="السلة" data-en="Cart">السلة</span>
+                    <span class="baraa-cart__count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <main class="baraa-home__main" id="home">
+        <section class="baraa-hero">
+            <div class="baraa-hero__copy">
+                <span class="baraa-eyebrow" data-ar="رعايتك الصحية أقرب إليك" data-en="Your health, closer to home">رعايتك الصحية أقرب إليك</span>
+                <h1><span data-ar="كل احتياجاتك الصحية،" data-en="Your health essentials,">كل احتياجاتك الصحية،</span> <span data-ar="كلها في مكان واحد." data-en="all in one place.">كلها في مكان واحد.</span></h1>
+                <p data-ar="تسوق منتجات الصحة والعناية الشخصية من صيدليات براءة، وفريقنا الصيدلي هنا لمساعدتك عند الحاجة."
+                   data-en="Shop health and personal care products from Baraa Pharmacies, with our pharmacy team here when you need us.">
+                    تسوق منتجات الصحة والعناية الشخصية من صيدليات براءة، وفريقنا الصيدلي هنا لمساعدتك عند الحاجة.
+                </p>
+                <form class="baraa-search baraa-search--hero" role="search">
+                    <label class="screen-reader-text" for="preview-hero-search" data-ar="ابحث عن المنتجات" data-en="Search products">ابحث عن المنتجات</label>
+                    <input id="preview-hero-search" type="search" placeholder="ابحث عن منتج أو قسم..." data-placeholder-ar="ابحث عن منتج أو قسم..." data-placeholder-en="Search by product or category...">
+                    <button type="submit" data-ar="تسوق الآن" data-en="Shop now">تسوق الآن</button>
+                </form>
+                <a class="baraa-text-link" href="#offers"><span data-ar="تصفح كل المنتجات" data-en="Browse all products">تصفح كل المنتجات</span> <span aria-hidden="true">←</span></a>
+            </div>
+            <aside class="baraa-hero__prescription">
+                <span class="baraa-hero__icon" aria-hidden="true">✚</span>
+                <h2 data-ar="تحتاج مساعدة صيدلي؟" data-en="Need help from a pharmacist?">تحتاج مساعدة صيدلي؟</h2>
+                <p data-ar="تواصل مع فريقنا للاستفسار عن طلبك أو طريقة إرسال الروشتة."
+                   data-en="Contact our team with questions about your order or how to send a prescription.">
+                    تواصل مع فريقنا للاستفسار عن طلبك أو طريقة إرسال الروشتة.
+                </p>
+                <a class="baraa-button baraa-button--light" href="https://wa.me/201556859030" target="_blank" rel="noopener noreferrer"><span data-ar="تواصل معنا عبر واتساب" data-en="Chat with us on WhatsApp">تواصل معنا عبر واتساب</span></a>
+                <small data-ar="لا تشارك معلوماتك الطبية إلا عبر قناة آمنة ومعتمدة."
+                       data-en="Only share medical information through a secure, approved channel.">
+                    لا تشارك معلوماتك الطبية إلا عبر قناة آمنة ومعتمدة.
+                </small>
+            </aside>
+        </section>
+        <section class="baraa-services" aria-label="خدمات صيدليات براءة">
+            <div class="baraa-service"><span class="baraa-service__icon" aria-hidden="true">⌂</span><span><strong data-ar="فروع قريبة منك" data-en="Nearby branches">فروع قريبة منك</strong><small data-ar="تصفح صيدليات براءة" data-en="Explore Baraa Pharmacies">تصفح صيدليات براءة</small></span></div>
+            <div class="baraa-service"><span class="baraa-service__icon" aria-hidden="true">✓</span><span><strong data-ar="منتجات موثوقة" data-en="Trusted products">منتجات موثوقة</strong><small data-ar="تسوق بثقة واطمئنان" data-en="Shop with confidence">تسوق بثقة واطمئنان</small></span></div>
+            <div class="baraa-service"><span class="baraa-service__icon" aria-hidden="true">↗</span><span><strong data-ar="طرق استلام مريحة" data-en="Convenient fulfillment">طرق استلام مريحة</strong><small data-ar="اختر ما يناسبك" data-en="Choose what works for you">اختر ما يناسبك</small></span></div>
+            <div class="baraa-service"><span class="baraa-service__icon" aria-hidden="true">+</span><span><strong data-ar="دعم صيدلي" data-en="Pharmacist support">دعم صيدلي</strong><small data-ar="نحن هنا لمساعدتك" data-en="We are here to help">نحن هنا لمساعدتك</small></span></div>
+        </section>
+        <section class="baraa-section" id="offers">
+            <div class="baraa-section__heading">
+                <div><span class="baraa-eyebrow" data-ar="اختيارات مميزة لك" data-en="Handpicked for you">اختيارات مميزة لك</span><h2 data-ar="عروض وخصومات" data-en="Special offers">عروض وخصومات</h2></div>
+                <a class="baraa-text-link" href="#popular-products"><span data-ar="اكتشف المتجر" data-en="Explore the shop">اكتشف المتجر</span> <span aria-hidden="true">←</span></a>
+            </div>
+            <div class="baraa-product-grid">
+                <article class="baraa-product"><a class="baraa-product__image" href="#popular-products"><span class="baraa-preview-visual" aria-hidden="true">🩺</span><span class="baraa-product__badge" data-ar="خصم 23٪" data-en="23% off">خصم 23٪</span></a><div class="baraa-product__body"><h3 data-ar="جهاز قياس ضغط الدم الرقمي Omron M3" data-en="Omron M3 digital blood pressure monitor">جهاز قياس ضغط الدم الرقمي Omron M3</h3><p class="baraa-product__stock" data-ar="متوفر" data-en="In stock">متوفر</p><div class="baraa-product__footer"><span class="baraa-product__price"><del>1,850 ج.م</del> 1,420 ج.م</span><a class="baraa-button baraa-button--small" href="#popular-products" data-ar="عرض المنتج" data-en="View product">عرض المنتج</a></div></div></article>
+                <article class="baraa-product"><a class="baraa-product__image" href="#popular-products"><span class="baraa-preview-visual" aria-hidden="true">🧴</span><span class="baraa-product__badge" data-ar="وفر 125 ج.م" data-en="Save EGP 125">وفر 125 ج.م</span></a><div class="baraa-product__body"><h3 data-ar="سيروم سيرافي المرطب بحمض الهيالورونيك" data-en="CeraVe hydrating hyaluronic acid serum">سيروم سيرافي المرطب بحمض الهيالورونيك</h3><p class="baraa-product__stock" data-ar="متوفر" data-en="In stock">متوفر</p><div class="baraa-product__footer"><span class="baraa-product__price"><del>620 ج.م</del> 495 ج.م</span><a class="baraa-button baraa-button--small" href="#popular-products" data-ar="عرض المنتج" data-en="View product">عرض المنتج</a></div></div></article>
+                <article class="baraa-product"><a class="baraa-product__image" href="#popular-products"><span class="baraa-preview-visual" aria-hidden="true">💊</span><span class="baraa-product__badge" data-ar="عرض خاص" data-en="Special offer">عرض خاص</span></a><div class="baraa-product__body"><h3 data-ar="أوستيوكير كالسيوم وماغنسيوم وفيتامين د" data-en="Osteocare calcium, magnesium and vitamin D">أوستيوكير كالسيوم وماغنسيوم وفيتامين د</h3><p class="baraa-product__stock" data-ar="متوفر" data-en="In stock">متوفر</p><div class="baraa-product__footer"><span class="baraa-product__price"><del>280 ج.م</del> 235 ج.م</span><a class="baraa-button baraa-button--small" href="#popular-products" data-ar="عرض المنتج" data-en="View product">عرض المنتج</a></div></div></article>
+                <article class="baraa-product"><a class="baraa-product__image" href="#popular-products"><span class="baraa-preview-visual" aria-hidden="true">🍊</span><span class="baraa-product__badge" data-ar="الأكثر مبيعًا" data-en="Best seller">الأكثر مبيعًا</span></a><div class="baraa-product__body"><h3 data-ar="بيروكا فيتامينات متعددة فوارة" data-en="Berocca multivitamin effervescent tablets">بيروكا فيتامينات متعددة فوارة</h3><p class="baraa-product__stock" data-ar="متوفر" data-en="In stock">متوفر</p><div class="baraa-product__footer"><span class="baraa-product__price"><del>210 ج.م</del> 185 ج.م</span><a class="baraa-button baraa-button--small" href="#popular-products" data-ar="عرض المنتج" data-en="View product">عرض المنتج</a></div></div></article>
+            </div>
+        </section>
+        <section class="baraa-section baraa-section--soft">
+            <div class="baraa-section__heading"><div><span class="baraa-eyebrow" data-ar="تسوق بسهولة" data-en="Shop with ease">تسوق بسهولة</span><h2 data-ar="تصفح الأقسام" data-en="Browse categories">تصفح الأقسام</h2></div></div>
+            <div class="baraa-category-grid">
+                <a class="baraa-category" href="#popular-products"><span class="baraa-category__icon" aria-hidden="true">💊</span><strong data-ar="الأدوية والعلاجات" data-en="Medicines and treatments">الأدوية والعلاجات</strong><small data-ar="عناية يومية متكاملة" data-en="Everyday healthcare">عناية يومية متكاملة</small></a>
+                <a class="baraa-category" href="#popular-products"><span class="baraa-category__icon" aria-hidden="true">♡</span><strong data-ar="الفيتامينات والمكملات" data-en="Vitamins and supplements">الفيتامينات والمكملات</strong><small data-ar="اختيارات لصحتك" data-en="Wellness essentials">اختيارات لصحتك</small></a>
+                <a class="baraa-category" href="#popular-products"><span class="baraa-category__icon" aria-hidden="true">◉</span><strong data-ar="الأجهزة الطبية" data-en="Medical devices">الأجهزة الطبية</strong><small data-ar="أجهزة منزلية موثوقة" data-en="Trusted home devices">أجهزة منزلية موثوقة</small></a>
+                <a class="baraa-category" href="#popular-products"><span class="baraa-category__icon" aria-hidden="true">✿</span><strong data-ar="العناية بالبشرة" data-en="Skin care">العناية بالبشرة</strong><small data-ar="منتجات للعناية اليومية" data-en="Daily skin care">منتجات للعناية اليومية</small></a>
+                <a class="baraa-category" href="#popular-products"><span class="baraa-category__icon" aria-hidden="true">♧</span><strong data-ar="الأم والطفل" data-en="Mother and baby">الأم والطفل</strong><small data-ar="عناية بكل أفراد الأسرة" data-en="Care for the family">عناية بكل أفراد الأسرة</small></a>
+                <a class="baraa-category" href="#popular-products"><span class="baraa-category__icon" aria-hidden="true">✚</span><strong data-ar="الصحة والعافية" data-en="Health and wellness">الصحة والعافية</strong><small data-ar="مستلزمات الصحة اليومية" data-en="Everyday wellness">مستلزمات الصحة اليومية</small></a>
+            </div>
+        </section>
+        <section class="baraa-section" id="popular-products">
+            <div class="baraa-section__heading"><div><span class="baraa-eyebrow" data-ar="اختيارات العملاء" data-en="Customer favourites">اختيارات العملاء</span><h2 data-ar="الأدوية والمنتجات الأكثر طلبًا" data-en="Popular medicines and products">الأدوية والمنتجات الأكثر طلبًا</h2></div><a class="baraa-text-link" href="#offers"><span data-ar="كل المنتجات" data-en="View all products">كل المنتجات</span> <span aria-hidden="true">←</span></a></div>
+            <div class="baraa-product-grid">
+                <article class="baraa-product"><a class="baraa-product__image" href="#offers"><span class="baraa-preview-visual" aria-hidden="true">💊</span></a><div class="baraa-product__body"><h3 data-ar="بنادول أدفانس 500 ملغ — 24 قرص" data-en="Panadol Advance 500 mg — 24 tablets">بنادول أدفانس 500 ملغ — 24 قرص</h3><p class="baraa-product__stock" data-ar="متوفر" data-en="In stock">متوفر</p><div class="baraa-product__footer"><span class="baraa-product__price">45 ج.م</span><a class="baraa-button baraa-button--small" href="#offers" data-ar="عرض المنتج" data-en="View product">عرض المنتج</a></div></div></article>
+                <article class="baraa-product"><a class="baraa-product__image" href="#offers"><span class="baraa-preview-visual" aria-hidden="true">🫙</span></a><div class="baraa-product__body"><h3 data-ar="كلوفيت كبسولات زيت كبد الحوت" data-en="Clofit cod liver oil capsules">كلوفيت كبسولات زيت كبد الحوت</h3><p class="baraa-product__stock" data-ar="متوفر" data-en="In stock">متوفر</p><div class="baraa-product__footer"><span class="baraa-product__price">78 ج.م</span><a class="baraa-button baraa-button--small" href="#offers" data-ar="عرض المنتج" data-en="View product">عرض المنتج</a></div></div></article>
+                <article class="baraa-product"><a class="baraa-product__image" href="#offers"><span class="baraa-preview-visual" aria-hidden="true">🧴</span></a><div class="baraa-product__body"><h3 data-ar="لاروش بوزيه إيفاكلار ديو+" data-en="La Roche-Posay Effaclar Duo+">لاروش بوزيه إيفاكلار ديو+</h3><p class="baraa-product__stock" data-ar="متوفر" data-en="In stock">متوفر</p><div class="baraa-product__footer"><span class="baraa-product__price">890 ج.م</span><a class="baraa-button baraa-button--small" href="#offers" data-ar="عرض المنتج" data-en="View product">عرض المنتج</a></div></div></article>
+                <article class="baraa-product"><a class="baraa-product__image" href="#offers"><span class="baraa-preview-visual" aria-hidden="true">🌿</span></a><div class="baraa-product__body"><h3 data-ar="أوميجا 3 بلس — مكمل غذائي" data-en="Omega 3 Plus dietary supplement">أوميجا 3 بلس — مكمل غذائي</h3><p class="baraa-product__stock" data-ar="متوفر" data-en="In stock">متوفر</p><div class="baraa-product__footer"><span class="baraa-product__price">320 ج.م</span><a class="baraa-button baraa-button--small" href="#offers" data-ar="عرض المنتج" data-en="View product">عرض المنتج</a></div></div></article>
+            </div>
+        </section>
+        <section class="baraa-pharmacist">
+            <span class="baraa-pharmacist__mark" aria-hidden="true">✚</span>
+            <div><span class="baraa-eyebrow" data-ar="نحن هنا لمساعدتك" data-en="We are here to help">نحن هنا لمساعدتك</span><h2 data-ar="لديك سؤال عن منتج أو طلب؟" data-en="Questions about a product or order?">لديك سؤال عن منتج أو طلب؟</h2><p data-ar="تواصل مع فريق صيدليات براءة لمساعدتك في معرفة الخطوة المناسبة." data-en="Contact the Baraa Pharmacies team and we will help you find the right next step.">تواصل مع فريق صيدليات براءة لمساعدتك في معرفة الخطوة المناسبة.</p></div>
+            <a class="baraa-button baraa-button--light" href="https://wa.me/201556859030" target="_blank" rel="noopener noreferrer"><span data-ar="تواصل معنا عبر واتساب" data-en="Chat with us on WhatsApp">تواصل معنا عبر واتساب</span></a>
+        </section>
+    </main>
+    <footer class="baraa-footer">
+        <a class="baraa-brand baraa-brand--footer" href="#home"><span class="baraa-brand__mark" aria-hidden="true" data-ar="ب" data-en="B">ب</span><span><strong data-ar="صيدليات براءة" data-en="Baraa Pharmacies">صيدليات براءة</strong><small data-ar="رعاية تثق بها" data-en="Care you can trust">رعاية تثق بها</small></span></a>
+        <p data-ar="صحتك ورعايتك أولويتنا." data-en="Your health and care come first.">صحتك ورعايتك أولويتنا.</p>
+    </footer>
+    <div class="baraa-preview-toast" role="status" aria-live="polite"></div>
+</div>
+<script>
+    (function () {
+        var root = document.querySelector('.baraa-preview');
+        var notice = document.querySelector('.baraa-preview-toast');
+        var language = 'ar';
+        var noticeTimer;
+        var savedTheme = document.cookie.match(/(?:^|; )baraa_theme=(light|dark)(?:;|$)/);
+        root.dataset.theme = savedTheme ? savedTheme[1] : 'system';
+        var themeButton = root.querySelector('.baraa-theme-toggle');
+
+        function updateThemeButton() {
+            var dark = root.dataset.theme === 'dark' ||
+                (root.dataset.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            var label = themeButton.dataset[(dark ? 'light' : 'dark') + 'Label' + (language === 'ar' ? 'Ar' : 'En')];
+
+            themeButton.setAttribute('aria-pressed', dark ? 'true' : 'false');
+            themeButton.setAttribute('aria-label', label);
+            themeButton.querySelector('.baraa-theme-toggle__label').textContent = label;
+            themeButton.querySelector('.baraa-theme-toggle__icon').textContent = dark ? '☀' : '☾';
+        }
+
+        function setLanguage(nextLanguage) {
+            language = nextLanguage;
+            root.setAttribute('dir', language === 'ar' ? 'rtl' : 'ltr');
+            root.setAttribute('lang', language);
+            document.documentElement.setAttribute('dir', language === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.setAttribute('lang', language);
+            document.querySelector('.baraa-header').setAttribute('dir', language === 'ar' ? 'rtl' : 'ltr');
+            document.title = language === 'ar' ? 'معاينة تصميم صيدليات براءة' : 'Baraa Pharmacies Design Preview';
+
+            root.querySelectorAll('[data-' + language + ']').forEach(function (element) {
+                element.textContent = element.getAttribute('data-' + language);
+            });
+
+            root.querySelectorAll('[data-placeholder-' + language + ']').forEach(function (element) {
+                element.setAttribute('placeholder', element.getAttribute('data-placeholder-' + language));
+            });
+
+            root.querySelectorAll('[data-preview-language]').forEach(function (link) {
+                if (link.dataset.previewLanguage === language) {
+                    link.setAttribute('aria-current', 'true');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+            updateThemeButton();
+        }
+
+        root.querySelectorAll('[data-preview-language]').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                setLanguage(link.dataset.previewLanguage);
+            });
+        });
+
+        themeButton.addEventListener('click', function () {
+            var dark = root.dataset.theme === 'light' ||
+                (root.dataset.theme === 'system' && !window.matchMedia('(prefers-color-scheme: dark)').matches);
+            root.dataset.theme = dark ? 'dark' : 'light';
+            document.cookie = 'baraa_theme=' + (dark ? 'dark' : 'light') + '; path=/; max-age=31536000; SameSite=Lax' +
+                (window.location.protocol === 'https:' ? '; Secure' : '');
+            updateThemeButton();
+        });
+
+        updateThemeButton();
+
+        root.querySelectorAll('form').forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                notice.textContent = language === 'ar' ? 'هذه معاينة للتصميم فقط؛ البحث والطلبات غير مفعّلين.' : 'Design preview only; search and ordering are not enabled.';
+                notice.classList.add('is-visible');
+                window.clearTimeout(noticeTimer);
+                noticeTimer = window.setTimeout(function () {
+                    notice.classList.remove('is-visible');
+                }, 3000);
+            });
+        });
+    })();
+</script>
+</body>
+</html>
