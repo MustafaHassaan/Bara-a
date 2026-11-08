@@ -66,6 +66,8 @@ do_action('woocommerce_before_main_content');
 
 <!-- ══ SIDEBAR ══════════════════════════════════════════ -->
 <aside class="lg:col-span-3 space-y-space-md lg:sticky lg:top-48" aria-label="<?php esc_attr_e('فلاتر المنتجات', 'baraa-pharmacy'); ?>">
+<form method="get" action="<?php echo esc_url($filter_action); ?>">
+    <?php wc_query_string_form_fields(null, array('rx_type', 'max_price', 'paged'), '', false); ?>
 <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md space-y-space-lg">
 
     <!-- Header -->
@@ -78,27 +80,6 @@ do_action('woocommerce_before_main_content');
             <span class="material-symbols-outlined text-[14px]" aria-hidden="true">refresh</span>
             <?php esc_html_e('إعادة ضبط', 'baraa-pharmacy'); ?>
         </a>
-    </div>
-
-    <!-- Rx / OTC toggle -->
-    <div class="space-y-space-sm">
-        <p class="font-title-md text-title-md font-bold text-on-surface"><?php esc_html_e('نوع الصرف الدوائي', 'baraa-pharmacy'); ?></p>
-        <div class="grid grid-cols-2 gap-space-xs">
-            <?php
-            $rx_types = array(
-                array('icon' => 'prescriptions', 'label' => 'روشتة Rx',  'class' => 'text-error',    'val' => 'rx'),
-                array('icon' => 'check_circle',  'label' => 'متاح OTC',  'class' => 'text-primary',  'val' => 'otc'),
-            );
-            foreach ($rx_types as $rt) : ?>
-                <label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
-                    <input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox" name="rx_type" value="<?php echo esc_attr($rt['val']); ?>" checked />
-                    <span class="font-label-md text-label-md font-bold <?php echo esc_attr($rt['class']); ?> flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[16px]" aria-hidden="true"><?php echo esc_html($rt['icon']); ?></span>
-                        <?php echo esc_html($rt['label']); ?>
-                    </span>
-                </label>
-            <?php endforeach; ?>
-        </div>
     </div>
 
     <!-- Categories -->
@@ -131,26 +112,6 @@ do_action('woocommerce_before_main_content');
                 </a>
             <?php endforeach; ?>
         </nav>
-    </div>
-
-    <!-- Dosage form pills -->
-    <div class="space-y-space-sm">
-        <p class="font-title-md text-title-md font-bold text-on-surface"><?php esc_html_e('الشكل الصيدلاني', 'baraa-pharmacy'); ?></p>
-        <div class="flex flex-wrap gap-1.5">
-            <?php
-            $forms = array(
-                array('label' => __('أقراص (Tablets)', 'baraa-pharmacy'), 'active' => true),
-                array('label' => __('كبسولات', 'baraa-pharmacy'),          'active' => false),
-                array('label' => __('حقن', 'baraa-pharmacy'),              'active' => false),
-                array('label' => __('شراب ونقط', 'baraa-pharmacy'),        'active' => false),
-                array('label' => __('فوار وأكياس', 'baraa-pharmacy'),      'active' => false),
-            );
-            foreach ($forms as $f) : ?>
-                <button type="button" class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors <?php echo $f['active'] ? 'bg-primary text-on-primary font-semibold' : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'; ?>">
-                    <?php echo esc_html($f['label']); ?>
-                </button>
-            <?php endforeach; ?>
-        </div>
     </div>
 
     <!-- Price filter -->
@@ -200,6 +161,7 @@ do_action('woocommerce_before_main_content');
     </div>
 
 </div>
+</form>
 </aside>
 
 <!-- ══ MAIN CATALOG ══════════════════════════════════════ -->
@@ -348,7 +310,8 @@ do_action('woocommerce_before_main_content');
             $p_in_stock = $product->is_in_stock();
             $p_rating   = $product->get_average_rating();
             $p_review   = $product->get_review_count();
-            $is_rx      = has_term('rx', 'product_tag', $p_id) || has_term('روشتة', 'product_tag', $p_id);
+            $requires_rx = get_post_meta($p_id, '_requires_prescription', true);
+            $is_rx      = ($requires_rx === 'yes');
             $can_add    = $product->is_type('simple') && $product->is_purchasable() && $p_in_stock;
             $add_url    = $can_add ? $product->add_to_cart_url() : $p_link;
 
@@ -390,11 +353,6 @@ do_action('woocommerce_before_main_content');
                             <?php esc_html_e('عرض', 'baraa-pharmacy'); ?>
                         </span>
                     <?php endif; ?>
-
-                    <!-- Wishlist button -->
-                    <button type="button" class="absolute top-2 left-2 p-1 rounded-full bg-surface-container-lowest/80 text-outline hover:text-error transition-colors backdrop-blur-sm" aria-label="<?php echo esc_attr(sprintf(__('إضافة %s للمفضلة', 'baraa-pharmacy'), $p_name)); ?>">
-                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">favorite</span>
-                    </button>
                 </div>
 
                 <!-- Meta -->
@@ -470,7 +428,7 @@ do_action('woocommerce_before_main_content');
                     <span class="material-symbols-outlined text-[18px]" aria-hidden="true">add_shopping_cart</span>
                     <span>
                         <?php echo $can_add
-                            ? esc_html__('إضافة للروشتة الشهرية', 'baraa-pharmacy')
+                            ? esc_html__('إضافة للسلة', 'baraa-pharmacy')
                             : esc_html__('عرض المنتج', 'baraa-pharmacy'); ?>
                     </span>
                 </a>

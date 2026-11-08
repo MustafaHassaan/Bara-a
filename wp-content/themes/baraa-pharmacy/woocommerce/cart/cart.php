@@ -76,7 +76,8 @@ foreach ($cart_items as $cart_item) {
     $_product = $cart_item['data'];
     if ($_product instanceof WC_Product) {
         $product_id = $_product->get_id();
-        if (has_term('rx', 'product_tag', $product_id) || has_term('روشتة', 'product_tag', $product_id)) {
+        $requires_rx = get_post_meta($product_id, '_requires_prescription', true);
+        if ($requires_rx === 'yes') {
             $has_rx_products = true;
             break;
         }
@@ -205,7 +206,8 @@ foreach ($cart_items as $cart_item) {
                                 false
                             );
                             $categories      = wc_get_product_category_list($_product->get_id(), ', ');
-                            $is_rx           = has_term('rx', 'product_tag', $product_id) || has_term('روشتة', 'product_tag', $product_id);
+                            $requires_rx     = get_post_meta($product_id, '_requires_prescription', true);
+                            $is_rx           = ($requires_rx === 'yes');
                         ?>
 
                         <article class="baraa-cart-item woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?> p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex flex-col sm:flex-row items-start gap-space-md">
@@ -415,6 +417,12 @@ foreach ($cart_items as $cart_item) {
                 <div class="cart-collaterals">
                     <?php do_action('woocommerce_cart_collaterals'); ?>
                 </div>
+                <style>
+                    /* Hide default WooCommerce checkout button */
+                    .cart_totals .wc-proceed-to-checkout {
+                        display: none !important;
+                    }
+                </style>
 
                 <!-- Payment methods selection -->
                 <div class="space-y-space-sm pt-space-xs">

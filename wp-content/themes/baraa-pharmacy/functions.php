@@ -369,6 +369,30 @@ function baraa_category_thumbnail_enqueue_scripts($hook) {
 add_action('admin_enqueue_scripts', 'baraa_category_thumbnail_enqueue_scripts');
 
 /**
+ * Add "Requires Prescription" field to WooCommerce product admin
+ */
+function baraa_add_rx_product_field() {
+    woocommerce_wp_checkbox(
+        array(
+            'id'          => '_requires_prescription',
+            'label'       => __('يتطلب روشتة', 'baraa-pharmacy'),
+            'desc_tip'    => true,
+            'description' => __('حدد هذا المنتج إذا كان يتطلب روشتة طبية للشراء', 'baraa-pharmacy'),
+        )
+    );
+}
+add_action('woocommerce_product_options_general_product_data', 'baraa_add_rx_product_field');
+
+/**
+ * Save "Requires Prescription" field
+ */
+function baraa_save_rx_product_field($post_id) {
+    $checkbox = isset($_POST['_requires_prescription']) ? 'yes' : 'no';
+    update_post_meta($post_id, '_requires_prescription', $checkbox);
+}
+add_action('woocommerce_process_product_meta', 'baraa_save_rx_product_field');
+
+/**
  * WooCommerce element overrides — normalize WC default styles to match the
  * MD3 design tokens coming from Tailwind. Injected inline to avoid a
  * separate HTTP request and to load after Tailwind CDN.
@@ -412,6 +436,11 @@ body { font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", Tahoma, Arial, sans
     opacity: 0.5;
     pointer-events: none;
     cursor: not-allowed;
+}
+
+/* ── Hide default WooCommerce pagination outside custom container ── */
+main .woocommerce-pagination:not(.baraa-wc-pagination .woocommerce-pagination) {
+    display: none !important;
 }
 
 #baraa-rx-upload-label.ring-4 {

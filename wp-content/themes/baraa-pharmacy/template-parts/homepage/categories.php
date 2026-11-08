@@ -120,15 +120,6 @@ function baraa_category_icon_data($slug)
                             <h4 class="font-title-md text-title-md text-on-surface font-bold group-hover:text-primary transition-colors">
                                 <?php echo esc_html($category->name); ?>
                             </h4>
-                            <span class="font-label-sm text-label-sm text-outline">
-                                <?php
-                                printf(
-                                    /* translators: %s: product count */
-                                    esc_html__('%s منتج', 'baraa-pharmacy'),
-                                    esc_html(number_format_i18n($category->count))
-                                );
-                                ?>
-                            </span>
                         </div>
                     </a>
                 <?php endforeach; ?>
