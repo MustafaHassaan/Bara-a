@@ -10,7 +10,7 @@ get_header();
             </article>
         <?php endwhile; ?>
     <?php else : ?>
-        <p class="baraa-empty"><?php esc_html_e('Nothing to display yet.', 'baraa-pharmacy'); ?></p>
+        <p class="baraa-empty"><?php esc_html_e('لا يوجد محتوى لعرضه حتى الآن.', 'baraa-pharmacy'); ?></p>
     <?php endif; ?>
 </main>
 <?php

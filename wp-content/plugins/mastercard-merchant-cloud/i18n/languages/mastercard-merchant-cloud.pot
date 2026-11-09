@@ -1,0 +1,904 @@
+# Copyright (C) 2026 Mastercard Merchant Cloud
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mastercard Merchant Cloud 1.0.1\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/mastercard-merchant-cloud\n"
+"POT-Creation-Date: 2026-06-24 15:30:40+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.7\n"
+
+#. Author of the plugin/theme
+msgid "Mastercard Merchant Cloud"
+msgstr ""
+
+#: includes/Gateways/WC_Mastercard_Merchant_Cloud_Payment_Gateway_CC.php:40
+msgid "Accept secure payments on your WooCommerce store."
+msgstr ""
+
+#: includes/Main.php:43
+msgid ""
+"You must have a merchant account with a compatible payment service provider "
+"(PSP) before using this plugin."
+msgstr ""
+
+#: includes/Main.php:47
+#. translators: %s: Merchant registration URL
+msgid "Don't have an account? %1$sFollow the instructions here%2$s"
+msgstr ""
+
+#: mastercard-merchant-cloud.php:41
+#. translators: 1: composer command. 2: plugin directory
+msgid ""
+"Your installation of Mastercard Merchant Cloud plugin is incomplete. Please "
+"run %1$s within the %2$s directory."
+msgstr ""
+
+#: packages/payment-core/includes/API.php:250
+msgid "Empty response code."
+msgstr ""
+
+#: packages/payment-core/includes/API.php:261
+#. Translators: %1$s: Response code, %2$s: Response message.
+msgid "Request failed with status code %1$s and message: %2$s"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/CapturePaymentMetaBox.php:103
+msgid "Payment Actions"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:111
+msgid "Enable/Disable"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:112
+msgid "Enable"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:118
+msgid "Title"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:120
+msgid "The payment method title displayed during checkout."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:125
+msgid "Description"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:127
+msgid "The description displayed when this payment method is selected."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:128
+msgid "Pay with your Credit/Debit Card"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:132
+msgid "Merchant Account Details"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:137
+msgid "Test Mode"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:138
+msgid "Enable test mode"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:142
+#. translators: %1$s: opening link tag, %2$s: closing link tag
+msgid ""
+"Set the payment gateway in test mode using test API credentials (real "
+"payments will not be taken). You can use %1$stest card numbers%2$s to "
+"simulate various transactions."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:156
+msgid "Merchant ID"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:160
+#: packages/payment-core/includes/Admin/GatewaySettings.php:202
+#. translators: %1$s: opening link tag, %2$s: closing link tag
+msgid "This is the Merchant ID you use to log into the %1$sMerchant Portal%2$s."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:174
+msgid "Integration Authentication Password"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:178
+#: packages/payment-core/includes/Admin/GatewaySettings.php:220
+#. translators: %1$s: opening link tag, %2$s: closing link tag
+msgid ""
+"You can obtain your integration authentication password from the Merchant "
+"Portal (%1$sAdmin -> Integration Settings%2$s)."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:198
+msgid "Test Merchant ID"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:216
+msgid "Test Integration Authentication Password"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:240
+msgid "Webhook Notifications"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:244
+msgid "Notification Secret"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:248
+#: packages/payment-core/includes/Admin/GatewaySettings.php:263
+#. translators: %1$s: opening link tag, %2$s: closing link tag
+msgid ""
+"You can obtain or generate your notification secret on the Merchant Portal "
+"(%1$sAdmin -> Webhook Notifications%2$s)."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:259
+msgid "Test Notification Secret"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:295
+msgid "Merchant Region"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:375
+msgid "Embedded"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:376
+msgid ""
+"\"Embedded\" displays the payment form inside an iframe on your checkout "
+"page."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:379
+msgid "Redirect"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:380
+msgid ""
+"\"Redirect\" sends customers to a secure external page to complete payment, "
+"and then back to your store."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:390
+msgid "Payment configurations"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:394
+msgid "Merchant Name"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:396
+msgid ""
+"The name of your business for display to the payer on the payment "
+"interaction."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:402
+msgid "Payment Capture"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:410
+msgid "Integration Mode"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:418
+msgid "Hosted Checkout Mode"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:431
+msgid "Display Plugin's Logo"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:432
+msgid "Check this to display the plugin's logo in the Hosted Checkout page."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:442
+msgid "Features"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:446
+msgid "3-D Secure"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:447
+msgid "Enable 3-D Secure (3DS)"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:450
+msgid ""
+"If enabled, adds an additional layer of security to online purchases by "
+"requiring cardholders to authenticate themselves with the card issuer when "
+"making payments."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:459
+msgid "Saved Cards"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:460
+msgid "Enable payment via saved tokenized cards"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:462
+msgid ""
+"If enabled, users will be able to pay with a saved card during checkout. "
+"Card details are saved in the payment gateway, not on your store."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:472
+msgid "Advanced configurations"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:476
+msgid "Logging"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:477
+msgid "Log debug messages"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:479
+msgid "Save debug messages to the WooCommerce System Status log."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:518
+msgid "Hosted Session"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:519
+msgid ""
+"\"Hosted Session\" allows you to manage the layout and styling of your "
+"payment page while minimizing PCI compliance costs."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:522
+msgid "Hosted Checkout"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:523
+msgid ""
+"\"Hosted Checkout\" allows you to gather payment details through a hosted "
+"interface."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:549
+msgid "Authorize and Capture"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:550
+msgid ""
+"\"Authorize and Capture\" captures the payment immediately when the order "
+"is placed."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:554
+msgid "Authorize Only"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/GatewaySettings.php:555
+msgid ""
+"\"Authorize Only\" authorizes the payment and allows you to capture it "
+"manually later from the WC admin panel."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/Notices.php:82
+#. Translators: %1$s is the plugin title, %2$s is the settings URL, %3$s is the
+#. closing anchor tag.
+msgid "%1$s - The credentials are either empty or not valid."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/Notices.php:89
+#. Translators: %1$s is the plugin title, %2$s is the settings URL, %3$s is the
+#. closing anchor tag.
+msgid "Verify your connection %1$shere%2$s"
+msgstr ""
+
+#: packages/payment-core/includes/Admin/Notices.php:112
+#. Translators: %1$s is the plugin title, %2$s is the settings URL, %3$s is the
+#. closing anchor tag.
+msgid ""
+"%1$s - There is no supported payment operation for your merchant account. "
+"Contact your acquirer to verify this issue."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/Notices.php:129
+#. Translators: %1$s is the plugin title, %2$s is the settings URL, %3$s is the
+#. closing anchor tag.
+msgid ""
+"%1$s - The Notification Secret is not set. Webhook notifications are "
+"required for stores to process asyncronous operations such as captures, "
+"refunds, and order status updates."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/Notices.php:136
+#. Translators: %1$s is the plugin title, %2$s is the settings URL, %3$s is the
+#. closing anchor tag.
+msgid "Set the Notification Secret %1$son the settings page%2$s."
+msgstr ""
+
+#: packages/payment-core/includes/Admin/Notices.php:143
+#. Translators: %1$s is the plugin title, %2$s is the settings URL, %3$s is the
+#. closing anchor tag.
+msgid "Please add your notification secret %1$shere%2$s."
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:312
+msgid "Enter your Merchant Account details."
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:317
+#. translators: %s: Merchant registration URL
+msgid "Don't have an account? %1$sSign up here%2$s"
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:442
+msgid "Settings"
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:876
+msgid "Europe"
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:884
+msgid "Asia Pacific and Middle East"
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:892
+msgid "North America"
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:900
+msgid "Kingdom of Saudi Arabia"
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:908
+msgid "India"
+msgstr ""
+
+#: packages/payment-core/includes/CorePlugin.php:937
+msgid "Test Region"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:390
+msgid "Error processing payment. Reason: "
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:411
+msgid "Payment unsuccessful; your card has been declined."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:413
+msgid "The card has expired. Please enter a new card for payment."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:415
+msgid ""
+"We couldn't process your card request within the allotted time, and it "
+"timed out."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:417
+msgid "The transaction was disrupted due to an issue in the acquirer's system."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:419
+msgid ""
+"An unspecified issue has occurred with your card. Please check the details "
+"and try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:421
+msgid "The card not authorized. Please enter a new card for payment."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:423
+msgid "The payment was declined."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:561
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:704
+msgid "The order object is not valid."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:565
+msgid "The order data is not valid."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:569
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:720
+msgid "The transaction data is not valid."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:594
+#. translators: %1$s: Gateway title, %2$s: Order ID.
+msgid "%1$s payment was Verified (Order ID: %2$s)"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:612
+#. translators: %1$s: Gateway title, %2$s: Order ID.
+msgid "%1$s payment was Captured (Order ID: %2$s)"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:634
+msgid "Payment authorized, waiting for capture."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:637
+#. translators: %1$s: Gateway title, %2$s: Order ID.
+msgid "%1$s payment was Authorized (Order ID: %2$s)"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:652
+msgid "Payment partially captured, waiting for full capture."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:655
+#. translators: %1$s: Gateway title, %2$s: Captured amount.
+msgid "%1$s payment was Partially Captured. Captured Amount: %2$s"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:663
+msgid "Authorization was cancelled successfully."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:712
+msgid "Failed to retrieve the order."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:716
+msgid "Payment was declined."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:841
+msgid "The payment method is invalid."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:851
+msgid "The order data is missing or invalid."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:879
+msgid "There was an error capturing the payment."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:883
+msgid "There was an error parsing the capture response."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:892
+#. translators: %1$s: Gateway title, %2$s: Error message.
+msgid "%1$s payment capture failed: %2$s"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:924
+msgid "The amount to be refunded is greater than the captured amount."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:946
+msgid "There was an error processing the payment refund. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:952
+#. translators: %1$s: Currency of refund, %2$s: Refund amount, %2$s: Refund
+#. reason.
+msgid "Refund of %1$s processed. %2$s"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:954
+msgid "Reason: "
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:986
+#. translators: %1$s: Currency of refund, %2$s: Refund amount, %2$s: Refund
+#. reason.
+msgid "There was an error processing the refund. Reason: %1$s"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1042
+#. translators: %1$s: Refund reason, %2$s: Refund amount.
+msgid "Refund Webhook notification received. Refund amount: %2$s."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1050
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1222
+#. translators: %s: Refund reason.
+#. translators: %s: chargeback reason
+msgid "Reason: %s"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1071
+#. translators: %1$s reason
+msgid "Create refund failed: %1$s."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1113
+#. translators: %s: transaction ID
+msgid "Refund with Transaction ID (%s) not found."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1122
+#. translators: %s: transaction ID
+msgid "Refund was cancelled. Transaction ID: %s"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1153
+msgid "The order cannot be voided anymore."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1158
+msgid ""
+"The Authorize transaction ID is missing. Try to void the authorization from "
+"the Merchant Portal."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1171
+msgid "Void Payment failed. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1179
+#. translators: %s: error message
+msgid "Void Payment failed: %s"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1206
+#. translators: %s: payment method title
+msgid "%s payment was charged back."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1213
+#. translators: %s: chargeback amount with currency
+msgid "Chargeback Amount: %s"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1254
+msgid "The request body is empty."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1259
+msgid "Webhook Notification: "
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1423
+#. translators: %1$s: original transaction ID, %2$s: void transaction ID
+msgid ""
+"Webhook Notification: Payment Transaction ID: %1$s was voided (Void "
+"Transaction ID: %2$s)"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1427
+msgid "Payment was voided."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1432
+#. translators: %1$s: original transaction ID, %2$s: void transaction ID
+msgid ""
+"Webhook Notification: Capture Transaction ID: %1$s was voided (Void "
+"Transaction ID: %2$s)"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1436
+msgid "Capture was voided."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1441
+#. translators: %1$s: original transaction ID, %2$s: void transaction ID
+msgid ""
+"Webhook Notification: Authorization Transaction ID: %1$s was voided (Void "
+"Transaction ID: %2$s)"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1445
+msgid "Authorization was voided."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1475
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway.php:1499
+msgid ""
+"Notification Webhook repeated too soon or previous request exited "
+"abnormally."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:271
+msgid "Merchant ID and API Key are required."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:313
+msgid ""
+"Failed to validate API credentials. Please validate your credentials and "
+"save your account details again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:321
+msgid "API credentials validated successfully."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:484
+msgid ""
+"There was an error creating the payment session. Please review your data "
+"and try again or try a different payment method."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:515
+msgid ""
+"There was an error creating the payment session. Please refresh the page "
+"and try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:600
+msgid "Invalid order."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:670
+msgid "Pending payment"
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:677
+msgid "There was an error creating the payment session. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:718
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1064
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1272
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1300
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1317
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1358
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1362
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1381
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1390
+msgid "There was an error with the payment authentication. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:727
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2781
+msgid ""
+"There was an error obtaining the payment session. Please refresh the page "
+"and try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:734
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2786
+msgid ""
+"There was an error validating the payment session. Please refresh the page "
+"and try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:743
+msgid "Security code is missing."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:893
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:899
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:904
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2524
+msgid "There was an error processing the payment. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:914
+msgid "There was an error obtaining the transaction. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:918
+msgid "There was an error obtaining the order data. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1310
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1368
+msgid ""
+"The payment method was declined. Please try again with a different payment "
+"method."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1313
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1371
+msgid "The payment method was declined."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1522
+msgid "There was an error obtaining the payment session. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1526
+msgid "The Payment Session is invalid or has expired. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1647
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2734
+msgid "There was an error updating the payment session. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:1684
+msgid "There was an error saving the payment method. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2399
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2498
+msgid "Nonce verification is missing or invalid."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2403
+msgid "Missing arguments."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2409
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2505
+msgid "The order ID parameter is invalid."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2415
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2511
+msgid "The order cannot be found."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2419
+msgid "The order has already been processed."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2425
+msgid "The payment session is invalid."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2518
+msgid "There was an error validating the authentication request. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2529
+msgid "Payment method successfully added."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2761
+msgid "Missing order ID."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2768
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2773
+msgid ""
+"There was an error obtaining the order. Please refresh the page and try "
+"again."
+msgstr ""
+
+#: packages/payment-core/includes/Gateways/WC_Abstract_Payment_Gateway_CC.php:2852
+msgid "Your payment method will be saved for future purchases."
+msgstr ""
+
+#: packages/payment-core/includes/Main.php:109
+#: packages/payment-core/includes/Main.php:119
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: packages/payment-core/includes/Main.php:211
+#. Translators: 1: The Plugin's Name 2: The minimum PHP version
+msgid "%1$s requires a minimum PHP version of %2$s."
+msgstr ""
+
+#: packages/payment-core/includes/Main.php:216
+#. Translators: 1: The Plugin's Name 2: The minimum WP version
+msgid "%1$s requires a minimum WordPress version of %2$s."
+msgstr ""
+
+#: packages/payment-core/includes/Main.php:221
+#. Translators: 1: The Plugin's Name 2: The minimum WC version
+msgid "%1$s requires a minimum WooCommerce version of %2$s."
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:465
+#: packages/payment-core/includes/Utils.php:466
+msgid "Card number invalid or missing"
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:467
+msgid "Expiry month invalid or missing"
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:468
+msgid "Expiry year invalid or missing"
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:469
+msgid "Security code is invalid or missing"
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:470
+#: packages/payment-core/includes/Utils.php:475
+msgid "There was an error updating the payment details. Please try again."
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:472
+msgid "Payment type is required"
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:473
+msgid "Session update failed with request timeout"
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:474
+msgid "Session update failed with system error"
+msgstr ""
+
+#: packages/payment-core/includes/Utils.php:476
+msgid "The Payment Session expired. Please try again."
+msgstr ""
+
+#: packages/payment-core/templates/admin/payment-actions.php:19
+msgid "The Authorization can be Cancelled."
+msgstr ""
+
+#: packages/payment-core/templates/admin/payment-actions.php:21
+msgid "Cancel Authorization"
+msgstr ""
+
+#: packages/payment-core/templates/admin/payment-actions.php:33
+msgid "Funds available to be captured"
+msgstr ""
+
+#: packages/payment-core/templates/admin/payment-actions.php:36
+msgid "The amount of authorized funds that can be captured."
+msgstr ""
+
+#: packages/payment-core/templates/admin/payment-actions.php:46
+msgid "Capture"
+msgstr ""
+
+#: packages/payment-core/templates/payment-fields-hosted-session.php:34
+msgid "New card fields"
+msgstr ""
+
+#: packages/payment-core/templates/payment-fields-hosted-session.php:38
+msgid "Card number"
+msgstr ""
+
+#: packages/payment-core/templates/payment-fields-hosted-session.php:42
+msgid "Expiry (MM)"
+msgstr ""
+
+#: packages/payment-core/templates/payment-fields-hosted-session.php:43
+msgid "MM"
+msgstr ""
+
+#: packages/payment-core/templates/payment-fields-hosted-session.php:46
+msgid "Expiry (YY)"
+msgstr ""
+
+#: packages/payment-core/templates/payment-fields-hosted-session.php:47
+msgid "YY"
+msgstr ""
+
+#: packages/payment-core/templates/payment-fields-hosted-session.php:50
+msgid "Card code"
+msgstr ""
+
+#: packages/payment-core/templates/payment-fields-hosted-session.php:51
+msgid "CVC"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/mastercard-merchant-cloud"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Access a flexible, seamless checkout solution supporting over 35 payment "
+"methods and multi-currency options to meet global needs around the world, "
+"with ongoing expansion into new markets. Enjoy built-in security features "
+"and simple integration for a smooth experience."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.mastercard.com/"
+msgstr ""

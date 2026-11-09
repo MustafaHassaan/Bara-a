@@ -19,24 +19,6 @@ $categories  = wc_get_product_category_list($product->get_id(), ', ');
 
     <div class="relative space-y-space-sm">
 
-        <!-- Badge row -->
-        <div class="flex items-center justify-between">
-            <?php if ($is_on_sale) : ?>
-                <span class="px-2 py-0.5 rounded-md bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">
-                    <?php esc_html_e('عرض', 'baraa-pharmacy'); ?>
-                </span>
-            <?php else : ?>
-                <span></span>
-            <?php endif; ?>
-            <button
-                class="text-outline-variant hover:text-error transition-colors p-1"
-                type="button"
-                aria-label="<?php echo esc_attr(sprintf(__('إضافة %s للمفضلة', 'baraa-pharmacy'), $product->get_name())); ?>"
-            >
-                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">favorite</span>
-            </button>
-        </div>
-
         <!-- Product image -->
         <a
             href="<?php echo esc_url($product->get_permalink()); ?>"
@@ -98,8 +80,9 @@ $categories  = wc_get_product_category_list($product->get_id(), ', ');
             </div>
             <a
                 href="<?php echo esc_url($action_url); ?>"
-                class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors flex items-center gap-1"
+                class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors flex items-center gap-1<?php echo $can_add ? ' add_to_cart_button ajax_add_to_cart product_type_simple' : ''; ?>"
                 <?php if ($can_add) : ?>
+                    rel="nofollow"
                     data-quantity="1"
                     data-product_id="<?php echo esc_attr($product->get_id()); ?>"
                     data-product_sku="<?php echo esc_attr($product->get_sku()); ?>"

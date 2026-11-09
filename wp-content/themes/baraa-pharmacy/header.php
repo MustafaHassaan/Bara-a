@@ -43,19 +43,6 @@ $theme_cookie = $is_dark ? 'dark' : 'light';
 
 <header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
 
-    <!-- ── Top announcement bar ───────────────────────────────── -->
-    <div class="bg-primary text-on-primary py-1.5 px-margin">
-        <div class="w-full flex items-center justify-between font-label-sm text-label-sm">
-            <div class="flex items-center gap-space-sm">
-                <span class="material-symbols-outlined text-[15px]">local_shipping</span>
-                <span><?php esc_html_e('توصيل سريع مجاني للطلبات فوق 350 ج.م في القاهرة والجيزة والمدن الرئيسية ⚡', 'baraa-pharmacy'); ?></span>
-            </div>
-            <div class="hidden md:flex items-center gap-space-md font-label-md">
-                <span class="text-primary-fixed"><?php esc_html_e('صيدليات براءة المعتمدة', 'baraa-pharmacy'); ?></span>
-            </div>
-        </div>
-    </div>
-
     <!-- ── Main header row ────────────────────────────────────── -->
     <!-- Mobile: brand+actions top row, search below. Desktop: single row. -->
     <div class="w-full px-margin py-2 flex flex-wrap items-center justify-between gap-x-space-lg gap-y-2 bg-surface-container-lowest lg:h-24 lg:flex-nowrap lg:py-0">
@@ -67,7 +54,7 @@ $theme_cookie = $is_dark ? 'dark' : 'light';
             $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
             if (has_custom_logo()) :
             ?>
-                <div class="w-14 h-14 lg:w-16 lg:h-16 flex items-center justify-center flex-shrink-0">
+                <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10 flex items-center justify-center flex-shrink-0">
                     <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="w-full h-full object-contain">
                 </div>
             <?php else : ?>
@@ -165,17 +152,13 @@ $theme_cookie = $is_dark ? 'dark' : 'light';
             >
                 <div class="relative flex items-center">
                     <span class="material-symbols-outlined text-[20px] lg:text-[22px]">shopping_bag</span>
-                    <?php if ($cart_count > 0) : ?>
-                        <span class="absolute -top-1.5 -right-1.5 bg-error text-on-error text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold baraa-cart-count">
-                            <?php echo esc_html((string) $cart_count); ?>
-                        </span>
-                    <?php endif; ?>
+                    <span id="baraa-cart-count" class="absolute -top-1.5 -right-1.5 bg-error text-on-error text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold baraa-cart-count" style="<?php echo $cart_count > 0 ? '' : 'display:none'; ?>">
+                        <?php echo esc_html((string) $cart_count); ?>
+                    </span>
                 </div>
                 <div class="flex flex-col text-right">
                     <span class="text-[10px] opacity-80 leading-none"><?php esc_html_e('السلة', 'baraa-pharmacy'); ?></span>
-                    <?php if ($cart_total_plain) : ?>
-                        <span class="text-xs font-bold leading-tight baraa-cart-total hidden sm:block"><?php echo esc_html($cart_total_plain); ?></span>
-                    <?php endif; ?>
+                    <span id="baraa-cart-total" class="text-xs font-bold leading-tight baraa-cart-total hidden sm:block" style="<?php echo $cart_total_plain ? '' : 'display:none'; ?>"><?php echo esc_html($cart_total_plain); ?></span>
                 </div>
             </a>
 
@@ -234,6 +217,6 @@ $theme_cookie = $is_dark ? 'dark' : 'light';
 </header>
 
 <!-- Spacer below fixed header
-     Mobile:  top-bar(~36) + main(~88) + nav(~48) = ~172px
-     Desktop: top-bar(~36) + main(~96) + nav(~48) = ~180px -->
-<div class="h-[172px] lg:h-[180px]" aria-hidden="true"></div>
+     Mobile:  main(~88) + nav(~48) = ~136px
+     Desktop: main(~96) + nav(~48) = ~144px -->
+<div class="h-[136px] lg:h-[144px]" aria-hidden="true"></div>

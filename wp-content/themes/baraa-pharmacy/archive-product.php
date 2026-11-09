@@ -417,8 +417,9 @@ do_action('woocommerce_before_main_content');
                 </div>
                 <a
                     href="<?php echo esc_url($add_url); ?>"
-                    class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container transition-colors shadow-sm"
+                    class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container transition-colors shadow-sm<?php echo $can_add ? ' add_to_cart_button ajax_add_to_cart product_type_simple' : ''; ?>"
                     <?php if ($can_add) : ?>
+                        rel="nofollow"
                         data-quantity="1"
                         data-product_id="<?php echo esc_attr($p_id); ?>"
                         data-product_sku="<?php echo esc_attr($product->get_sku()); ?>"

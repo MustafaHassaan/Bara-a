@@ -1,0 +1,51 @@
+{
+	"name": "saucal/payment-module-core",
+	"description": "Payment Module Core",
+	"version": "1.0.1",
+	"homepage": "https://saucal.com/",
+	"type": "package",
+	"keywords": [],
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=8.0"
+	},
+	"require-dev": {
+		"composer/installers": "^2.3.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
+		"woocommerce/woocommerce-sniffs": "^1.0.0",
+		"wp-coding-standards/wpcs": "^3.1.0",
+		"szepeviktor/phpstan-wordpress": "^2.0",
+		"php-stubs/woocommerce-stubs": "^10.4",
+		"php-stubs/woocommerce-subscriptions-stubs": "^8.1",
+		"phpstan/extension-installer": "^1.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"GatewayPaymentCore\\": "includes/"
+		}
+	},
+	"config": {
+		"platform": {
+			"php": "8.0"
+		},
+		"allow-plugins": {
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
+		}
+	},
+	"scripts": {
+		"phpcs": [
+			"phpcs --extensions=php -s -p"
+		],
+		"phpcbf": [
+			"phpcbf -p"
+		]
+	},
+	"extra": {
+		"scripts-description": {
+			"phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+			"phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
+		}
+	}
+}

@@ -1037,3 +1037,51 @@ msgstr "Setting a phone alarm or using a weekly pill organiser helps maintain a 
 
 msgid "يُستخدم لعلاج الحالات المزمنة. راجع الصيدلي لمزيد من التفاصيل."
 msgstr "Used to treat chronic conditions. Consult the pharmacist for further details."
+
+msgid "البريد الإلكتروني:"
+msgstr "Email address:"
+
+msgid "الدرايسة — أمام مدرسة العجمي النموذجية"
+msgstr "Al-Daraisa — opposite Al-Agamy Model School"
+
+msgid "الفرع"
+msgstr "Branch"
+
+msgid "العجمي — الإسكندرية"
+msgstr "Al-Agamy — Alexandria"
+
+msgid "أبو يوسف — أمام مسجد الصابرين"
+msgstr "Abu Youssef — opposite Al-Sabireen Mosque"
+
+msgid "تواصل معنا"
+msgstr "Contact us"
+
+msgid "صيدلية براءة"
+msgstr "Baraa Pharmacy"
+
+msgid "صيدلية براءة — جميع الحقوق محفوظة"
+msgstr "Baraa Pharmacy — All rights reserved"
+
+msgid "صيدلية متخصصة بالإسكندرية. نوفر الأدوية الأصلية المعتمدة ونقدم استشارات صيدلانية موثوقة."
+msgstr "A specialised pharmacy in Alexandria. We provide authentic certified medicines and trustworthy pharmaceutical consultations."
+
+msgid "طرق الدفع:"
+msgstr "Payment methods:"
+
+msgid "عرض على خريطة جوجل"
+msgstr "View on Google Maps"
+
+msgid "كاش عند الاستلام"
+msgstr "Cash on delivery"
+
+msgid "ميزة Meeza"
+msgstr "Meeza"
+
+msgid "Baraa Pharmacy"
+msgstr "Baraa Pharmacy"
+
+msgid "Mastercard"
+msgstr "Mastercard"
+
+msgid "Visa"
+msgstr "Visa"

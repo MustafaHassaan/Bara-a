@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
                     $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                     if (has_custom_logo()) :
                     ?>
-                        <div class="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                        <div class="w-14 h-14 rounded-xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10 flex items-center justify-center flex-shrink-0">
                             <img src="<?php echo esc_url($logo[0]); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="w-full h-full object-contain">
                         </div>
                     <?php else : ?>
@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
                     <?php endif; ?>
                     <div class="flex flex-col">
                         <span class="font-headline-md text-headline-md text-primary font-bold leading-tight"><?php esc_html_e('صيدلية براءة', 'baraa-pharmacy'); ?></span>
-                        <span class="font-label-sm text-label-sm text-outline tracking-wider">Baraa Pharmacy</span>
+                        <span class="font-label-sm text-label-sm text-outline tracking-wider"><?php esc_html_e('Baraa Pharmacy', 'baraa-pharmacy'); ?></span>
                     </div>
                 </a>
 
@@ -104,7 +104,12 @@ if (!defined('ABSPATH')) {
             <div class="flex items-center gap-space-sm flex-wrap text-on-surface-variant font-label-sm text-label-sm">
                 <span><?php esc_html_e('طرق الدفع:', 'baraa-pharmacy'); ?></span>
                 <?php
-                $payment_methods = array('ميزة Meeza', 'Visa', 'Mastercard', __('كاش عند الاستلام', 'baraa-pharmacy'));
+                $payment_methods = array(
+                    __('ميزة Meeza', 'baraa-pharmacy'),
+                    __('Visa', 'baraa-pharmacy'),
+                    __('Mastercard', 'baraa-pharmacy'),
+                    __('كاش عند الاستلام', 'baraa-pharmacy'),
+                );
                 foreach ($payment_methods as $method) :
                 ?>
                     <span class="px-2 py-1 bg-surface-container-lowest rounded border border-outline-variant/30 font-semibold text-on-surface">

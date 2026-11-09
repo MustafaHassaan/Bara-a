@@ -401,6 +401,30 @@ foreach ($cart_items as $cart_item) {
         <!-- ══ RIGHT: Order summary + checkout ═══════════════ -->
         <div class="lg:col-span-5 xl:col-span-4 flex flex-col gap-space-md lg:sticky lg:top-48">
 
+            <?php if ($has_rx_products) : ?>
+            <!-- Rx in cart: hide summary/payment/checkout, route to WhatsApp instead -->
+            <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md text-center" aria-label="<?php esc_attr_e('إتمام الشراء يتطلب مراجعة صيدلي', 'baraa-pharmacy'); ?>">
+                <div class="w-14 h-14 mx-auto rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[30px]" aria-hidden="true">prescriptions</span>
+                </div>
+                <h2 class="font-headline-md text-headline-md font-bold text-on-surface">
+                    <?php esc_html_e('لا يمكن إتمام الطلب أونلاين', 'baraa-pharmacy'); ?>
+                </h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    <?php esc_html_e('سلتك تحتوي على دواء يتطلب روشتة طبية (Rx). تواصل مع الصيدلي عبر واتساب لإتمام طلبك بعد مراجعة الروشتة.', 'baraa-pharmacy'); ?>
+                </p>
+                <a
+                    class="w-full flex items-center justify-center gap-2 px-space-lg py-3 rounded-lg bg-primary text-on-primary font-title-md text-title-md font-bold shadow-md hover:bg-primary-container transition-colors"
+                    href="https://wa.me/201556859030"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">chat</span>
+                    <span><?php esc_html_e('تواصل مع الصيدلي عبر واتساب', 'baraa-pharmacy'); ?></span>
+                </a>
+            </div>
+
+            <?php else : ?>
             <!-- Order summary card -->
             <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md" aria-label="<?php esc_attr_e('ملخص الطلب', 'baraa-pharmacy'); ?>">
 
@@ -424,64 +448,6 @@ foreach ($cart_items as $cart_item) {
                     }
                 </style>
 
-                <!-- Payment methods selection -->
-                <div class="space-y-space-sm pt-space-xs">
-                    <span class="font-title-md text-title-md font-bold text-on-surface block">
-                        <?php esc_html_e('اختر وسيلة الدفع المفضلة', 'baraa-pharmacy'); ?>
-                    </span>
-                    <div class="space-y-2">
-                        <?php
-                        $payment_methods = array(
-                            array(
-                                'value' => 'card',
-                                'title' => __('بطاقات بنكية (Visa / MasterCard / ميزة)', 'baraa-pharmacy'),
-                                'desc'  => __('سداد مشفر آمن ببطاقات البنوك المصرية', 'baraa-pharmacy'),
-                                'badge' => '<span class="flex items-center gap-1">
-                                    <span class="px-1.5 py-0.5 bg-surface-container-lowest rounded text-[10px] font-bold border border-outline-variant/30">ميزة</span>
-                                    <span class="px-1.5 py-0.5 bg-surface-container-lowest rounded text-[10px] font-bold border border-outline-variant/30">VISA</span>
-                                    <span class="px-1.5 py-0.5 bg-surface-container-lowest rounded text-[10px] font-bold border border-outline-variant/30">MC</span>
-                                </span>',
-                                'checked' => true,
-                            ),
-                            array(
-                                'value' => 'wallets',
-                                'title' => __('المحافظ الإلكترونية الذكية', 'baraa-pharmacy'),
-                                'desc'  => __('فودافون كاش، أورنج كاش، وي باي، إتصالات كاش', 'baraa-pharmacy'),
-                                'badge' => '<span class="material-symbols-outlined text-secondary text-[22px]" aria-hidden="true">phone_android</span>',
-                            ),
-                            array(
-                                'value' => 'cod',
-                                'title' => __('الدفع عند الاستلام (كاش أو POS كارت)', 'baraa-pharmacy'),
-                                'desc'  => __('الدفع لمندوب الصيدلية نقدًا أو بماكينة الدفع المحمولة', 'baraa-pharmacy'),
-                                'badge' => '<span class="material-symbols-outlined text-on-surface-variant text-[22px]" aria-hidden="true">payments</span>',
-                            ),
-                        );
-                        foreach ($payment_methods as $pm) :
-                        ?>
-                            <label class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-all">
-                                <div class="flex items-center gap-space-sm">
-                                    <input
-                                        class="w-4 h-4 accent-primary shrink-0"
-                                        type="radio"
-                                        name="baraa_payment_method"
-                                        value="<?php echo esc_attr($pm['value']); ?>"
-                                        <?php echo !empty($pm['checked']) ? 'checked' : ''; ?>
-                                    />
-                                    <div class="text-right">
-                                        <span class="font-title-md text-title-md font-semibold text-on-surface block">
-                                            <?php echo esc_html($pm['title']); ?>
-                                        </span>
-                                        <span class="font-body-sm text-body-sm text-on-surface-variant">
-                                            <?php echo esc_html($pm['desc']); ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <?php echo wp_kses_post($pm['badge']); ?>
-                            </label>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
                 <!-- Checkout button -->
                 <div class="pt-space-sm space-y-space-xs">
                     <div class="wc-proceed-to-checkout" id="baraa-checkout-button-container">
@@ -493,6 +459,7 @@ foreach ($cart_items as $cart_item) {
                 </div>
 
             </div><!-- /.summary card -->
+            <?php endif; ?>
 
             <!-- Security badges -->
             <div class="p-space-md rounded-xl bg-surface-container-low space-y-2 text-center text-on-surface-variant">

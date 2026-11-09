@@ -1,0 +1,14 @@
+2026-11-09T16:06:19+00:00 INFO Email "admin_payment_gateway_enabled" sent CONTEXT: {"email_type":"admin_payment_gateway_enabled","status":"sent","recipient":"Admin","WC_Gateway_Kashier_Card":null}
+2026-11-09T16:06:19+00:00 INFO Email "admin_payment_gateway_enabled" sent CONTEXT: {"email_type":"admin_payment_gateway_enabled","status":"sent","recipient":"Admin","WC_Gateway_Kashier_Installment":null}
+2026-11-09T16:06:24+00:00 INFO Email "admin_payment_gateway_enabled" sent CONTEXT: {"email_type":"admin_payment_gateway_enabled","status":"sent","recipient":"Admin","WC_Gateway_Kashier_Wallet":null}
+2026-11-09T17:22:41+00:00 INFO Email "new_order" for order #1053 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"Admin","order":1053}
+2026-11-09T17:22:42+00:00 INFO Email "customer_processing_order" for order #1053 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Admin","order":1053}
+2026-11-09T17:23:30+00:00 INFO Email "customer_completed_order" for order #1053 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Admin","order":1053}
+2026-11-09T18:24:57+00:00 INFO Email "customer_completed_order" for order #1054 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Admin","order":1054}
+2026-11-09T18:24:58+00:00 INFO Email "new_order" for order #1054 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"Admin","order":1054}
+2026-11-09T18:25:25+00:00 INFO Email "customer_completed_order" for order #1055 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Admin","order":1055}
+2026-11-09T18:25:25+00:00 INFO Email "new_order" for order #1055 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"Admin","order":1055}
+2026-11-09T18:25:25+00:00 INFO Email "customer_completed_order" for order #1056 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Admin","order":1056}
+2026-11-09T18:25:26+00:00 INFO Email "new_order" for order #1056 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"Admin","order":1056}
+2026-11-09T18:25:26+00:00 INFO Email "customer_completed_order" for order #1057 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Admin","order":1057}
+2026-11-09T18:25:26+00:00 INFO Email "new_order" for order #1057 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"Admin","order":1057}
