@@ -70,9 +70,13 @@ if (!isset($order)) {
                 9 => 'سبتمبر', 10 => 'أكتوبر', 11 => 'نوفمبر', 12 => 'ديسمبر',
             );
             $created_at = $order->get_date_created();
-            $order_date = $created_at
-                ? $created_at->date_i18n('j') . ' ' . $ar_months[(int) $created_at->date_i18n('n')] . ' ' . $created_at->date_i18n('Y')
-                : '';
+            if ($created_at && baraa_pharmacy_is_english_visitor()) {
+                $order_date = $created_at->date_i18n('j F Y');
+            } else {
+                $order_date = $created_at
+                    ? $created_at->date_i18n('j') . ' ' . $ar_months[(int) $created_at->date_i18n('n')] . ' ' . $created_at->date_i18n('Y')
+                    : '';
+            }
 
             $shipping_display = str_replace(
                 array('Free shipping', 'Free!'),
@@ -98,10 +102,6 @@ if (!isset($order)) {
             )));
 
             $billing_phone = $order->get_billing_phone();
-
-            $map_lat     = $order->get_meta('_baraa_map_lat');
-            $map_lng     = $order->get_meta('_baraa_map_lng');
-            $map_address = $order->get_meta('_baraa_map_address');
             ?>
 
             <!-- ═══ HERO ═══════════════════════════════════════════ -->
@@ -293,20 +293,6 @@ if (!isset($order)) {
                         <div class="flex items-center gap-2 mt-space-md font-body-md text-body-md text-on-surface">
                             <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">call</span>
                             <a class="hover:text-primary transition-colors" dir="ltr" href="tel:<?php echo esc_attr($billing_phone); ?>"><?php echo esc_html($billing_phone); ?></a>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if ($map_lat && $map_lng) : ?>
-                        <div class="mt-space-md">
-                            <a class="baraa-thankyou-maplink inline-flex items-center gap-2 font-label-md text-label-md font-bold"
-                               href="https://www.google.com/maps/search/?api=1&amp;query=<?php echo esc_attr($map_lat . ',' . $map_lng); ?>"
-                               target="_blank" rel="noopener noreferrer">
-                                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">map</span>
-                                <span><?php esc_html_e('عرض موقع التوصيل على الخريطة', 'baraa-pharmacy'); ?></span>
-                            </a>
-                            <?php if ($map_address) : ?>
-                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1"><?php echo esc_html($map_address); ?></p>
-                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
                 </div>

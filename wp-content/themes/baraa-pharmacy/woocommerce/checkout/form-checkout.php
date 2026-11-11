@@ -79,60 +79,6 @@ $cart_url   = function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url(
                     <?php do_action('woocommerce_checkout_billing'); ?>
                 </div>
 
-                <!-- ═══ DELIVERY MAP — location picker ═══════════════ -->
-                <div class="baraa-map-card mt-space-lg bg-surface-container-lowest rounded-xl shadow-sm p-space-lg">
-                    <div class="flex items-start gap-space-sm mb-space-md">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">location_on</span>
-                        </div>
-                        <div>
-                            <h3 class="font-title-md text-title-md font-bold text-on-surface">
-                                <?php esc_html_e('حدِّد موقع التوصيل على الخريطة (اختياري)', 'baraa-pharmacy'); ?>
-                            </h3>
-                            <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-                                <?php esc_html_e('اسحب الدبوس أو اضغط على الخريطة لتحديد مكان استلام الطلب بدقة.', 'baraa-pharmacy'); ?>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row gap-space-sm mb-space-sm">
-                        <input type="text" id="baraa-map-search-input"
-                               class="flex-1 min-h-[46px] rounded-lg border border-outline-variant bg-surface-container-low px-3 text-body-md text-on-surface focus:border-primary focus:outline-none"
-                               placeholder="<?php echo esc_attr__('ابحث عن منطقتك (مثال: سموحة، الإسكندرية)', 'baraa-pharmacy'); ?>"
-                               autocomplete="off">
-                        <button type="button" id="baraa-map-search-btn"
-                                class="shrink-0 inline-flex items-center justify-center gap-1.5 px-4 min-h-[46px] rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:opacity-90 transition-opacity">
-                            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">search</span>
-                            <span><?php esc_html_e('بحث', 'baraa-pharmacy'); ?></span>
-                        </button>
-                    </div>
-
-                    <div id="baraa-map" class="baraa-map-canvas"
-                         role="application"
-                         aria-label="<?php echo esc_attr__('خريطة تحديد موقع التوصيل', 'baraa-pharmacy'); ?>"></div>
-
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-space-sm mt-space-sm">
-                        <button type="button" id="baraa-map-locate-btn"
-                                class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md font-semibold hover:bg-surface-container transition-colors">
-                            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">my_location</span>
-                            <span><?php esc_html_e('استخدم موقعي الحالي', 'baraa-pharmacy'); ?></span>
-                        </button>
-                        <p id="baraa-map-status" class="baraa-map-status" role="status" aria-live="polite"></p>
-                    </div>
-
-                    <div class="mt-space-sm">
-                        <label for="baraa_map_address" class="block font-label-sm text-label-sm font-semibold text-on-surface-variant mb-1.5">
-                            <?php esc_html_e('العنوان المُحدَّد من الخريطة', 'baraa-pharmacy'); ?>
-                        </label>
-                        <input type="text" id="baraa_map_address" name="baraa_map_address"
-                               class="w-full min-h-[46px] rounded-lg border border-outline-variant bg-surface-container-low px-3 text-body-md text-on-surface focus:border-primary focus:outline-none"
-                               placeholder="<?php echo esc_attr__('سيظهر العنوان هنا تلقائيًا بعد تحديد الموقع', 'baraa-pharmacy'); ?>">
-                    </div>
-
-                    <input type="hidden" id="baraa_map_lat" name="baraa_map_lat" value="">
-                    <input type="hidden" id="baraa_map_lng" name="baraa_map_lng" value="">
-                </div>
-
                 <?php do_action('woocommerce_checkout_after_customer_details'); ?>
             </div>
 

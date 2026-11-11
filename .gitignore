@@ -4,3 +4,23 @@
 CLAUDE.md
 GEMINI.md
 .github/copilot-instructions.md
+
+# Environment / secrets (never commit these)
+.env
+.env.*
+!.env.example
+
+# WordPress environment-specific content.
+# On Wasmer these live in the persistent wp-content volume, not in the repo.
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/ai1wm-backups/
+wp-content/debug.log
+wp-content/*.sql
+wp-content/*.sql.gz
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db

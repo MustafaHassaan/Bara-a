@@ -1085,3 +1085,95 @@ msgstr "Mastercard"
 
 msgid "Visa"
 msgstr "Visa"
+
+# ── Checkout page (form-checkout.php) ─────────────────────────
+msgid "يجب تسجيل الدخول لإتمام الطلب."
+msgstr "You must be logged in to checkout."
+
+msgid "إتمام الطلب"
+msgstr "Checkout"
+
+msgid "%s صنف في الطلب"
+msgid_plural "%s أصناف في الطلب"
+msgstr[0] "%s item in your order"
+msgstr[1] "%s items in your order"
+
+msgid "خطوة أخيرة — راجع بياناتك واختر طريقة الدفع لإتمام طلبك بأمان"
+msgstr "One last step — review your details and choose a payment method to place your order securely."
+
+msgid "العودة إلى السلة"
+msgstr "Back to cart"
+
+msgid "دفع مشفّر 100%"
+msgstr "100% encrypted payment"
+
+msgid "توصيل سريع ومنظّم"
+msgstr "Fast and organised delivery"
+
+# ── Thank-you page (thankyou.php) ─────────────────────────────
+msgid "تعذّر إتمام عملية الدفع"
+msgstr "We could not complete your payment"
+
+msgid "لم يتمكّن البنك من إتمام العملية. يمكنك إعادة المحاولة أو اختيار طريقة دفع أخرى."
+msgstr "The bank could not complete the transaction. You can try again or choose another payment method."
+
+msgid "إعادة محاولة الدفع"
+msgstr "Retry payment"
+
+msgid "العودة إلى المتجر"
+msgstr "Back to the store"
+
+msgid "شحن مجاني"
+msgstr "Free shipping"
+
+msgid "مجانًا"
+msgstr "Free"
+
+msgid "تم استلام طلبك بنجاح"
+msgstr "Your order has been received"
+
+msgid "شكرًا لثقتك في صيدليات براءة. بدأنا في تجهيز طلبك، وسيتواصل معك فريق التوصيل لتأكيد الموعد."
+msgstr "Thank you for trusting Baraa Pharmacies. We have started preparing your order and our delivery team will contact you to confirm the time."
+
+msgid "رقم الطلب"
+msgstr "Order number"
+
+msgid "التاريخ"
+msgstr "Date"
+
+msgid "الإجمالي"
+msgstr "Total"
+
+msgid "طريقة الدفع"
+msgstr "Payment method"
+
+msgid "تفاصيل الطلب"
+msgstr "Order details"
+
+msgid "المنتج"
+msgstr "Product"
+
+msgid "الكمية"
+msgstr "Quantity"
+
+msgid "المجموع الفرعي"
+msgstr "Subtotal"
+
+msgid "الخصم"
+msgstr "Discount"
+
+msgid "الشحن"
+msgstr "Shipping"
+
+msgid "الضريبة"
+msgstr "Tax"
+
+msgid "عنوان التوصيل"
+msgstr "Delivery address"
+
+msgid "تفاصيل الدفع"
+msgstr "Payment details"
+
+msgid "تواصل مع الصيدلي"
+msgstr "Contact the pharmacist"
+

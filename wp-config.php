@@ -20,23 +20,63 @@
  */
 
 // ** Database settings - You can get this info from your web host ** //
+/**
+ * Reads an environment variable, falling back to the given default when it is
+ * missing or empty.
+ *
+ * Locally (Local by Flywheel) no variables are set, so the constants below use
+ * their development values. On Wasmer Edge the platform injects the connection
+ * details (DB_HOST, DB_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD), so the very
+ * same file works in both environments without edits.
+ *
+ * @param string $name    Environment variable name.
+ * @param string $default Value used when the variable is missing or empty.
+ * @return string
+ */
+function baraa_env( $name, $default ) {
+	$value = getenv( $name );
+
+	return ( false !== $value && '' !== $value ) ? $value : $default;
+}
+
+$baraa_db_host = baraa_env( 'DB_HOST', 'localhost' );
+$baraa_db_port = baraa_env( 'DB_PORT', '' );
+
+// Wasmer runs MySQL on a non-standard port; WordPress expects "host:port".
+if ( '' !== $baraa_db_port && false === strpos( $baraa_db_host, ':' ) ) {
+	$baraa_db_host .= ':' . $baraa_db_port;
+}
+
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'local' );
+define( 'DB_NAME', baraa_env( 'DB_NAME', 'local' ) );
 
 /** Database username */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', baraa_env( 'DB_USERNAME', 'root' ) );
 
 /** Database password */
-define( 'DB_PASSWORD', 'root' );
+define( 'DB_PASSWORD', baraa_env( 'DB_PASSWORD', 'root' ) );
 
 /** Database hostname */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', $baraa_db_host );
 
-/** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8' );
+/**
+ * Database charset to use in creating database tables.
+ *
+ * utf8mb4 rather than plain "utf8" (utf8mb3): Arabic and English both fit in
+ * utf8mb3, but emoji and a handful of symbols customers can type into reviews,
+ * order notes or addresses do not — they get silently flattened to "?" on
+ * insert. utf8mb4 stores everything.
+ */
+define( 'DB_CHARSET', 'utf8mb4' );
 
-/** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
+/**
+ * The database collate type.
+ *
+ * Matched to the collation the store's tables already use. When the connection
+ * charset and the column charset disagree, MySQL rewrites characters it cannot
+ * map, which is exactly how Arabic ends up rendered as "???????".
+ */
+define( 'DB_COLLATE', 'utf8mb4_unicode_520_ci' );
 
 /**#@+
  * Authentication unique keys and salts.
@@ -61,6 +101,31 @@ define( 'WP_CACHE_KEY_SALT', '!i#I3P6chBl_N`#%E_UD-*vsv}7t.TEv)u<:C.$+d$FvAl3gE,
 
 
 /**#@-*/
+
+/* ---------------------------------------------------------------------------
+ * Environment & security hardening.
+ *
+ * WP_ENVIRONMENT_TYPE defaults to "local", so day-to-day development keeps full
+ * plugin/theme management. On Wasmer it is set to "production" from app.yaml,
+ * which switches on the stricter rules below.
+ * ------------------------------------------------------------------------ */
+$baraa_is_production = ( 'production' === baraa_env( 'WP_ENVIRONMENT_TYPE', 'local' ) );
+
+if ( ! defined( 'WP_ENVIRONMENT_TYPE' ) ) {
+	define( 'WP_ENVIRONMENT_TYPE', $baraa_is_production ? 'production' : 'local' );
+}
+
+/* Applies in every environment. */
+define( 'FORCE_SSL_ADMIN', true );
+define( 'WP_MEMORY_LIMIT', '256M' );
+define( 'FS_METHOD', 'direct' );
+
+/* Production only — these would get in the way of local development. */
+if ( $baraa_is_production ) {
+	define( 'DISALLOW_FILE_EDIT', true );
+	define( 'DISALLOW_FILE_MODS', true );
+	define( 'WP_POST_REVISIONS', 3 );
+}
 
 /**
  * WordPress database table prefix.
@@ -91,7 +156,6 @@ if ( ! defined( 'WP_DEBUG' ) ) {
 	define( 'WP_DEBUG', false );
 }
 
-define( 'WP_ENVIRONMENT_TYPE', 'local' );
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

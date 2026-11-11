@@ -64,6 +64,21 @@ add_action('wp', 'baraa_pharmacy_remove_wc_defaults');
 add_filter('woocommerce_shipping_calculator_enable_postcode', '__return_false');
 
 /**
+ * Disable XML-RPC. WordPress has no XMLRPC_ENABLED constant, and the
+ * `xmlrpc_enabled` filter only turns off the methods that require
+ * authentication — the `system.*` endpoints keep replying. Block the whole
+ * endpoint instead (xmlrpc.php defines XMLRPC_REQUEST before WordPress boots).
+ */
+function baraa_pharmacy_disable_xmlrpc()
+{
+    if (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) {
+        status_header(403);
+        exit;
+    }
+}
+add_action('init', 'baraa_pharmacy_disable_xmlrpc', 1);
+
+/**
  * The store delivers within Egypt only (the checkout country field is removed
  * and the base country is seeded instead), yet WooCommerce still feeds the
  * cart's shipping calculator the full worldwide country list — 250 English
@@ -73,6 +88,10 @@ function baraa_pharmacy_egypt_only_shipping_countries($countries)
 {
     if (is_admin() && !wp_doing_ajax()) {
         return $countries;
+    }
+
+    if (baraa_pharmacy_is_english_visitor()) {
+        return isset($countries['EG']) ? array('EG' => 'Egypt') : $countries;
     }
 
     if (!isset($countries['EG'])) {
@@ -98,6 +117,17 @@ function baraa_pharmacy_get_visitor_locale()
     }
 
     return in_array($saved_locale, $supported_locales, true) ? $saved_locale : '';
+}
+
+/**
+ * Whether the visitor explicitly switched the storefront to English through
+ * the header language switcher. Arabic is the storefront default (the site's
+ * WordPress locale is en_US with no language pack), so every Arabic mapping
+ * filter below steps aside for this single case only.
+ */
+function baraa_pharmacy_is_english_visitor()
+{
+    return 'en_US' === baraa_pharmacy_get_visitor_locale();
 }
 
 function baraa_pharmacy_filter_visitor_locale($locale)
@@ -1466,22 +1496,6 @@ body.woocommerce-checkout main article > h1:first-child { display: none !importa
     .woocommerce-checkout .woocommerce-notices-wrapper { padding: 0 1rem 1rem; }
 }
 
-/* ── Map location picker ─────────────────────────────────── */
-.woocommerce-checkout .baraa-map-card { position: relative; z-index: 0; }
-.woocommerce-checkout .baraa-map-canvas {
-    width: 100% !important; height: 320px !important;
-    border-radius: .75rem !important; overflow: hidden !important;
-    background: #f4f3fa !important; z-index: 0 !important;
-}
-.woocommerce-checkout .baraa-map-canvas .leaflet-control-attribution { font-size: 10px !important; }
-.woocommerce-checkout .baraa-map-canvas .leaflet-bar a { color: #131b2e !important; }
-.woocommerce-checkout .baraa-map-status { font-size: .75rem !important; color: #6d7a77 !important; min-height: 1rem !important; }
-.woocommerce-checkout .baraa-order-map { margin: .75rem 0 0 !important; font-size: .875rem !important; }
-.woocommerce-checkout .baraa-order-map a { color: #00685f !important; font-weight: 700 !important; }
-@media (max-width: 640px) {
-    .woocommerce-checkout .baraa-map-canvas { height: 240px !important; }
-}
-
 /* ── Dark mode ───────────────────────────────────────────── */
 html.dark .woocommerce-checkout .woocommerce { color: #dff0ed !important; }
 html.dark .woocommerce-checkout #customer_details { background: #132220 !important; box-shadow: 0 1px 4px rgba(0,30,28,.6) !important; }
@@ -1526,9 +1540,6 @@ html.dark .woocommerce-checkout .woocommerce-form-login-toggle .woocommerce-info
 html.dark .woocommerce-checkout form.checkout_coupon,
 html.dark .woocommerce-checkout form.woocommerce-form-login { background: #132220 !important; border-color: rgba(80,130,125,.35) !important; }
 html.dark .woocommerce-checkout .woocommerce-error { background: #2d1216 !important; color: #ffb3ab !important; }
-html.dark .woocommerce-checkout .baraa-map-canvas { background: #1a2e2c !important; }
-html.dark .woocommerce-checkout .baraa-map-status { color: #8db5b0 !important; }
-html.dark .woocommerce-checkout .baraa-order-map a { color: #5ecfc2 !important; }
 </style>
     <?php
 }
@@ -1597,8 +1608,6 @@ html.dark .baraa-thankyou-card { background: #132220 !important; }
 .baraa-thankyou-name { color: #131b2e !important; }
 .baraa-thankyou-total,
 .baraa-thankyou-discount { color: #00685f !important; }
-.baraa-thankyou-maplink { color: #00685f !important; }
-.baraa-thankyou-maplink:hover { color: #005049 !important; }
 .baraa-thankyou-gateway p { margin: 0 !important; }
 
 /* ── Buttons ─────────────────────────────────────────────── */
@@ -1625,8 +1634,6 @@ html.dark .baraa-thankyou-thumb { background: #1a2e2c !important; }
 html.dark .baraa-thankyou-name { color: #dff0ed !important; }
 html.dark .baraa-thankyou-total,
 html.dark .baraa-thankyou-discount { color: #5ecfc2 !important; }
-html.dark .baraa-thankyou-maplink { color: #5ecfc2 !important; }
-html.dark .baraa-thankyou-maplink:hover { color: #89f5e7 !important; }
 html.dark .baraa-thankyou-btn-primary { background: #5ecfc2 !important; color: #002926 !important; }
 html.dark .baraa-thankyou-btn-primary:hover { background: #89f5e7 !important; }
 html.dark .baraa-thankyou-btn-ghost { background: #1a2e2c !important; color: #5ecfc2 !important; }
@@ -1644,7 +1651,7 @@ add_action('wp_head', 'baraa_pharmacy_thankyou_style_overrides', 101);
  */
 function baraa_pharmacy_arabic_cod_settings($value)
 {
-    if (is_admin() && !wp_doing_ajax()) {
+    if ((is_admin() && !wp_doing_ajax()) || baraa_pharmacy_is_english_visitor()) {
         return $value;
     }
 
@@ -1717,113 +1724,6 @@ function baraa_pharmacy_default_checkout_data($data)
     return $data;
 }
 add_filter('woocommerce_checkout_posted_data', 'baraa_pharmacy_default_checkout_data');
-
-/**
- * Load Leaflet (OpenStreetMap) and the delivery location picker on checkout.
- */
-function baraa_pharmacy_enqueue_checkout_map()
-{
-    if (!function_exists('is_checkout') || !is_checkout() || (function_exists('is_wc_endpoint_url') && is_wc_endpoint_url('order-received'))) {
-        return;
-    }
-
-    wp_enqueue_style('leaflet', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', array(), '1.9.4');
-    wp_enqueue_script('leaflet', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', array(), '1.9.4', true);
-
-    $map_script = get_template_directory() . '/assets/js/checkout-map.js';
-    $version    = file_exists($map_script) ? (string) filemtime($map_script) : '1.0.0';
-
-    wp_enqueue_script(
-        'baraa-pharmacy-checkout-map',
-        get_template_directory_uri() . '/assets/js/checkout-map.js',
-        array('leaflet'),
-        $version,
-        true
-    );
-
-    wp_localize_script('baraa-pharmacy-checkout-map', 'baraaMap', array(
-        'defaultCenter' => array(31.2001, 29.9187),
-        'strings'       => array(
-            'locating'     => __('جارٍ تحديد موقعك...', 'baraa-pharmacy'),
-            'located'      => __('تم تحديد موقعك الحالي.', 'baraa-pharmacy'),
-            'geoError'     => __('تعذّر الوصول إلى موقعك، حدّد الموقع يدويًا على الخريطة.', 'baraa-pharmacy'),
-            'reverseError' => __('تعذّر جلب العنوان تلقائيًا، يمكنك كتابته يدويًا.', 'baraa-pharmacy'),
-            'searchEmpty'  => __('اكتب اسم المنطقة أو الشارع للبحث.', 'baraa-pharmacy'),
-            'searchNone'   => __('لم يتم العثور على نتائج، جرّب كلمة أخرى.', 'baraa-pharmacy'),
-            'searching'    => __('جارٍ البحث...', 'baraa-pharmacy'),
-        ),
-    ));
-}
-add_action('wp_enqueue_scripts', 'baraa_pharmacy_enqueue_checkout_map', 30);
-
-/**
- * Persist the pinned coordinates and reverse-geocoded address on the order.
- */
-function baraa_pharmacy_save_map_location($order, $data)
-{
-    $lat     = isset($_POST['baraa_map_lat']) ? sanitize_text_field(wp_unslash($_POST['baraa_map_lat'])) : '';
-    $lng     = isset($_POST['baraa_map_lng']) ? sanitize_text_field(wp_unslash($_POST['baraa_map_lng'])) : '';
-    $address = isset($_POST['baraa_map_address']) ? sanitize_text_field(wp_unslash($_POST['baraa_map_address'])) : '';
-
-    if ($lat && $lng) {
-        $order->update_meta_data('_baraa_map_lat', $lat);
-        $order->update_meta_data('_baraa_map_lng', $lng);
-    }
-
-    if ($address) {
-        $order->update_meta_data('_baraa_map_address', $address);
-    }
-}
-add_action('woocommerce_checkout_create_order', 'baraa_pharmacy_save_map_location', 10, 2);
-
-/**
- * Show the pinned delivery location inside the order admin screen.
- */
-function baraa_pharmacy_map_admin_display($order)
-{
-    $lat     = $order->get_meta('_baraa_map_lat');
-    $lng     = $order->get_meta('_baraa_map_lng');
-    $address = $order->get_meta('_baraa_map_address');
-
-    if (!$lat || !$lng) {
-        return;
-    }
-
-    $map_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($lat . ',' . $lng);
-
-    echo '<div class="baraa-admin-map" style="clear:both;margin-top:12px;">';
-    echo '<p style="margin:0 0 4px;"><strong>' . esc_html__('موقع التوصيل على الخريطة', 'baraa-pharmacy') . '</strong></p>';
-    if ($address) {
-        echo '<p style="margin:0 0 6px;">' . esc_html($address) . '</p>';
-    }
-    echo '<p style="margin:0;"><a href="' . esc_url($map_url) . '" target="_blank" rel="noopener">' . esc_html__('عرض الموقع على خرائط Google', 'baraa-pharmacy') . '</a></p>';
-    echo '</div>';
-}
-add_action('woocommerce_admin_order_data_after_shipping_address', 'baraa_pharmacy_map_admin_display');
-
-/**
- * Confirm the pinned delivery location on the "order received" page.
- */
-function baraa_pharmacy_map_thankyou_display($order)
-{
-    $lat = $order->get_meta('_baraa_map_lat');
-    $lng = $order->get_meta('_baraa_map_lng');
-
-    if (!$lat || !$lng) {
-        return;
-    }
-
-    $map_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($lat . ',' . $lng);
-
-    printf(
-        '<p class="baraa-order-map">%1$s <a href="%2$s" target="_blank" rel="noopener">%3$s</a></p>',
-        esc_html__('موقع التوصيل المُحدَّد:', 'baraa-pharmacy'),
-        esc_url($map_url),
-        esc_html__('عرض على الخريطة', 'baraa-pharmacy')
-    );
-}
-add_action('woocommerce_order_details_after_order_table', 'baraa_pharmacy_map_thankyou_display');
-
 
 /**
  * Enqueue the theme's JS (storefront interactions + cart stepper).
@@ -1976,6 +1876,42 @@ function baraa_pharmacy_render_classic_checkout_block($block_content, $block)
 add_filter('render_block', 'baraa_pharmacy_render_classic_checkout_block', 10, 2);
 
 /**
+ * Keep a single delivery-location map on the classic checkout.
+ *
+ * The checkout page stores the WooCommerce Checkout block but we render it
+ * with the [woocommerce_checkout] shortcode (see the override above). RouteMile
+ * therefore runs BOTH of its picker paths at once: the blocks-checkout content
+ * filter (which still sees the block in the raw page content) and the classic
+ * billing-form hook. That printed the picker — and its #routew-map /
+ * #routew-location-search-input ids — twice, so the map JS only booted on the
+ * first copy. Dropping the blocks-injected copy leaves the billing-form picker,
+ * which sits inside the classic layout where it belongs.
+ */
+function baraa_pharmacy_routew_single_map()
+{
+    if (!function_exists('is_checkout') || !is_checkout() || !class_exists('ROUTEW_Blocks_Checkout')) {
+        return;
+    }
+
+    global $wp_filter;
+
+    foreach (array('the_content', 'render_block_core/post-content') as $hook) {
+        if (empty($wp_filter[$hook])) {
+            continue;
+        }
+
+        foreach ($wp_filter[$hook]->callbacks as $priority => $callbacks) {
+            foreach ($callbacks as $callback) {
+                if (is_array($callback['function']) && $callback['function'][0] instanceof ROUTEW_Blocks_Checkout) {
+                    remove_filter($hook, $callback['function'], $priority);
+                }
+            }
+        }
+    }
+}
+add_action('wp', 'baraa_pharmacy_routew_single_map', 20);
+
+/**
  * Repair the Kashier payment icons on the classic checkout.
  *
  * Kashier_Gateway::payment_icons() appends ".svg" to icon filenames that already
@@ -2040,6 +1976,10 @@ add_filter('print_scripts_array', 'baraa_pharmacy_filter_kashier_block_scripts')
 function baraa_pharmacy_arabic_woocommerce_strings($translated, $text, $domain)
 {
     if (is_admin() && !wp_doing_ajax()) {
+        return $translated;
+    }
+
+    if (baraa_pharmacy_is_english_visitor()) {
         return $translated;
     }
 
@@ -2225,11 +2165,59 @@ function baraa_pharmacy_arabic_woocommerce_strings($translated, $text, $domain)
         'e.g., Near City Mall, Opposite Park'         => 'مثال: بجوار سيتي مول، أمام الحديقة',
         'Delivery Instructions'                       => 'تعليمات التوصيل',
         'e.g., Ring the bell twice, Leave at the door, Call before arriving...' => 'مثال: اِرن الجرس مرتين، اتركه عند الباب، اتصل قبل الوصول...',
+        // RouteMile checkout validation & zone messages (pharmacy wording, not "restaurant")
+        'Sorry, we do not deliver to your location — it is %1$s km by road and we deliver within %2$s km of the restaurant.' => 'عذرًا، لا نوصّل إلى موقعك — المسافة %1$s كم بالطريق، وخدمة التوصيل متاحة حتى %2$s كم من الصيدلية.',
+        'Sorry, we only deliver within %s km of the restaurant.' => 'عذرًا، نوصّل فقط داخل %s كم من الصيدلية.',
+        'Sorry, we do not deliver to your location.'           => 'عذرًا، لا نوصّل إلى موقعك.',
+        'Online ordering is currently unavailable — the delivery map is not configured. Please contact the store.' => 'الطلب غير متاح حاليًا — خريطة التوصيل غير مُعدّة. يُرجى التواصل مع الصيدلية.',
+        'We are currently closed for deliveries. Please try again later.' => 'التوصيل متوقف حاليًا. يُرجى المحاولة لاحقًا.',
+        'Please select your exact location on the map above to enable delivery.' => 'حدِّد موقعك بالضبط على الخريطة أعلاه لتفعيل التوصيل.',
+        'Please select your exact location on the map. This ensures accurate delivery and helps our delivery agent find you.' => 'حدِّد موقعك بالضبط على الخريطة، لضمان دقة التوصيل ومساعدة مندوب التوصيل في الوصول إليك.',
+        'Please enter your exact address (house / flat / building no.) so our delivery agent can find you.' => 'اكتب عنوانك بالتفصيل (رقم المنزل / الشقة / العمارة) حتى يستطيع مندوب التوصيل الوصول إليك.',
+        'Invalid location coordinates detected. Please select your location again using the map.' => 'تم رصد إحداثيات موقع غير صحيحة. يُرجى تحديد موقعك مجددًا من الخريطة.',
+        'Delivery service is not properly configured. Please contact support.' => 'خدمة التوصيل غير مُعدّة بشكل صحيح. يُرجى التواصل مع الدعم.',
+        'Could not calculate delivery distance. Please try again.' => 'تعذّر حساب مسافة التوصيل. يُرجى المحاولة مرة أخرى.',
+        'Please enter a valid phone number (7-15 digits) — your rider will call it on arrival.' => 'أدخل رقم هاتف صحيح (من 7 إلى 15 رقمًا) — سيتصل بك مندوب التوصيل عند الوصول.',
+        'The minimum delivery order is %1$s — please add %2$s more to your cart.' => 'الحد الأدنى لطلب التوصيل هو %1$s — يُرجى إضافة %2$s إلى سلتك.',
+        'Landmark'                                    => 'علامة مميزة',
     );
 
     return isset($map[$text]) ? $map[$text] : $translated;
 }
 add_filter('gettext', 'baraa_pharmacy_arabic_woocommerce_strings', 20, 3);
+
+/**
+ * RouteMile admin wording: this store is a pharmacy, not a restaurant.
+ *
+ * The plugin ships "Restaurant …" labels for its settings and notices
+ * (Restaurant Address, Restaurant Coordinates, the receipts section…).
+ * The storefront copy is already handled by the Arabic map above; this
+ * rewrites the English strings on the wp-admin screens only, so the
+ * dashboard reads "Pharmacy …" while the rest of the admin stays
+ * untouched. Plurals are replaced first so "restaurants" never becomes
+ * "pharmacys".
+ */
+function baraa_pharmacy_routemile_pharmacy_wording($translated, $text, $domain)
+{
+    if ('routemile-for-woocommerce' !== $domain) {
+        return $translated;
+    }
+
+    if (!is_admin() || wp_doing_ajax()) {
+        return $translated;
+    }
+
+    if (false === strpos($translated, 'estaurant')) {
+        return $translated;
+    }
+
+    return str_replace(
+        array('Restaurants', 'restaurants', 'Restaurant', 'restaurant'),
+        array('Pharmacies', 'pharmacies', 'Pharmacy', 'pharmacy'),
+        $translated
+    );
+}
+add_filter('gettext', 'baraa_pharmacy_routemile_pharmacy_wording', 20, 3);
 
 /**
  * Plural forms (`_n`) used by WooCommerce on the storefront — the plain
@@ -2238,6 +2226,10 @@ add_filter('gettext', 'baraa_pharmacy_arabic_woocommerce_strings', 20, 3);
 function baraa_pharmacy_arabic_woocommerce_plurals($translation, $single, $plural, $number, $domain)
 {
     if (is_admin() && !wp_doing_ajax()) {
+        return $translation;
+    }
+
+    if (baraa_pharmacy_is_english_visitor()) {
         return $translation;
     }
 
@@ -2273,6 +2265,10 @@ function baraa_pharmacy_arabic_woocommerce_context_strings($translation, $text, 
         return $translation;
     }
 
+    if (baraa_pharmacy_is_english_visitor()) {
+        return $translation;
+    }
+
     if (!in_array($domain, array('woocommerce', 'default', 'woocommerce-gateway-kashier'), true)) {
         return $translation;
     }
@@ -2288,8 +2284,9 @@ add_filter('gettext_with_context', 'baraa_pharmacy_arabic_woocommerce_context_st
 
 /**
  * Payment gateway titles/descriptions are stored as plain DB option strings
- * (e.g. Kashier saves "Card" / "Mobile Wallet" from its settings default), so
- * they never pass through gettext. Translate them on the storefront here.
+ * (e.g. Kashier saves "Card" / "Mobile Wallet" from its settings default while
+ * the store saved COD in Arabic), so they never pass through gettext.
+ * Translate them on the storefront in whichever direction the visitor picked.
  */
 function baraa_pharmacy_arabic_gateway_title($title, $id)
 {
@@ -2306,7 +2303,14 @@ function baraa_pharmacy_arabic_gateway_title($title, $id)
         'Souhoola'        => 'سهولة',
         'Aman'            => 'أمان',
         'Contact Now'     => 'تواصل معنا',
+        'Cash on delivery' => 'الدفع عند الاستلام',
     );
+
+    if (baraa_pharmacy_is_english_visitor()) {
+        $reverse = array_flip($map);
+
+        return isset($reverse[$title]) ? $reverse[$title] : $title;
+    }
 
     return isset($map[$title]) ? $map[$title] : $title;
 }
@@ -2322,7 +2326,14 @@ function baraa_pharmacy_arabic_gateway_description($description, $id)
         'Pay with your Credit Card.'   => 'ادفع بأمان باستخدام بطاقتك الائتمانية.',
         'Pay with your Mobile Wallet.' => 'ادفع باستخدام محفظتك الإلكترونية.',
         'Pay with cash upon delivery.' => 'يتم الدفع نقدًا عند الاستلام.',
+        'Pay cash upon receiving your order from the delivery agent.' => 'ادفع نقدًا عند استلام طلبك من مندوب التوصيل.',
     );
+
+    if (baraa_pharmacy_is_english_visitor()) {
+        $reverse = array_flip($map);
+
+        return isset($reverse[$description]) ? $reverse[$description] : $description;
+    }
 
     return isset($map[$description]) ? $map[$description] : $description;
 }
@@ -2337,6 +2348,10 @@ add_filter('woocommerce_gateway_description', 'baraa_pharmacy_arabic_gateway_des
 function baraa_pharmacy_arabic_privacy_policy_text($text, $type = '')
 {
     if (is_admin() && !wp_doing_ajax()) {
+        return $text;
+    }
+
+    if (baraa_pharmacy_is_english_visitor()) {
         return $text;
     }
 
@@ -2355,7 +2370,7 @@ add_filter('woocommerce_get_privacy_policy_text', 'baraa_pharmacy_arabic_privacy
  */
 function baraa_pharmacy_translate_page_titles($title, $id = null)
 {
-    if (is_admin() || is_feed()) {
+    if (is_admin() || is_feed() || baraa_pharmacy_is_english_visitor()) {
         return $title;
     }
 
@@ -2373,7 +2388,7 @@ add_filter('the_title', 'baraa_pharmacy_translate_page_titles', 20, 2);
 
 function baraa_pharmacy_translate_document_title($parts)
 {
-    if (is_admin()) {
+    if (is_admin() || baraa_pharmacy_is_english_visitor()) {
         return $parts;
     }
 
@@ -2398,7 +2413,7 @@ add_filter('document_title_parts', 'baraa_pharmacy_translate_document_title');
  */
 function baraa_pharmacy_arabic_egypt_states($states)
 {
-    if (!isset($states['EG'])) {
+    if (baraa_pharmacy_is_english_visitor() || !isset($states['EG'])) {
         return $states;
     }
 
@@ -2443,7 +2458,7 @@ add_filter('woocommerce_states', 'baraa_pharmacy_arabic_egypt_states');
  */
 function baraa_pharmacy_arabic_shipping_package_name($name)
 {
-    if (is_admin() && !wp_doing_ajax()) {
+    if ((is_admin() && !wp_doing_ajax()) || baraa_pharmacy_is_english_visitor()) {
         return $name;
     }
 
@@ -2461,7 +2476,7 @@ add_filter('woocommerce_shipping_package_name', 'baraa_pharmacy_arabic_shipping_
 
 function baraa_pharmacy_arabic_shipping_method_label($label, $method)
 {
-    if (is_admin() && !wp_doing_ajax()) {
+    if ((is_admin() && !wp_doing_ajax()) || baraa_pharmacy_is_english_visitor()) {
         return $label;
     }
 
@@ -2485,7 +2500,7 @@ add_filter('woocommerce_cart_shipping_method_full_label', 'baraa_pharmacy_arabic
  */
 function baraa_pharmacy_arabic_kashier_description($description, $gateway_id)
 {
-    if (is_admin() && !wp_doing_ajax()) {
+    if ((is_admin() && !wp_doing_ajax()) || baraa_pharmacy_is_english_visitor()) {
         return $description;
     }
 
@@ -2502,6 +2517,79 @@ function baraa_pharmacy_arabic_kashier_description($description, $gateway_id)
     );
 }
 add_filter('wc_kashier_description', 'baraa_pharmacy_arabic_kashier_description', 10, 2);
+
+/**
+ * English counterparts for the catalogue's category names.
+ *
+ * Every other translation in this file layers Arabic on top of the English
+ * source strings. Categories are the opposite case: the catalogue was entered
+ * in Arabic, so the names live in the database as Arabic text. The Arabic
+ * storefront therefore already shows the right thing, and only English visitors
+ * need a counterpart — which is why the filter below steps aside unless the
+ * visitor explicitly switched to English.
+ *
+ * The gettext filter cannot reach database content, so the two term filters
+ * after the map are used instead. Names with no entry fall through untouched,
+ * so a category added in wp-admin never disappears from the storefront.
+ */
+function baraa_pharmacy_english_category_names()
+{
+    return array(
+        'الادوية'                              => 'Medicines',
+        'لبوس'                                 => 'Suppositories',
+        'أقراص و كبسولات | الادوية'              => 'Tablets & Capsules',
+        'أشربة | الادوية'                       => 'Syrups',
+        'الادوية | حقن ومحاليل'                 => 'Injections & Solutions',
+        'الادوية | قطرات ومراهم عين وأنف وأذن'   => 'Eye, Nose & Ear Care',
+        'الادوية | كريمات و مراهم'              => 'Creams & Ointments',
+        'الادوية | نقط بالفم'                   => 'Oral Drops',
+    );
+}
+
+/**
+ * Whether term names should be translated for this request. The admin always
+ * keeps the stored Arabic so the catalogue stays editable.
+ */
+function baraa_pharmacy_should_translate_term_names()
+{
+    if (is_admin() && !wp_doing_ajax()) {
+        return false;
+    }
+
+    return baraa_pharmacy_is_english_visitor();
+}
+
+function baraa_pharmacy_translate_term($term)
+{
+    if ($term instanceof WP_Term && baraa_pharmacy_should_translate_term_names()) {
+        $names = baraa_pharmacy_english_category_names();
+
+        if (isset($names[$term->name])) {
+            $term->name = $names[$term->name];
+        }
+    }
+
+    return $term;
+}
+add_filter('get_term', 'baraa_pharmacy_translate_term', 20);
+
+function baraa_pharmacy_translate_terms($terms)
+{
+    if (!is_array($terms) || !baraa_pharmacy_should_translate_term_names()) {
+        return $terms;
+    }
+
+    $names = baraa_pharmacy_english_category_names();
+
+    foreach ($terms as $term) {
+        if ($term instanceof WP_Term && isset($names[$term->name])) {
+            $term->name = $names[$term->name];
+        }
+    }
+
+    return $terms;
+}
+add_filter('get_terms', 'baraa_pharmacy_translate_terms', 20);
 
 function baraa_pharmacy_handle_clear_cart()
 {
