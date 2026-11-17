@@ -1,0 +1,551 @@
+# Baraa Pharmacy Theme — Translation Template
+# Copyright (C) 2025 Baraa Pharmacies
+# This file is distributed under the same license as the Baraa Pharmacy theme.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baraa Pharmacy 1.0.0\n"
+"Report-Msgid-Bugs-To: care@baraapharmacies.com\n"
+"POT-Creation-Date: 2025-11-05T00:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Domain: baraa-pharmacy\n"
+
+msgid "Breadcrumb"
+msgstr ""
+
+msgid "Free shipping"
+msgstr ""
+
+msgid "Nothing to display yet."
+msgstr ""
+
+msgid "Shipment"
+msgstr ""
+
+msgid "ابحث باسم الدواء، المادة الفعالة، أو العَرَض..."
+msgstr ""
+
+msgid "ابحث بالاسم العلمي، التجاري، المادة الفعالة أو الأعراض..."
+msgstr ""
+
+msgid "ابحث عن منتج"
+msgstr ""
+
+msgid "اتصل بـ 19822"
+msgstr ""
+
+msgid "اختر اللغة"
+msgstr ""
+
+msgid "أدخل كود الكوبون"
+msgstr ""
+
+msgid "أدوية مسكنة وOTC"
+msgstr ""
+
+msgid "إزالة"
+msgstr ""
+
+msgid "استخدم هذا المنتج طبقاً للتعليمات المدونة على العبوة أو بتوجيه من كادر صحي مؤهل."
+msgstr ""
+
+msgid "استشارات مجانية للجرعات والتداخلات الدوائية مع استشاري دواء."
+msgstr ""
+
+msgid "استشارة صيدلي"
+msgstr ""
+
+msgid "استشارة صيدلي عبر واتساب"
+msgstr ""
+
+msgid "استشاري صيدلة إكلينيكية"
+msgstr ""
+
+msgid "أسطول مجهز بحقائب مبردة لتغطية الطوارئ الحادة على مدار اليوم."
+msgstr ""
+
+msgid "أسعار مدعومة لأجهزة الفحص الدوري وأشهر منتجات العناية والفيتامينات العالمية."
+msgstr ""
+
+#. translators: %s: product name
+msgid "إضافة %s للمفضلة"
+msgstr ""
+
+msgid "أضف للسلة"
+msgstr ""
+
+msgid "اطلب دواءك بروشتة واحدة"
+msgstr ""
+
+msgid "الاتصال بالخط الساخن المباشر (19822)"
+msgstr ""
+
+msgid "الأحدث أولاً"
+msgstr ""
+
+msgid "الأدوية والمستلزمات الأكثر طلباً"
+msgstr ""
+
+msgid "الأسعار طبقاً لكتالوج المتجر"
+msgstr ""
+
+msgid "الأسعار طبقاً للتسعيرة الجبرية لوزارة الصحة"
+msgstr ""
+
+msgid "الأعلى تقييماً"
+msgstr ""
+
+msgid "الأقسام العلاجية المتخصصة"
+msgstr ""
+
+msgid "الأكثر طلباً:"
+msgstr ""
+
+msgid "الأكثر مبيعاً"
+msgstr ""
+
+msgid "البريد الإلكتروني الطبي:"
+msgstr ""
+
+msgid "الترتيب الافتراضي"
+msgstr ""
+
+msgid "التصنيفات"
+msgstr ""
+
+msgid "التقط صورة للروشتة أو اختر ملف"
+msgstr ""
+
+msgid "التنقل بين الأقسام"
+msgstr ""
+
+msgid "الحد الأدنى"
+msgstr ""
+
+msgid "الحد الأدنى للسعر"
+msgstr ""
+
+msgid "الحد الأقصى"
+msgstr ""
+
+msgid "الحد الأقصى للسعر"
+msgstr ""
+
+msgid "الدفع نقدًا عند الاستلام"
+msgstr ""
+
+msgid "الرئيسية"
+msgstr ""
+
+msgid "السعر: الأعلى أولاً"
+msgstr ""
+
+msgid "السعر: الأقل أولاً"
+msgstr ""
+
+msgid "السلة"
+msgstr ""
+
+#. translators: %s: cart item count
+msgid "السلة — %s منتج"
+msgstr ""
+
+msgid "الشروط والأحكام"
+msgstr ""
+
+msgid "الصيدلية الإلكترونية الأولى المعتمدة من هيئة الدواء المصرية"
+msgstr ""
+
+msgid "العيادة الصيدلانية الرقمية المباشرة"
+msgstr ""
+
+msgid "الكل"
+msgstr ""
+
+msgid "المتجر"
+msgstr ""
+
+msgid "المنتجات في سلتك"
+msgstr ""
+
+msgid "الوقت المتبقي على انتهاء العرض"
+msgstr ""
+
+msgid "بحث"
+msgstr ""
+
+msgid "تأكيد البحث"
+msgstr ""
+
+msgid "تتطلب روشتة (Rx)"
+msgstr ""
+
+msgid "تحدث مع الصيدلي عبر واتساب"
+msgstr ""
+
+msgid "تذكير تلقائي بتجديد دواء الأمراض المزمنة"
+msgstr ""
+
+msgid "ترتيب:"
+msgstr ""
+
+msgid "ترخيص وزارة الصحة رقم 4921/2012"
+msgstr ""
+
+msgid "تساؤل عن منتج أو طلب؟"
+msgstr ""
+
+msgid "تسوق حسب الحالة الصحية"
+msgstr ""
+
+msgid "تصفح أدويتك ومستلزماتك بإشراف صيدلي متخصص لكل تخصص طبي."
+msgstr ""
+
+msgid "تصفح أدويتنا ومستلزماتنا الصحية المعتمدة من صيدليات براءة."
+msgstr ""
+
+msgid "تصفح الصفحات"
+msgstr ""
+
+msgid "تصفح المتجر"
+msgstr ""
+
+msgid "تصفح المتجر وأضف المنتجات التي تحتاجها إلى سلتك."
+msgstr ""
+
+msgid "تصفية المنتجات"
+msgstr ""
+
+msgid "تصفية بالسعر"
+msgstr ""
+
+msgid "تصنيفات المنتجات"
+msgstr ""
+
+msgid "تطبيق"
+msgstr ""
+
+msgid "تطبيق الترتيب"
+msgstr ""
+
+msgid "تطبيق الفلتر"
+msgstr ""
+
+msgid "تفاصيل التوصيل"
+msgstr ""
+
+msgid "تفريغ السلة"
+msgstr ""
+
+msgid "تقسيط بدون فوائد"
+msgstr ""
+
+msgid "تقليل الكمية"
+msgstr ""
+
+msgid "توصيل إسعافي 30 دقيقة"
+msgstr ""
+
+msgid "توصيل سريع"
+msgstr ""
+
+msgid "توصيل سريع مجاني للطلبات فوق 350 ج.م في القاهرة والجيزة والمدن الرئيسية ⚡"
+msgstr ""
+
+msgid "توصيل قياسي 15-45 دقيقة"
+msgstr ""
+
+msgid "جميع الأقسام"
+msgstr ""
+
+msgid "جميع المنتجات"
+msgstr ""
+
+msgid "حتى باب بيتك خلال دقائق"
+msgstr ""
+
+msgid "خدمات صيدليات براءة"
+msgstr ""
+
+msgid "خدمة صيدلي 24/7 عبر الخط الساخن:"
+msgstr ""
+
+msgid "خصم"
+msgstr ""
+
+msgid "خلال أقل من 3 دقائق"
+msgstr ""
+
+msgid "خيارات الشحن تُحدد عند الدفع"
+msgstr ""
+
+msgid "دفع عند الاستلام أو فيزا وميزة"
+msgstr ""
+
+msgid "دقة 100%"
+msgstr ""
+
+msgid "دواء أصلي 100% موثق"
+msgstr ""
+
+msgid "دواء أصلي معتمد، واستشارة صيدلية موثوقة"
+msgstr ""
+
+msgid "راجع منتجاتك وكمياتها قبل إتمام الطلب."
+msgstr ""
+
+msgid "رفع الروشتة الآن"
+msgstr ""
+
+msgid "رفع صورة الروشتة"
+msgstr ""
+
+msgid "روشتة أونلاين"
+msgstr ""
+
+msgid "زيادة الكمية"
+msgstr ""
+
+msgid "ستظهر الأقسام هنا بعد إضافتها للمتجر."
+msgstr ""
+
+msgid "ستظهر المنتجات هنا بعد إضافتها للمتجر."
+msgstr ""
+
+msgid "سعر الوحدة:"
+msgstr ""
+
+msgid "سلامتك الدوائية هي جوهر عملنا. يقدم صيادلتنا المتخصصون تدقيقاً مجانياً للروشتات المزمنة، وتوجيهات لمرضى السكري والضغط، وتأكيد تعارض الأدوية مع المكملات الغذائية قبل الاستخدام."
+msgstr ""
+
+msgid "سلتك فارغة"
+msgstr ""
+
+msgid "سياسة الخصوصية"
+msgstr ""
+
+msgid "شبكة صيدليات رائدة مرخصة رسميًا من وزارة الصحة والسكان المصرية. نلتزم بأعلى معايير جودة الرعاية الصيدلانية، وتوفير الدواء الأصلي، والتوصيل الآمن بدرجات حرارة معتمدة على مدار الساعة."
+msgstr ""
+
+msgid "صوّر الروشتة الورقية أو التحليل؛ وسيقوم صيدلي مرخص بمراجعتها فوراً وتجهيز بدائلها وأسعارها الرسمية للتأكيد معك."
+msgstr ""
+
+msgid "صيادلة متاحون 24/7"
+msgstr ""
+
+msgid "صيدلي استشاري"
+msgstr ""
+
+msgid "صيدليات براءة"
+msgstr ""
+
+msgid "صيدليات براءة — جميع الحقوق محفوظة"
+msgstr ""
+
+msgid "صيدليات براءة المعتمدة"
+msgstr ""
+
+msgid "صيدلية الشعب الآمنة"
+msgstr ""
+
+msgid "صيدليتك الذكية في مصر.."
+msgstr ""
+
+msgid "ضمانات الشراء"
+msgstr ""
+
+msgid "طرق الدفع المعتمدة في مصر:"
+msgstr ""
+
+msgid "طرق الدفع متاحة عند الشراء"
+msgstr ""
+
+msgid "طوارئ واستفسارات صيدلانية"
+msgstr ""
+
+msgid "عرض"
+msgstr ""
+
+#. translators: 1: first item, 2: last item, 3: total
+msgid "عرض %1$s–%2$s من %3$s منتج"
+msgstr ""
+
+msgid "عرض المنتج"
+msgstr ""
+
+msgid "عرض جميع المنتجات"
+msgstr ""
+
+#. translators: %s: category count
+msgid "عرض كافة الأقسام (%s تصنيف)"
+msgstr ""
+
+msgid "عروض اليوم المحدودة"
+msgstr ""
+
+msgid "عروض اليوم والتوفير الصحي"
+msgstr ""
+
+msgid "عناية بالبشرة علاجية"
+msgstr ""
+
+msgid "عنوانك وخيارات الشحن المتاحة تُحدد عند إتمام الطلب."
+msgstr ""
+
+msgid "غير متوفر حالياً"
+msgstr ""
+
+msgid "فرع التجمع الخامس (شارع التسعين الشمالي)"
+msgstr ""
+
+msgid "فرع الشيخ زايد (مول أركان)"
+msgstr ""
+
+msgid "فرع المعادي (شارع النصر)"
+msgstr ""
+
+msgid "فرع المنصورة (شارع الجمهورية)"
+msgstr ""
+
+msgid "فرع المهندسين (شارع جامعة الدول)"
+msgstr ""
+
+msgid "فرع سموحة (شارع ألبرت الأول)"
+msgstr ""
+
+msgid "فرع طنطا (شارع النحاس)"
+msgstr ""
+
+msgid "فرع لوران (طريق الكورنيش)"
+msgstr ""
+
+msgid "فرع مصر الجديدة (ميدان تريومف)"
+msgstr ""
+
+msgid "فروع الإسكندرية والمحافظات"
+msgstr ""
+
+msgid "فروع القاهرة والجيزة"
+msgstr ""
+
+msgid "فريقنا جاهز للمساعدة في أي وقت."
+msgstr ""
+
+msgid "فلاتر المنتجات"
+msgstr ""
+
+msgid "قارئ الروشتة الذكي بالذكاء الاصطناعي"
+msgstr ""
+
+msgid "قسط أجهزتك وعلاجك الشهري بسهولة عبر ValU وMNT-Halan."
+msgstr ""
+
+msgid "قم بتثبيت WooCommerce وتفعيله لعرض المنتجات والأقسام."
+msgstr ""
+
+msgid "كشف التداخلات الدوائية الضارة Drug Interactions"
+msgstr ""
+
+msgid "لا توجد عروض خاصة حالياً. تصفح منتجاتنا المتوفرة."
+msgstr ""
+
+msgid "لا توجد منتجات تطابق الفلاتر الحالية."
+msgstr ""
+
+msgid "لديك كوبون خصم؟"
+msgstr ""
+
+msgid "متابعة التسوق"
+msgstr ""
+
+msgid "متاح 24 ساعة يوميًا للرد الفوري على التفاعلات الدوائية وحالات الطوارئ."
+msgstr ""
+
+msgid "متاح الآن"
+msgstr ""
+
+msgid "متوفر في المخزن"
+msgstr ""
+
+msgid "مجاني فوق 350 ج.م"
+msgstr ""
+
+msgid "محادثة واتساب فورية مع صيدلي مناوب"
+msgstr ""
+
+msgid "مراجعة السلة وإتمام الطلب"
+msgstr ""
+
+msgid "مراجعة صيدلانية"
+msgstr ""
+
+msgid "مرخص رسميًا وخاضع لتتبع الباركود بهيئة الدواء المصرية."
+msgstr ""
+
+msgid "مسار التنقل"
+msgstr ""
+
+msgid "مسح الفلتر"
+msgstr ""
+
+msgid "معتمد من هيئة الدواء المصرية"
+msgstr ""
+
+msgid "ملخص الطلب"
+msgstr ""
+
+msgid "منتج"
+msgstr ""
+
+msgid "منتجات السلة"
+msgstr ""
+
+msgid "نقل بارد مخصص للأنسولين واللقاحات"
+msgstr ""
+
+msgid "نوفر جميع الأدوية المعتمدة محلياً ومستوردة، وحفظ حراري آمن مع سلسلة تبريد معتمدة لضمان أمان عائلتك في القاهرة والجيزة والمحافظات."
+msgstr ""
+
+msgid "هل تتناول أكثر من علاج معاً؟ نساعدك في فحص التفاعلات وتعديل الجرعات مجاناً"
+msgstr ""
+
+msgid "هل تريد تفريغ السلة بالكامل؟"
+msgstr ""
+
+msgid "واتساب"
+msgstr ""
+
+msgid "وفر حتى 35%"
+msgstr ""
+
+msgid "يدعم JPG, PNG, PDF حتى 15 ميجابايت"
+msgstr ""
+
+msgid "يمكنك اختيار طريقة الدفع من بين الخيارات المتاحة في المتجر عند إتمام الطلب."
+msgstr ""
+
+msgid "ينتهي العرض خلال:"
+msgstr ""
+
+#. translators: singular/plural cart items
+msgid "%s منتج محدد"
+msgid_plural "%s منتج محدد"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: singular/plural product count
+msgid "%s منتج"
+msgid_plural "%s منتجات"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: singular
+msgid "عرض %s منتج"
+msgid_plural "عرض جميع %s منتجات"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "إزالة %s من السلة"
+msgstr ""

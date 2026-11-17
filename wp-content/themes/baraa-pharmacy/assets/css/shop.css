@@ -1,0 +1,494 @@
+/*
+ * Inherit the theme font on all shop-page elements, including WooCommerce
+ * notices that render outside .baraa-home in some environments.
+ */
+.baraa-shop,
+.baraa-shop *,
+.woocommerce-notices-wrapper,
+.woocommerce-notices-wrapper * {
+    font-family: "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif;
+}
+
+/*
+ * RTL direction inheritance — force WooCommerce quantity inputs and selects
+ * to inherit the document direction instead of defaulting to LTR.
+ */
+[dir="rtl"] .baraa-shop input,
+[dir="rtl"] .baraa-shop select,
+[dir="rtl"] .baraa-shop button,
+[dir="rtl"] .baraa-shop textarea {
+    direction: inherit;
+    text-align: start;
+}
+
+/* ── WooCommerce notices on the shop / taxonomy pages ─────────── */
+.baraa-shop .woocommerce-notices-wrapper:empty {
+    display: none;
+}
+
+.baraa-shop .woocommerce-message,
+.baraa-shop .woocommerce-info,
+.baraa-shop .woocommerce-error {
+    background: var(--baraa-highlight);
+    border: 0;
+    border-inline-start: 3px solid var(--baraa-primary);
+    border-radius: 10px;
+    color: var(--baraa-text);
+    margin: 0 0 18px;
+    padding: 14px 16px;
+}
+
+.baraa-shop {
+    padding: clamp(28px, 4vw, 56px) clamp(20px, 5vw, 64px);
+}
+
+.baraa-shop__layout {
+    align-items: start;
+    display: grid;
+    gap: clamp(20px, 3vw, 36px);
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+    margin-inline: auto;
+    max-width: 1600px;
+}
+
+.baraa-shop__sidebar,
+.baraa-shop__intro,
+.baraa-shop__toolbar,
+.baraa-shop__pagination,
+.baraa-shop__empty {
+    background: var(--baraa-card);
+    border: 1px solid var(--baraa-line);
+    border-radius: 16px;
+}
+
+.baraa-shop__sidebar {
+    padding: 22px;
+    position: sticky;
+    top: 20px;
+}
+
+.baraa-shop__filters > summary {
+    color: var(--baraa-text);
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 700;
+    list-style: none;
+}
+
+.baraa-shop__filters > summary::-webkit-details-marker {
+    display: none;
+}
+
+.baraa-shop__filters > summary::after {
+    color: var(--baraa-primary);
+    content: "+";
+    float: inline-end;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.baraa-shop__filters[open] > summary::after {
+    content: "−";
+}
+
+.baraa-shop__filter-content {
+    display: grid;
+    gap: 24px;
+    padding-top: 20px;
+}
+
+.baraa-shop__categories h2,
+.baraa-shop__price-filter h2 {
+    color: var(--baraa-text);
+    font-size: 15px;
+    margin: 0 0 12px;
+}
+
+.baraa-shop__categories ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.baraa-shop__categories li + li {
+    margin-top: 4px;
+}
+
+.baraa-shop__categories a {
+    align-items: center;
+    border-radius: 10px;
+    color: var(--baraa-muted);
+    display: flex;
+    font-size: 13px;
+    gap: 8px;
+    justify-content: space-between;
+    padding: 10px 12px;
+    transition: background-color .25s ease, color .25s ease, transform .2s ease;
+}
+
+.baraa-shop__categories a:hover {
+    transform: translateX(3px);
+}
+
+/* In RTL the "forward" direction is to the left */
+[dir="rtl"] .baraa-shop__categories a:hover,
+.baraa-home[dir="rtl"] .baraa-shop__categories a:hover {
+    transform: translateX(-3px);
+}
+
+.baraa-shop__categories a:hover,
+.baraa-shop__categories a[aria-current="page"] {
+    background: var(--baraa-highlight);
+    color: var(--baraa-primary);
+}
+
+.baraa-shop__category-count {
+    background: var(--baraa-soft);
+    border-radius: 999px;
+    color: var(--baraa-muted);
+    flex: 0 0 auto;
+    font-size: 11px;
+    min-width: 26px;
+    padding: 2px 7px;
+    text-align: center;
+}
+
+.baraa-shop__muted,
+.baraa-shop__description {
+    color: var(--baraa-muted);
+}
+
+.baraa-shop__muted {
+    font-size: 13px;
+    margin: 12px 0 0;
+}
+
+.baraa-shop__content {
+    display: grid;
+    gap: 18px;
+    min-width: 0;
+}
+
+.baraa-shop__intro {
+    padding: clamp(20px, 3vw, 32px);
+}
+
+.baraa-shop__breadcrumbs {
+    align-items: center;
+    color: var(--baraa-muted);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.baraa-shop__breadcrumbs a:hover {
+    color: var(--baraa-primary);
+}
+
+.baraa-shop__breadcrumbs [aria-current="page"] {
+    color: var(--baraa-primary);
+    font-weight: 700;
+}
+
+.baraa-shop__intro-main {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.baraa-shop__intro h1 {
+    color: var(--baraa-text);
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.3;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.baraa-shop__description {
+    font-size: 14px;
+    margin-top: 8px;
+    max-width: 720px;
+}
+
+.baraa-shop__description p {
+    margin: 0;
+}
+
+.baraa-shop__total {
+    align-items: center;
+    background: var(--baraa-highlight);
+    border-radius: 12px;
+    color: var(--baraa-primary);
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    font-size: 12px;
+    gap: 2px;
+    min-width: 96px;
+    padding: 12px;
+}
+
+.baraa-shop__total-number {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.baraa-shop__toolbar {
+    align-items: center;
+    display: flex;
+    gap: 14px;
+    justify-content: space-between;
+    min-height: 64px;
+    padding: 12px 18px;
+}
+
+.baraa-shop__result-count,
+.baraa-shop__result-count p {
+    color: var(--baraa-muted);
+    font-size: 13px;
+    margin: 0;
+}
+
+.baraa-shop__ordering-form {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.baraa-shop__ordering-form label {
+    color: var(--baraa-muted);
+    font-size: 12px;
+}
+
+.baraa-shop__ordering-form select {
+    background: var(--baraa-soft);
+    border: 1px solid var(--baraa-line);
+    border-radius: 10px;
+    color: var(--baraa-text);
+    font: inherit;
+    font-size: 13px;
+    max-width: 100%;
+    min-height: 40px;
+    padding: 8px 12px;
+    transition: border-color .25s ease;
+}
+
+.baraa-shop__ordering-form select:focus {
+    border-color: var(--baraa-primary);
+    outline: none;
+}
+
+.baraa-shop__ordering-form button {
+    background: var(--baraa-primary);
+    border: 0;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+    padding: 9px 12px;
+    transition: background-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+
+.baraa-shop__ordering-form button:hover {
+    background: var(--baraa-primary-dark);
+    box-shadow: 0 4px 12px rgb(0 107 95 / 20%);
+    transform: translateY(-2px);
+}
+
+.baraa-shop__product-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.baraa-shop__product-grid .baraa-product__image {
+    aspect-ratio: 1;
+    height: auto;
+}
+
+.baraa-shop__pagination {
+    padding: 12px 16px;
+}
+
+.baraa-shop__pagination .woocommerce-pagination {
+    margin: 0;
+}
+
+.baraa-shop__pagination .woocommerce-pagination ul {
+    border: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+}
+
+.baraa-shop__pagination .woocommerce-pagination ul li {
+    border: 0;
+    float: none;
+}
+
+.baraa-shop__pagination .woocommerce-pagination ul li a,
+.baraa-shop__pagination .woocommerce-pagination ul li span {
+    align-items: center;
+    background: var(--baraa-soft);
+    border-radius: 8px;
+    color: var(--baraa-text);
+    display: flex;
+    height: 38px;
+    justify-content: center;
+    min-width: 38px;
+}
+
+.baraa-shop__pagination .woocommerce-pagination ul li span.current,
+.baraa-shop__pagination .woocommerce-pagination ul li a:hover {
+    background: var(--baraa-primary);
+    color: #fff;
+}
+
+.baraa-shop__empty {
+    padding: clamp(20px, 4vw, 40px);
+    text-align: center;
+}
+
+.baraa-shop__price-filter form {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+.baraa-shop__price-filter form > label {
+    color: var(--baraa-muted);
+    display: grid;
+    font-size: 12px;
+    gap: 5px;
+}
+
+.baraa-shop__price-input {
+    align-items: center;
+    background: var(--baraa-soft);
+    border: 1px solid var(--baraa-line);
+    border-radius: 7px;
+    display: flex;
+    gap: 8px;
+    padding-inline: 9px;
+}
+
+.baraa-shop__price-input input {
+    background: transparent;
+    border: 0;
+    color: var(--baraa-text);
+    font: inherit;
+    min-height: 38px;
+    min-width: 0;
+    width: 100%;
+}
+
+.baraa-shop__price-input input:focus {
+    outline: none;
+}
+
+.baraa-shop__price-input > span {
+    color: var(--baraa-muted);
+    font-size: 12px;
+}
+
+.baraa-shop__price-filter button {
+    background: var(--baraa-primary);
+    border: 0;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+    padding: 8px 12px;
+    transition: background-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+
+.baraa-shop__price-filter button:hover {
+    background: var(--baraa-primary-dark);
+    box-shadow: 0 4px 12px rgb(0 107 95 / 20%);
+    transform: translateY(-2px);
+}
+
+.baraa-shop__price-filter form > a {
+    color: var(--baraa-muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+.baraa-shop__empty > p {
+    color: var(--baraa-muted);
+    margin: 0 0 18px;
+}
+
+@media (max-width: 1100px) {
+    .baraa-shop__product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+    .baraa-shop__layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .baraa-shop__sidebar {
+        padding: 16px;
+        position: static; /* no sticky on mobile — sidebar stacks above content */
+    }
+}
+
+@media (max-width: 560px) {
+    .baraa-shop {
+        padding-inline: 16px;
+    }
+
+    .baraa-shop__intro-main {
+        align-items: flex-start;
+    }
+
+    .baraa-shop__total {
+        min-width: 76px;
+        padding: 9px;
+    }
+
+    .baraa-shop__toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .baraa-shop__ordering,
+    .baraa-shop__ordering-form,
+    .baraa-shop__ordering-form select {
+        width: 100%;
+    }
+
+    .baraa-shop__product-grid {
+        gap: 10px;
+    }
+
+    .baraa-shop__product-grid .baraa-product__body {
+        padding: 11px;
+    }
+
+    .baraa-shop__product-grid .baraa-product__footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .baraa-shop__product-grid .baraa-button--small {
+        width: 100%;
+    }
+}
+
+@media (max-width: 359px) {
+    .baraa-shop__product-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

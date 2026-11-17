@@ -1,0 +1,1532 @@
+<?php
+/**
+ * Abstract Payment Gateway class.
+ *
+ * @class       AbstractPaymentGateway
+ * @version     1.0.0
+ * @package     GatewayPaymentCore/Gateways/
+ */
+
+namespace GatewayPaymentCore\Gateways;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+use Exception;
+use WP_Error;
+use GatewayPaymentCore\API;
+use GatewayPaymentCore\CorePlugin;
+use GatewayPaymentCore\PaymentToken;
+use GatewayPaymentCore\Utils;
+use WC_HTTPS;
+use WC_Order;
+use WC_Payment_Gateway_CC;
+use WC_Session_Handler;
+
+/**
+ * Show the payment form for the Payment Gateway.
+ */
+abstract class WC_Abstract_Payment_Gateway extends WC_Payment_Gateway_CC {
+
+
+	/**
+	 * Plugin instance.
+	 *
+	 * @var CorePlugin
+	 */
+	protected $core_plugin;
+
+
+	/**
+	 * API instance.
+	 *
+	 * @var API
+	 */
+	protected $api;
+
+
+	/**
+	 * Payment Token instance.
+	 *
+	 * @var PaymentToken
+	 */
+	protected $payment_token;
+
+
+	/**
+	 * Block compatibility class.
+	 *
+	 * @var string
+	 */
+	protected $block_compat_class;
+
+
+	/**
+	 * Debounce key.
+	 *
+	 * @var string
+	 */
+	protected $debounce_key;
+
+
+	/**
+	 * Transaction debounce key.
+	 *
+	 * @var string
+	 */
+	protected $debounce_key_transaction;
+
+
+	/**
+	 * Transaction ID of the currently processed refund.
+	 *
+	 * @var string
+	 */
+	protected $refund_transaction_id;
+
+	/**
+	 * Constructor.
+	 */
+	abstract public function __construct();
+
+
+	/**
+	 * Is gateway enabled.
+	 *
+	 * @return bool
+	 */
+	public function is_enabled() {
+		return 'yes' === $this->get_option( 'enabled' );
+	}
+
+
+	/**
+	 * Is gateway available.
+	 *
+	 * @return bool
+	 */
+	public function is_available() {
+		if ( ! parent::is_available() ) {
+			return false;
+		}
+
+		if ( empty( $this->core_plugin ) ) {
+			return false;
+		}
+
+		if ( empty( $this->api() ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	/**
+	 * Get the Core Plugin instance.
+	 *
+	 * @return CorePlugin
+	 */
+	public function core_plugin() {
+		return $this->core_plugin;
+	}
+
+
+	/**
+	 * Get the block compatibility class.
+	 *
+	 * @return string
+	 */
+	public function block_compat_class() {
+		return $this->block_compat_class;
+	}
+
+
+	/**
+	 * Add payment method data for Woo Blocks compatibility.
+	 *
+	 * @param array $data Payment method data.
+	 *
+	 * @return array
+	 */
+	public function add_payment_method_data( $data ) {
+		return $data;
+	}
+
+
+	/**
+	 * Get the API instance.
+	 *
+	 * @return API
+	 */
+	public function api() {
+		return $this->core_plugin()->api();
+	}
+
+
+	/**
+	 * Return the gateway's icon.
+	 *
+	 * @return string
+	 */
+	public function get_icon() {
+		$icon = $this->icon ? '<img src="' . esc_url( WC_HTTPS::force_https_url( $this->icon ) ) . '" class="payment-core-icon ' . $this->id . '-icon" alt="' . esc_attr( $this->get_title() ) . '" />' : '';
+
+		/**
+		 * Filters the gateway icon HTML output.
+		 *
+		 * @since 1.0.0
+		 */
+		return apply_filters( 'woocommerce_gateway_icon', $icon, $this->id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce core filter, re-applied for compatibility.
+	}
+
+
+	/**
+	 * Get gateway support features.
+	 *
+	 * @return array
+	 */
+	public function get_supports() {
+		return array(
+			'products',
+			'refunds',
+		);
+	}
+
+
+	/**
+	 * Get the Payment Token instance.
+	 *
+	 * @return PaymentToken
+	 */
+	public function payment_token() {
+		if ( ! $this->payment_token ) {
+			$this->payment_token = new PaymentToken( $this );
+		}
+
+		return $this->payment_token;
+	}
+
+
+	/**
+	 * Get base order payload.
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return array
+	 */
+	protected function base_order_payload( $order = null ) {
+		$base = array(
+			'currency'    => get_woocommerce_currency(),
+			'amount'      => '0.00',
+			'description' => ! empty( $this->core_plugin->get_gateway_setting( 'merchant_name' ) ) ? $this->core_plugin->get_gateway_setting( 'merchant_name' ) : get_bloginfo( 'name', 'display' ),
+		);
+		if ( $this->is_order( $order ) ) {
+			$base['reference']       = $order->get_id();
+			$base['amount']          = $order->get_total();
+			$base['notificationUrl'] = add_query_arg(
+				array(
+					'wc-api'   => 'mastercard_merchant_cloud_wc-webhook',
+					'order-id' => $order->get_id(),
+				),
+				trailingslashit( get_home_url() )
+			);
+		}
+		return $base;
+	}
+
+
+	/**
+	 * Maybe add customer data to the payload.
+	 *
+	 * @param array    $payload Payload.
+	 * @param WC_Order $order Order.
+	 *
+	 * @return array
+	 */
+	protected function maybe_add_customer_data( $payload, $order ) {
+		$formatted_billing_info = Utils::get_formatted_info_billing( $order );
+		if ( ! empty( $formatted_billing_info ) ) {
+			$payload['billing'] = $formatted_billing_info;
+		}
+
+		$formatted_shipping_info = Utils::get_formatted_info_shipping( $order );
+		if ( ! empty( $formatted_shipping_info ) ) {
+			$payload['shipping'] = $formatted_shipping_info;
+		}
+
+		$formatted_customer_info = Utils::get_formatted_info_customer( $order );
+		if ( ! $this->core_plugin->is_sandbox() && ! empty( $formatted_customer_info ) ) {
+			$payload['customer'] = $formatted_customer_info;
+		}
+
+		return $payload;
+	}
+
+
+	/**
+	 * Get the unique order ID.
+	 *
+	 * @param WC_Order $order Order.
+	 *
+	 * @return string
+	 */
+	protected function unique_order_id( $order = null ) {
+		$unique_order_id = null;
+		if ( $this->is_order( $order ) ) {
+			$unique_order_id = $order->get_meta( 'mastercard_merchant_cloud_order_id' );
+
+			if ( ! $unique_order_id ) {
+				$unique_order_id = $order->get_id() . '-' . substr( md5( get_site_url() . '-' . $order->get_cart_hash() ), 0, 16 );
+
+				$order->update_meta_data( 'mastercard_merchant_cloud_order_id', $unique_order_id );
+				$order->save_meta_data();
+			}
+		} else {
+			if ( empty( WC()->session ) ) {
+				return null;
+			}
+
+			/**
+			 * Session handler.
+			 *
+			 * @var WC_Session_Handler $session Session handler.
+			 */
+			$session = WC()->session;
+
+			$unique_order_id = $session->__get( 'mastercard_merchant_cloud_order_id' );
+			if ( ! $unique_order_id ) {
+				if ( ! $session->has_session() ) {
+					$session->set_customer_session_cookie( true );
+				}
+				if ( is_user_logged_in() ) {
+					$prefix = 'user';
+				} else {
+					$prefix = 'guest';
+				}
+				$user_hash       = $session->get_customer_unique_id();
+				$unique_order_id = $prefix . '-' . substr( md5( get_site_url() . '-' . $user_hash . '-' . wp_rand() ), 0, 16 );
+
+				$session->__set( 'mastercard_merchant_cloud_order_id', $unique_order_id );
+			}
+		}
+
+		/**
+		 * Filters the unique order ID used for payment gateway transactions.
+		 *
+		 * @since 1.0.0
+		 */
+		return apply_filters( 'mastercard_merchant_cloud_unique_order_id', $unique_order_id, $order );
+	}
+
+
+	/**
+	 * Get unique transaction ID.
+	 *
+	 * @param WC_Order $order Order.
+	 *
+	 * @return string
+	 */
+	protected function unique_transaction_id( $order = null ) {
+		if ( $this->is_order( $order ) ) {
+			$last_transaction_id = $order->get_meta( 'mastercard_merchant_cloud_transaction_attempt', true );
+		} else {
+			if ( empty( WC()->session ) ) {
+				return null;
+			}
+			$last_transaction_id = WC()->session->__get( 'mastercard_merchant_cloud_transaction_attempt' );
+		}
+
+		if ( ! $last_transaction_id ) {
+			$last_transaction_id = 0;
+		}
+
+		$current_transaction_attempt = $last_transaction_id + 1;
+
+		if ( $this->is_order( $order ) ) {
+			$order->update_meta_data( 'mastercard_merchant_cloud_transaction_attempt', $current_transaction_attempt );
+			$order->save_meta_data();
+		} else {
+			// No need to check session exists again, as we checked above, and if we don't have a session we wouldn't be here.
+			WC()->session->__set( 'mastercard_merchant_cloud_transaction_attempt', $current_transaction_attempt );
+		}
+
+		return $this->unique_order_id( $order ) . '-' . $current_transaction_attempt;
+	}
+
+
+	/**
+	 * Hashed signature for specific transaction.
+	 *
+	 * @param WC_Order $order          Order.
+	 * @param string   $transaction_id Transaction ID.
+	 *
+	 * @return string
+	 */
+	protected function hashed_signature( $order, $transaction_id ) {
+		$unique_order_id = $this->unique_order_id( $order );
+
+		return hash( 'sha256', $unique_order_id . $transaction_id );
+	}
+
+
+	/**
+	 * Set order status and add an order notice with the error message as presented to the customer.
+	 *
+	 * @param WP_Error|Exception $error_message Error message.
+	 * @param WC_Order|null      $order         Order.
+	 *
+	 * @return void
+	 */
+	public function handle_failed_payment( $error_message, $order = null ) {
+
+		if ( ! $order ) {
+			return;
+		}
+
+		$message = $error_message instanceof WP_Error ? $error_message->get_error_message() : $error_message->getMessage();
+
+		$order_note = __( 'Error processing payment. Reason: ', 'mastercard-merchant-cloud' ) . $message;
+
+		if ( ! $order->has_status( 'failed' ) ) {
+			$order->update_status( 'failed', $order_note );
+		} else {
+			$order->add_order_note( $order_note );
+		}
+	}
+
+
+	/**
+	 * Get mapped error code.
+	 *
+	 * @param string $error_code Error code.
+	 *
+	 * @return string
+	 */
+	public function get_mapped_error_code( $error_code ) {
+
+		switch ( $error_code ) {
+			case 'DECLINED':
+				return __( 'Payment unsuccessful; your card has been declined.', 'mastercard-merchant-cloud' );
+			case 'EXPIRED_CARD':
+				return __( 'The card has expired. Please enter a new card for payment.', 'mastercard-merchant-cloud' );
+			case 'TIMED_OUT':
+				return __( 'We couldn\'t process your card request within the allotted time, and it timed out.', 'mastercard-merchant-cloud' );
+			case 'ACQUIRER_SYSTEM_ERROR':
+				return __( 'The transaction was disrupted due to an issue in the acquirer\'s system.', 'mastercard-merchant-cloud' );
+			case 'UNSPECIFIED_FAILURE':
+				return __( 'An unspecified issue has occurred with your card. Please check the details and try again.', 'mastercard-merchant-cloud' );
+			case 'EXPIRED_CARD':
+				return __( 'The card not authorized. Please enter a new card for payment.', 'mastercard-merchant-cloud' );
+			default:
+				return __( 'The payment was declined.', 'mastercard-merchant-cloud' );
+		}
+	}
+
+
+	/**
+	 * Retrieve order from the API.
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return array
+	 */
+	public function retrieve_order( $order ) {
+		static $orders = array();
+
+		if ( isset( $orders[ $order->get_id() ] ) ) {
+			return $orders[ $order->get_id() ];
+		}
+
+		$orders[ $order->get_id() ] = $this->api()->retrieve_order( $this->unique_order_id( $order ) );
+
+		return $orders[ $order->get_id() ];
+	}
+
+
+	/**
+	 * Get the authorized amount.
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return float
+	 */
+	public function get_authorized_amount( $order ) {
+		$order_data = $this->retrieve_order( $order );
+
+		$this->validate_payment_status( $order, $order_data );
+
+		$authorized_amount = $order_data['body']['totalAuthorizedAmount'] ?? 0;
+		$captured_amount   = $order_data['body']['totalCapturedAmount'] ?? 0;
+
+		return $authorized_amount - $captured_amount > 0 ? $authorized_amount - $captured_amount : 0;
+	}
+
+
+	/**
+	 * Get the captured amount.
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return float
+	 */
+	public function get_captured_amount( $order ) {
+		$order_data = $this->retrieve_order( $order );
+
+		$this->validate_payment_status( $order, $order_data );
+
+		return $order_data['body']['totalCapturedAmount'] ?? 0;
+	}
+
+
+	/**
+	 * Maybe flag the order as paid.
+	 *
+	 * @param WC_Order $order    Order object.
+	 * @param bool     $redirect Wether to forcefully redirect the user or not.
+	 *
+	 * @return bool
+	 */
+	protected function maybe_flag_order_as_paid( $order, $redirect = true ) {
+		try {
+			if ( ! $order || ! is_a( $order, WC_Order::class ) ) {
+				return false;
+			}
+
+			/**
+			 * Filters whether the order should be validated as paid.
+			 *
+			 * @since 1.0.0
+			 */
+			$is_valid = apply_filters( 'mastercard_merchant_cloud_validate_order_as_paid', true, $order, $this );
+			if ( ! $is_valid ) {
+				return false;
+			}
+
+			if ( $order->get_meta( 'mastercard_merchant_cloud_order_captured' ) ) {
+				return true;
+			}
+
+			$unique_order_id = $order->get_meta( 'mastercard_merchant_cloud_order_id' );
+			if ( ! $unique_order_id ) {
+				$unique_order_id = $this->unique_order_id( $order );
+			}
+
+			// Prevent error log if the order is not created yet.
+			$this->core_plugin->logger()->force_disable();
+
+			$order_data = $this->retrieve_order( $order );
+
+			$this->core_plugin->logger()->restore_force_disable();
+
+			$this->validate_payment_status( $order, $order_data );
+
+			$transaction_data = ! empty( $order_data['body']['transaction'] ) ? $this->get_approved_transaction( $order_data['body']['transaction'] ) : array();
+
+			$this->process_wc_order( $order, $order_data['body'], $transaction_data );
+
+			if ( ! $order->get_meta( 'mastercard_merchant_cloud_order_captured' ) ) {
+				return false;
+			}
+
+			if ( $redirect ) {
+				wp_safe_redirect( $this->get_return_url( $order ) );
+				exit();
+			}
+
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
+	}
+
+
+	/**
+	 * This function processes a WooCommerce order.
+	 *
+	 * @param object $order            The WooCommerce order object.
+	 * @param array  $order_data       Order data retrieved from the API.
+	 * @param array  $transaction      Transaction data retrieved from the API.
+	 * @param string $order_note_msg   Order note message.
+	 * @param string $order_status_msg Order status message.
+	 *
+	 * @return void
+	 *
+	 * @throws Exception Exception.
+	 */
+	protected function process_wc_order( $order, $order_data, $transaction, $order_note_msg = '', $order_status_msg = '' ) {
+
+		if ( ! $order || ! is_a( $order, WC_Order::class ) ) {
+			throw new Exception( esc_html( __( 'The order object is not valid.', 'mastercard-merchant-cloud' ) ) );
+		}
+
+		if ( ! isset( $order_data['status'] ) || ! isset( $order_data['id'] ) ) {
+			throw new Exception( esc_html( __( 'The order data is not valid.', 'mastercard-merchant-cloud' ) ) );
+		}
+
+		if ( empty( $transaction['id'] ) ) {
+			throw new Exception( esc_html( __( 'The transaction data is not valid.', 'mastercard-merchant-cloud' ) ) );
+		}
+
+		if ( $this->is_transaction_processed( $order, $transaction['id'] ) ) {
+			return;
+		}
+
+		$order->update_meta_data( 'mastercard_merchant_cloud_order_captured', 'CAPTURED' === $order_data['status'] );
+		$order->update_meta_data( 'mastercard_merchant_cloud_order_id', $order_data['id'] );
+
+		$order->set_payment_method( $this->id );
+		$order->set_payment_method_title( $this->title );
+
+		// Add this transaction to the processed transactions.
+		$this->flag_transaction_as_processed( $order, $transaction['id'] );
+
+		$new_order_status     = false;
+		$new_order_status_msg = '';
+		$new_order_note_msg   = '';
+
+		switch ( $order_data['status'] ) {
+			case 'VERIFIED':
+				$order->add_order_note(
+					sprintf(
+						// translators: %1$s: Gateway title, %2$s: Order ID.
+						__( '%1$s payment was Verified (Order ID: %2$s)', 'mastercard-merchant-cloud' ),
+						$this->title,
+						$order_data['id'],
+					)
+				);
+				$order->payment_complete( $order_data['id'] );
+
+				/**
+				 * Fires after a verified payment has been successfully processed.
+				 *
+				 * @since 1.0.0
+				 */
+				do_action( 'mastercard_merchant_cloud_payment_success', $order, $order_data, $transaction );
+				break;
+			case 'CAPTURED':
+				$order->add_order_note(
+					sprintf(
+						// translators: %1$s: Gateway title, %2$s: Order ID.
+						__( '%1$s payment was Captured (Order ID: %2$s)', 'mastercard-merchant-cloud' ),
+						$this->title,
+						$order_data['id'],
+					)
+				);
+				$order->update_meta_data( 'mastercard_merchant_cloud_authorize_transaction', null );
+				$order->payment_complete( $order_data['id'] );
+
+				/**
+				 * Fires after a captured payment has been successfully processed.
+				 *
+				 * @since 1.0.0
+				 */
+				do_action( 'mastercard_merchant_cloud_payment_success', $order, $order_data, $transaction );
+				break;
+			case 'AUTHORIZED':
+				$order->set_transaction_id( $order_data['id'] );
+				$authorize_transaction = $this->get_authorize_transaction( $order_data['transaction'] ?? array() );
+				if ( ! empty( $authorize_transaction['id'] ) ) {
+					$order->update_meta_data( 'mastercard_merchant_cloud_authorize_transaction', $authorize_transaction['id'] );
+				}
+				$new_order_status     = 'on-hold';
+				$new_order_status_msg = __( 'Payment authorized, waiting for capture.', 'mastercard-merchant-cloud' );
+				$new_order_note_msg   = sprintf(
+					// translators: %1$s: Gateway title, %2$s: Order ID.
+					__( '%1$s payment was Authorized (Order ID: %2$s)', 'mastercard-merchant-cloud' ),
+					$this->title,
+					$order_data['id'],
+				);
+
+				/**
+				 * Fires after an authorized payment has been successfully processed.
+				 *
+				 * @since 1.0.0
+				 */
+				do_action( 'mastercard_merchant_cloud_payment_success', $order, $order_data, $transaction );
+				break;
+			case 'PARTIALLY_CAPTURED':
+				$order->update_meta_data( 'mastercard_merchant_cloud_authorize_transaction', null );
+				$new_order_status     = 'on-hold';
+				$new_order_status_msg = __( 'Payment partially captured, waiting for full capture.', 'mastercard-merchant-cloud' );
+				$new_order_note_msg   = sprintf(
+					// translators: %1$s: Gateway title, %2$s: Captured amount.
+					__( '%1$s payment was Partially Captured. Captured Amount: %2$s', 'mastercard-merchant-cloud' ),
+					$this->title,
+					wc_price( $transaction['amount'], array( 'currency' => $transaction['currency'] ) )
+				);
+				break;
+			case 'CANCELLED':
+				$order->update_meta_data( 'mastercard_merchant_cloud_authorize_transaction', null );
+				$new_order_status     = 'cancelled';
+				$new_order_status_msg = __( 'Authorization was cancelled successfully.', 'mastercard-merchant-cloud' );
+				break;
+			case 'DECLINED':
+				$this->handle_failed_payment( new WP_Error( 'payment_declined', $this->get_mapped_error_code( $order_data['error']['cause'] ?? 'error' ) ), $order );
+		}
+
+		if ( ! empty( $order_note_msg ) ) {
+			$order->add_order_note( $order_note_msg );
+		} elseif ( ! empty( $new_order_note_msg ) ) {
+			$order->add_order_note( $new_order_note_msg );
+		}
+
+		if ( empty( $new_order_status ) || $order->get_status() === $new_order_status ) {
+			return;
+		}
+
+		/**
+		 * Filters whether the order status should be changed after payment processing.
+		 *
+		 * @since 1.0.0
+		 */
+		if ( ! apply_filters( 'mastercard_merchant_cloud_change_order_status', true, $order ) ) {
+			return;
+		}
+
+		$order->update_status( $new_order_status, ! empty( $order_status_msg ) ? $order_status_msg : $new_order_status_msg );
+	}
+
+
+	/**
+	 * Validate if the order was paid agains the API.
+	 *
+	 * @param WC_Order $order      Order object.
+	 * @param array    $order_data Order data.
+	 *
+	 * @return void
+	 * @throws Exception Exception.
+	 */
+	protected function validate_payment_status( $order, $order_data = array() ) {
+
+		if ( ! $order || ! is_a( $order, WC_Order::class ) ) {
+			throw new Exception( esc_html( __( 'The order object is not valid.', 'mastercard-merchant-cloud' ) ) );
+		}
+
+		if ( empty( $order_data ) ) {
+			$order_data = $this->retrieve_order( $order );
+		}
+
+		if ( ! $order_data['success'] || empty( $order_data['body'] ) || empty( $order_data['body']['result'] ) ) {
+			throw new Exception( esc_html( __( 'Failed to retrieve the order.', 'mastercard-merchant-cloud' ) ) );
+		}
+
+		if ( 'SUCCESS' !== $order_data['body']['result'] ) {
+			throw new Exception( esc_html( __( 'Payment was declined.', 'mastercard-merchant-cloud' ) ) );
+		}
+
+		if ( empty( $order_data['body']['transaction'] ) || ! is_array( $order_data['body']['transaction'] ) ) {
+			throw new Exception( esc_html( __( 'The transaction data is not valid.', 'mastercard-merchant-cloud' ) ) );
+		}
+	}
+
+
+	/**
+	 * Get approved transaction.
+	 *
+	 * @param array $transaction_data Transaction data.
+	 *
+	 * @return array
+	 */
+	protected function get_approved_transaction( $transaction_data ) {
+		if ( empty( $transaction_data ) || ! is_array( $transaction_data ) ) {
+			return array();
+		}
+
+		foreach ( $transaction_data as $transaction ) {
+			if ( empty( $transaction['result'] ) || 'SUCCESS' !== $transaction['result'] ) {
+				continue;
+			}
+
+			if ( empty( $transaction['transaction']['type'] ) ) {
+				continue;
+			}
+
+			if ( in_array( $transaction['transaction']['type'], array( 'PAYMENT', 'CAPTURE', 'AUTHORIZATION' ), true ) ) {
+				return $transaction['transaction'];
+			}
+		}
+
+		return array();
+	}
+
+
+	/**
+	 * Get approved transaction.
+	 *
+	 * @param array $transaction_data Transaction data.
+	 *
+	 * @return array
+	 */
+	protected function get_authorize_transaction( $transaction_data ) {
+		if ( empty( $transaction_data ) || ! is_array( $transaction_data ) ) {
+			return array();
+		}
+
+		foreach ( $transaction_data as $transaction ) {
+			if ( empty( $transaction['result'] ) || 'SUCCESS' !== $transaction['result'] ) {
+				continue;
+			}
+
+			if ( empty( $transaction['transaction']['type'] ) ) {
+				continue;
+			}
+
+			if ( 'AUTHORIZATION' === $transaction['transaction']['type'] ) {
+				return $transaction['transaction'];
+			}
+		}
+
+		return array();
+	}
+
+
+	/**
+	 * Check if certain transaction was already processed.
+	 *
+	 * @param WC_Order $order          Order object.
+	 * @param string   $transaction_id Transaction ID.
+	 *
+	 * @return bool
+	 */
+	protected function is_transaction_processed( $order, $transaction_id ) {
+		$processed_transactions = $order->get_meta( 'mastercard_merchant_cloud_processed_transactions' );
+
+		if ( ! $processed_transactions ) {
+			return false;
+		}
+
+		return in_array( $transaction_id, $processed_transactions, true );
+	}
+
+
+	/**
+	 * Flag transaction as processed.
+	 *
+	 * @param WC_Order $order          Order object.
+	 * @param string   $transaction_id Transaction ID.
+	 *
+	 * @return void
+	 */
+	protected function flag_transaction_as_processed( $order, $transaction_id ) {
+		$processed_transactions = $order->get_meta( 'mastercard_merchant_cloud_processed_transactions' );
+
+		if ( ! $processed_transactions ) {
+			$processed_transactions = array();
+		}
+
+		$processed_transactions[] = $transaction_id;
+
+		$order->update_meta_data( 'mastercard_merchant_cloud_processed_transactions', $processed_transactions );
+		$order->save();
+	}
+
+
+	/**
+	 * Process capture payment action.
+	 *
+	 * @param WC_Order $order       Order object.
+	 * @param float    $amount      Amount to capture.
+	 * @param float    $auth_amount Authorized amount.
+	 *
+	 * @return void
+	 *
+	 * @throws Exception Exception.
+	 */
+	public function process_capture_payment( $order, $amount = 0, $auth_amount = 0 ) {
+
+		try {
+			if ( $this->id !== $order->get_payment_method() ) {
+				throw new Exception( __( 'The payment method is invalid.', 'mastercard-merchant-cloud' ) );
+			}
+
+			if ( $order->get_meta( 'mastercard_merchant_cloud_order_captured' ) ) {
+				return;
+			}
+
+			$unique_order_id = $order->get_meta( 'mastercard_merchant_cloud_order_id' );
+
+			if ( ! $unique_order_id ) {
+				throw new Exception( __( 'The order data is missing or invalid.', 'mastercard-merchant-cloud' ) );
+			}
+
+			$transaction_id = $this->unique_transaction_id( $order );
+
+			$amount_to_capture = $amount > 0 ? $amount : $order->get_total();
+
+			$payload = array(
+				'apiOperation' => 'CAPTURE',
+				'transaction'  => array(
+					'amount'                         => $amount_to_capture,
+					'currency'                       => $order->get_currency(),
+					'authorizationAdjustmentActions' => 'NO_ACTION',
+				),
+			);
+
+			if ( $auth_amount && $amount_to_capture > $auth_amount ) {
+				$payload['transaction']['authorizationAdjustmentActions'] = 'INCREMENT';
+			}
+
+			$response = $this->api()->capture_payment( $unique_order_id, $transaction_id, $payload );
+
+			if ( ! $response['success'] || empty( $response['body']['result'] ) || 'SUCCESS' !== $response['body']['result'] ) {
+
+				if ( ! empty( $response['error'] ) ) {
+					throw new Exception( $response['error'] );
+				}
+
+				throw new Exception( __( 'There was an error capturing the payment.', 'mastercard-merchant-cloud' ) );
+			}
+
+			if ( empty( $response['body']['order'] ) || empty( $response['body']['transaction'] ) ) {
+				throw new Exception( __( 'There was an error parsing the capture response.', 'mastercard-merchant-cloud' ) );
+			}
+
+			$this->process_wc_order( $order, $response['body']['order'], $response['body']['transaction'] );
+		} catch ( Exception $e ) {
+			$this->core_plugin->logger()->log( $e->getMessage(), 'error' );
+			$order->add_order_note(
+				sprintf(
+					// translators: %1$s: Gateway title, %2$s: Error message.
+					__( '%1$s payment capture failed: %2$s', 'mastercard-merchant-cloud' ),
+					$this->title,
+					$e->getMessage()
+				)
+			);
+		}
+	}
+
+
+	/**
+	 * Process refund.
+	 *
+	 * Create a Refund transaction
+	 *
+	 * @param  int        $order_id Order ID.
+	 * @param  float|null $amount Refund amount.
+	 * @param  string     $reason Refund reason.
+	 *
+	 * @return bool       True or false based on success.
+	 *
+	 * @throws Exception Exception.
+	 */
+	public function process_refund( $order_id, $amount = null, $reason = '' ) {
+		try {
+			$order           = wc_get_order( $order_id );
+			$captured_amount = $this->get_captured_amount( $order );
+
+			if ( ! $order || ! $amount || ! $captured_amount ) {
+				return false;
+			}
+
+			if ( $amount > $captured_amount ) {
+				$error = __( 'The amount to be refunded is greater than the captured amount.', 'mastercard-merchant-cloud' );
+				throw new Exception( $error );
+			}
+
+			$currency       = $order->get_currency();
+			$transaction_id = $this->unique_transaction_id( $order );
+
+			if ( ! $transaction_id ) {
+				return false;
+			}
+
+			$refund_data = array(
+				'apiOperation' => 'REFUND',
+				'transaction'  => array(
+					'amount'   => $amount,
+					'currency' => $currency,
+				),
+			);
+
+			$response = $this->api()->create_transaction( $this->unique_order_id( $order ), $transaction_id, $refund_data );
+
+			if ( ! $response['success'] || empty( $response['body']['result'] ) || ! empty( $response['error'] ) ) {
+				$error = __( 'There was an error processing the payment refund. Please try again.', 'mastercard-merchant-cloud' );
+				throw new Exception( $error );
+			}
+
+			$note = sprintf(
+				// translators: %1$s: Currency of refund, %2$s: Refund amount, %2$s: Refund reason.
+				__( 'Refund of %1$s processed. %2$s', 'mastercard-merchant-cloud' ),
+				wc_price( $amount, array( 'currency' => $currency ) ),
+				$reason ? __( 'Reason: ', 'mastercard-merchant-cloud' ) . $reason : '',
+			);
+			$order->add_order_note( $note );
+
+			$this->flag_transaction_as_processed( $order, $transaction_id );
+
+			// Add the transaction ID to the refund meta.
+			$this->refund_transaction_id = $transaction_id;
+			/**
+			 * Add refund transaction ID meta when order is refunded.
+			 *
+			 * @since 1.0.0
+			 */
+			add_action( 'woocommerce_order_refunded', array( $this, 'add_refund_meta' ), 10, 2 );
+
+			/**
+			 * Fires after a refund has been successfully processed.
+			 *
+			 * @since 1.0.0
+			 */
+			do_action( 'mastercard_merchant_cloud_process_refund_success', $order, $currency, $amount, $reason );
+
+			return true;
+		} catch ( Exception $e ) {
+			$error_message = $e->getMessage();
+
+			$this->core_plugin->logger()->log( $error_message, 'error' );
+
+			return new WP_Error(
+				'failed-refund',
+				sprintf(
+				// translators: %1$s: Currency of refund, %2$s: Refund amount, %2$s: Refund reason.
+					__( 'There was an error processing the refund. Reason: %1$s', 'mastercard-merchant-cloud' ),
+					$error_message
+				)
+			);
+		}
+	}
+
+
+	/**
+	 * Add refund meta.
+	 *
+	 * @param int $order_id Order ID.
+	 * @param int $refund_id Refund ID.
+	 *
+	 * @return void
+	 */
+	public function add_refund_meta( $order_id, $refund_id ) {
+		if ( ! $this->refund_transaction_id ) {
+			return;
+		}
+
+		$refund = wc_get_order( $refund_id );
+
+		if ( ! $refund ) {
+			return;
+		}
+
+		$refund->update_meta_data( 'mastercard_merchant_cloud_transaction_id', $this->refund_transaction_id );
+		$refund->save();
+	}
+
+
+	/**
+	 * Create a refund for an order when receiving a webhook notification.
+	 *
+	 * @param WC_Order $order       Order object.
+	 * @param array    $transaction Transaction data.
+	 *
+	 * @return void
+	 *
+	 * @throws Exception Exception.
+	 */
+	protected function refund( $order, $transaction ) {
+		if ( ! $order ) {
+			return;
+		}
+
+		if ( empty( $transaction['id'] ) ) {
+			return;
+		}
+
+		$amount = $transaction['amount'] ?? 0;
+		$reason = sanitize_text_field( $transaction['reason'] ?? '' );
+
+		$order_note = sprintf(
+			// translators: %1$s: Refund reason, %2$s: Refund amount.
+			__( 'Refund Webhook notification received. Refund amount: %2$s.', 'mastercard-merchant-cloud' ),
+			$reason,
+			wc_price( $amount, array( 'currency' => $order->get_currency() ) )
+		);
+
+		if ( ! empty( $reason ) ) {
+			$order_note .= ' ' . sprintf(
+				// translators: %s: Refund reason.
+				__( 'Reason: %s', 'mastercard-merchant-cloud' ),
+				$reason
+			);
+		}
+
+		$order->add_order_note( $order_note );
+
+		if ( 'refunded' === $order->get_status() ) {
+			return;
+		}
+
+		$refund = wc_create_refund(
+			array(
+				'amount'   => $amount,
+				'reason'   => $reason,
+				'order_id' => $order->get_id(),
+			)
+		);
+
+		if ( is_wp_error( $refund ) ) {
+			/* translators: %1$s reason */
+			throw new Exception( esc_html( sprintf( __( 'Create refund failed: %1$s.', 'mastercard-merchant-cloud' ), esc_html( $refund->get_error_message() ) ) ) );
+		}
+
+		$refund->update_meta_data( 'mastercard_merchant_cloud_transaction_id', $transaction['id'] );
+		$refund->save();
+
+		$this->flag_transaction_as_processed( $order, $transaction['id'] );
+	}
+
+
+	/**
+	 * Cancel a refund for an order when receiving a webhook notification.
+	 *
+	 * @param WC_Order $order       Order object.
+	 * @param array    $transaction Transaction data.
+	 *
+	 * @return void
+	 *
+	 * @throws Exception Exception.
+	 */
+	protected function void_refund( $order, $transaction ) {
+		if ( ! $order ) {
+			return;
+		}
+
+		if ( empty( $transaction['id'] ) || empty( $transaction['targetTransactionId'] ) ) {
+			return;
+		}
+
+		$voided_refund = null;
+
+		foreach ( $order->get_refunds() as $refund ) {
+			if ( $transaction['targetTransactionId'] === $refund->get_meta( 'mastercard_merchant_cloud_transaction_id' ) ) {
+				$voided_refund = $refund;
+				break;
+			}
+		}
+
+		if ( ! $voided_refund ) {
+			throw new Exception(
+				sprintf(
+					/* translators: %s: transaction ID */
+					esc_html( __( 'Refund with Transaction ID (%s) not found.', 'mastercard-merchant-cloud' ) ),
+					esc_html( $transaction['id'] )
+				)
+			);
+		}
+
+		$voided_refund->delete( true );
+
+		/* translators: %s: transaction ID */
+		$order->add_order_note( sprintf( __( 'Refund was cancelled. Transaction ID: %s', 'mastercard-merchant-cloud' ), sanitize_text_field( $transaction['id'] ) ) );
+
+		$this->flag_transaction_as_processed( $order, $transaction['id'] );
+	}
+
+
+	/**
+	 * Process void payment action.
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return void
+	 *
+	 * @throws Exception Exception.
+	 */
+	public function process_void_payment( $order ) {
+
+		if ( ! $order || ! is_a( $order, WC_Order::class ) ) {
+			return;
+		}
+
+		if ( $this->id !== $order->get_payment_method() ) {
+			return;
+		}
+
+		try {
+			$order_data = $this->retrieve_order( $order );
+
+			$this->validate_payment_status( $order, $order_data );
+
+			if ( 'AUTHORIZED' !== $order_data['body']['status'] ) {
+				throw new Exception( __( 'The order cannot be voided anymore.', 'mastercard-merchant-cloud' ) );
+			}
+
+			$transaction_id = $order->get_meta( 'mastercard_merchant_cloud_authorize_transaction' );
+			if ( empty( $transaction_id ) ) {
+				throw new Exception( __( 'The Authorize transaction ID is missing. Try to void the authorization from the Merchant Portal.', 'mastercard-merchant-cloud' ) );
+			}
+
+			$void_data = array(
+				'apiOperation' => 'VOID',
+				'transaction'  => array(
+					'targetTransactionId' => $transaction_id,
+				),
+			);
+
+			$response = $this->api()->create_transaction( $this->unique_order_id( $order ), $this->unique_transaction_id( $order ), $void_data );
+
+			if ( ! $response['success'] || empty( $response['body']['result'] ) || 'SUCCESS' !== $response['body']['result'] ) {
+				throw new Exception( __( 'Void Payment failed. Please try again.', 'mastercard-merchant-cloud' ) );
+			}
+
+			$this->process_wc_order( $order, $response['body']['order'], $response['body']['transaction'] );
+		} catch ( Exception $e ) {
+			$order->add_order_note(
+				sprintf(
+					/* translators: %s: error message */
+					__( 'Void Payment failed: %s', 'mastercard-merchant-cloud' ),
+					$e->getMessage()
+				)
+			);
+		}
+	}
+
+
+	/**
+	 * Process chargeback payment action.
+	 *
+	 * @param WC_Order $order       Order object.
+	 * @param array    $transaction Transaction data.
+	 *
+	 * @return void
+	 */
+	public function process_chargeback( $order, $transaction ) {
+		if ( empty( $transaction['dispute'] ) ) {
+			return;
+		}
+
+		if ( empty( $transaction['dispute']['event'] ) || 'CHARGEBACK_DEBITED' !== $transaction['dispute']['event'] ) {
+			return;
+		}
+
+		$message = sprintf(
+			/* translators: %s: payment method title */
+			__( '%s payment was charged back.', 'mastercard-merchant-cloud' ),
+			$this->title,
+		);
+
+		if ( ! empty( $transaction['dispute']['amount'] ) && ! empty( $transaction['dispute']['currency'] ) ) {
+			$message .= ' ' . sprintf(
+				/* translators: %s: chargeback amount with currency */
+				__( 'Chargeback Amount: %s', 'mastercard-merchant-cloud' ),
+				wc_price( $transaction['dispute']['amount'], array( 'currency' => $transaction['dispute']['currency'] ) )
+			);
+		}
+
+		$dispute_reason = sanitize_text_field( $transaction['dispute']['reason'] ?? '' );
+		if ( ! empty( $dispute_reason ) ) {
+			$message .= ' ' . sprintf(
+				/* translators: %s: chargeback reason */
+				__( 'Reason: %s', 'mastercard-merchant-cloud' ),
+				$dispute_reason
+			);
+		}
+
+		$order->update_status(
+			'on-hold',
+			$message
+		);
+	}
+
+
+	/**
+	 * Process the return callback.
+	 *
+	 * @return void
+	 * @throws Exception Exception.
+	 */
+	public function process_notification_api_callback() {
+		$order = $this->validate_source();
+
+		if ( ! $order ) {
+			return;
+		}
+
+		try {
+			$raw_body = file_get_contents( 'php://input' );
+			$this->debounce_webhook_request( $raw_body );
+
+			$body = json_decode( $raw_body, true );
+
+			if ( empty( $body ) ) {
+				throw new Exception( __( 'The request body is empty.', 'mastercard-merchant-cloud' ) );
+			}
+
+			$body = wc_clean( $body );
+
+			$this->core_plugin->logger()->log( __( 'Webhook Notification: ', 'mastercard-merchant-cloud' ) . wp_json_encode( $body ), 'info', 'mastercard_merchant_cloud-webhooks' );
+
+			$this->handle_webhook_request( $body, $order );
+
+			status_header( 200 );
+			$this->webhook_cleanup();
+		} catch ( Exception $e ) {
+			$this->core_plugin->logger()->log( $e->getMessage(), 'error' );
+			status_header( is_numeric( $e->getCode() ) ? $e->getCode() : 400 );
+			die();
+		}
+	}
+
+
+	/**
+	 * Linking transaction id order to BlueSnap.
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return string
+	 */
+	public function get_transaction_url( $order ) {
+		if ( ! $order ) {
+			return parent::get_transaction_url( $order );
+		}
+
+		$order_id = $order->get_meta( 'mastercard_merchant_cloud_order_id' );
+
+		if ( ! $order_id ) {
+			$order_id = $this->unique_order_id( $order );
+		}
+
+		if ( ! $order_id ) {
+			return parent::get_transaction_url( $order );
+		}
+
+		$this->view_transaction_url = $this->merchant_portal_order_id( $order_id );
+
+		return parent::get_transaction_url( $order );
+	}
+
+
+	/**
+	 * Build the URL to point to an order in the merchant's portal.
+	 *
+	 * @param string $order_id    The order ID.
+	 * @param bool   $return_html Wether to return an HTML link or not.
+	 *
+	 * @return string
+	 */
+	public function merchant_portal_order_id( $order_id, $return_html = false ) {
+		$order_url = add_query_arg(
+			array(
+				'_authDomain' => 'ma',
+				'merchantId'  => $this->core_plugin->merchant_id(),
+				'orderId'     => $order_id,
+			),
+			untrailingslashit( $this->core_plugin->gateway_url() ) . '/historyV2/detail'
+		);
+
+		if ( ! $return_html ) {
+			return $order_url;
+		}
+
+		return sprintf( '<a href="%s" target="_blank">%s</a>', esc_url( $order_url ), $order_id );
+	}
+
+
+	/**
+	 * Validate incoming request against IP and User-Agent.
+	 *
+	 * @return WC_Order|false
+	 */
+	private function validate_source() {
+		if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
+			return false;
+		}
+
+		if ( empty( $_SERVER['HTTP_X_NOTIFICATION_SECRET'] ) ) {
+			return false;
+		}
+
+		$notification_secret = $this->core_plugin->notification_secret();
+
+		$received_secret = wc_clean( wp_unslash( $_SERVER['HTTP_X_NOTIFICATION_SECRET'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+		if ( empty( $notification_secret ) || ! hash_equals( $notification_secret, $received_secret ) ) {
+			return false;
+		}
+
+		if ( ! isset( $_GET['order-id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return false;
+		}
+
+		$order_id = absint( wp_unslash( $_GET['order-id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if ( ! $order_id ) {
+			return false;
+		}
+
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return false;
+		}
+
+		return $order;
+	}
+
+
+	/**
+	 * Handle the Webhook request.
+	 *
+	 * @param array    $body  Request body.
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return void
+	 */
+	protected function handle_webhook_request( $body, $order ) {
+		if ( ! $order ) {
+			return;
+		}
+
+		if ( empty( $body['result'] ) || 'SUCCESS' !== $body['result'] ) {
+			return;
+		}
+
+		$order_data  = $this->retrieve_order( $order );
+		$transaction = $body['transaction'] ?? array();
+
+		if ( empty( $order_data['body'] ) || empty( $transaction ) ) {
+			return;
+		}
+
+		$this->debounce_webhook_transaction( $transaction );
+
+		if ( empty( $transaction['id'] ) || empty( $transaction['type'] ) ) {
+			return;
+		}
+
+		if ( $this->is_transaction_processed( $order, $transaction['id'] ) ) {
+			return;
+		}
+
+		$should_process_order = true;
+		$order_note_msg       = '';
+		$order_status_msg     = '';
+
+		switch ( $transaction['type'] ) {
+			case 'REFUND':
+				$this->refund( $order, $transaction );
+				$should_process_order = false;
+				break;
+			case 'VOID_REFUND':
+				$this->void_refund( $order, $transaction );
+				$should_process_order = false;
+				break;
+			case 'CHARGEBACK':
+				$this->process_chargeback( $order, $transaction );
+				$should_process_order = false;
+				break;
+			case 'VOID_PAYMENT':
+				$order_note_msg = sprintf(
+					/* translators: %1$s: original transaction ID, %2$s: void transaction ID */
+					__( 'Webhook Notification: Payment Transaction ID: %1$s was voided (Void Transaction ID: %2$s)', 'mastercard-merchant-cloud' ),
+					sanitize_text_field( $transaction['targetTransactionId'] ?? '' ),
+					sanitize_text_field( $transaction['id'] ?? '' ),
+				);
+				$order_status_msg = __( 'Payment was voided.', 'mastercard-merchant-cloud' );
+				break;
+			case 'VOID_CAPTURE':
+				$order_note_msg = sprintf(
+					/* translators: %1$s: original transaction ID, %2$s: void transaction ID */
+					__( 'Webhook Notification: Capture Transaction ID: %1$s was voided (Void Transaction ID: %2$s)', 'mastercard-merchant-cloud' ),
+					sanitize_text_field( $transaction['targetTransactionId'] ?? '' ),
+					sanitize_text_field( $transaction['id'] ?? '' ),
+				);
+				$order_status_msg = __( 'Capture was voided.', 'mastercard-merchant-cloud' );
+				break;
+			case 'VOID_AUTHORIZATION':
+				$order_note_msg = sprintf(
+					/* translators: %1$s: original transaction ID, %2$s: void transaction ID */
+					__( 'Webhook Notification: Authorization Transaction ID: %1$s was voided (Void Transaction ID: %2$s)', 'mastercard-merchant-cloud' ),
+					sanitize_text_field( $transaction['targetTransactionId'] ?? '' ),
+					sanitize_text_field( $transaction['id'] ?? '' ),
+				);
+				$order_status_msg = __( 'Authorization was voided.', 'mastercard-merchant-cloud' );
+				break;
+			case 'CAPTURE':
+			case 'PAYMENT':
+			case 'AUTHORIZATION':
+				break;
+			default:
+				$should_process_order = false;
+				break;
+		}
+
+		if ( $should_process_order ) {
+			$this->process_wc_order( $order, $order_data['body'], $transaction, $order_note_msg, $order_status_msg );
+		}
+	}
+
+
+	/**
+	 * Do not allow the same Webhook request to be processed concurrently.
+	 *
+	 * @param string $raw_body Raw body of the Webhook request.
+	 *
+	 * @return void
+	 * @throws Exception When the request is repeated too soon.
+	 */
+	protected function debounce_webhook_request( $raw_body ) {
+
+		$this->debounce_key = 'mastercard_merchant_cloud_webhook_debounce_' . md5( $raw_body );
+
+		if ( false !== get_transient( $this->debounce_key ) ) {
+			throw new Exception( esc_html( __( 'Notification Webhook repeated too soon or previous request exited abnormally.', 'mastercard-merchant-cloud' ) ) );
+		}
+
+		set_transient( $this->debounce_key, time(), MINUTE_IN_SECONDS );
+	}
+
+
+	/**
+	 * Do not allow the same Transaction to be processed concurrently.
+	 *
+	 * @param array $transaction Transaction data.
+	 *
+	 * @return void
+	 * @throws Exception When the transaction is repeated too soon.
+	 */
+	protected function debounce_webhook_transaction( $transaction ) {
+
+		if ( empty( $transaction['id'] ) ) {
+			return;
+		}
+
+		$this->debounce_key_transaction = 'mastercard_merchant_cloud_webhook_debounce_transaction_' . $transaction['id'];
+
+		if ( false !== get_transient( $this->debounce_key_transaction ) ) {
+			throw new Exception( esc_html( __( 'Notification Webhook repeated too soon or previous request exited abnormally.', 'mastercard-merchant-cloud' ) ) );
+		}
+
+		set_transient( $this->debounce_key_transaction, time(), MINUTE_IN_SECONDS );
+	}
+
+
+
+	/**
+	 * Cleanup debounce transient after Webhook was processed.
+	 *
+	 * @return void
+	 */
+	protected function webhook_cleanup() {
+		if ( $this->debounce_key ) {
+			delete_transient( $this->debounce_key );
+		}
+
+		if ( $this->debounce_key_transaction ) {
+			delete_transient( $this->debounce_key_transaction );
+		}
+	}
+
+	/**
+	 * Check if the given object is a valid WC_Order instance.
+	 *
+	 * @param mixed $order The object to check.
+	 *
+	 * @return bool
+	 */
+	protected function is_order( $order ) {
+		return null !== $order && $order instanceof WC_Order;
+	}
+}

@@ -1,0 +1,148 @@
+/**
+ * RouteMile settings tab — conditional field visibility + key masking.
+ *
+ * Contract (emitted by the settings renderers):
+ *  - A controlling select carries `data-routew-provider-select` or
+ *    `data-routew-fee-mode-select`. Its value is the current "state".
+ *  - Any element inside the form with `data-routew-show-when="state:values"`
+ *    is shown only while the state matches one of its comma-separated
+ *    values; `data-routew-hide-when` is the inverse. The affected element's
+ *    closest <tr> row hides with it.
+ *
+ * Purely visual: hidden fields still submit their values so saving an
+ * unrelated section never drops a provider key stored under another
+ * provider. Sanitizing is unchanged server-side.
+ */
+jQuery(function ($) {
+	var $root = $('.routew-settings-cards');
+	if (!$root.length) {
+		return;
+	}
+
+	function applyRule($els, activeValue) {
+		$els.each(function () {
+			var $el = $(this);
+			var showWhen = String($el.data('routew-show-when') || '');
+			var hideWhen = String($el.data('routew-hide-when') || '');
+			var visible = true;
+
+			if (showWhen) {
+				var parts = showWhen.split(':');
+				var values = (parts[1] || '').split(',').map(function (v) { return v.trim(); });
+				visible = values.indexOf(activeValue) !== -1;
+			}
+			if (hideWhen) {
+				var hparts = hideWhen.split(':');
+				var hvalues = (hparts[1] || '').split(',').map(function (v) { return v.trim(); });
+				if (hvalues.indexOf(activeValue) !== -1) {
+					visible = false;
+				}
+			}
+
+			$el.toggle(visible);
+			var $row = $el.closest('tr');
+			if ($row.length && $row.find('th').length) {
+				$row.toggle(visible);
+			}
+		});
+	}
+
+	function applyAll() {
+		$root.find('[data-routew-provider-select]').each(function () {
+			applyRule($root.find('[data-routew-show-when^="provider:"], [data-routew-hide-when^="provider:"]'), String($(this).val()));
+		});
+		$root.find('[data-routew-fee-mode-select]').each(function () {
+			applyRule($root.find('[data-routew-show-when^="feemode:"]'), String($(this).val()));
+		});
+	}
+
+	$root.on('change', '[data-routew-provider-select], [data-routew-fee-mode-select]', applyAll);
+
+	// API key masking toggle.
+	$root.on('click', '.routew-key-toggle', function () {
+		var $btn = $(this);
+		var $input = $btn.closest('.routew-key-wrap').find('.routew-key-input');
+		if (!$input.length) {
+			return;
+		}
+		var showing = 'text' === $input.attr('type');
+		$input.attr('type', showing ? 'password' : 'text');
+		$btn.text(showing ? ($btn.data('show') || 'Show') : ($btn.data('hide') || 'Hide'));
+	});
+
+	// Weekly hours: "Open all day" and "Closed all day" are mutually
+	// exclusive per row — ticking one unticks the other visually (the
+	// server-side sanitize also enforces open-wins).
+	$root.on('change', '.routew-hours-day input[type="checkbox"]', function () {
+		var $row = $(this).closest('.routew-hours-day');
+		if (!$(this).prop('checked')) {
+			return;
+		}
+		$row.find('input[type="checkbox"]').not(this).prop('checked', false);
+	});
+
+
+	// Order Stage Labels: live preview pill. Typing a new name or
+	// picking a colour updates the preview immediately so the admin
+	// sees exactly what riders/customers will read. Purely visual —
+	// the server sanitizer still validates everything on save.
+	function stagePreview($row) {
+		var label = String($row.find('[data-routew-stage-label-input]').val() || '').trim();
+		var colour = String($row.find('[data-routew-stage-colour-input]').val() || 'placed');
+		var $preview = $row.find('[data-routew-stage-preview]');
+		$preview
+			.removeClass('routew-pill--placed routew-pill--preparing routew-pill--assigned routew-pill--transit routew-pill--delivered routew-pill--cancelled')
+			.addClass('routew-pill--' + colour)
+			.text(label);
+	}
+
+	$root.on('input change', '[data-routew-stage-label-input], [data-routew-stage-colour-input]', function () {
+		stagePreview($(this).closest('[data-routew-stage]'));
+	});
+
+	// Brand color: live preview + reset-to-default. The preview swatches
+	// approximate the derived ramp client-side (strong = button bg,
+	// soft = pill bg) so the admin sees the recolour as they pick.
+	// Server recomputes the real ramp on save.
+	function brandPreview($input) {
+		var hex = String($input.val() || '');
+		if (!/^#[0-9a-fA-F]{6}$/.test(hex) && !/^#[0-9a-fA-F]{3}$/.test(hex)) {
+			return;
+		}
+		if (hex.length === 4) {
+			hex = '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+		}
+		var rgb = [1, 3, 5].map(function (i) {
+			return parseInt(hex.substr(i, 2), 16);
+		});
+		function shade(factor) {
+			return 'rgb(' + rgb.map(function (c) { return Math.round(c * factor); }).join(',') + ')';
+		}
+		function mixWhite(factor) {
+			return 'rgb(' + rgb.map(function (c) { return Math.round(c + (255 - c) * factor); }).join(',') + ')';
+		}
+		var $field = $input.closest('.routew-brand-color-field');
+		$field.find('[data-routew-brand-preview-button]').css({
+			background: shade(0.85),
+			borderColor: shade(0.85),
+			color: '#fff'
+		});
+		$field.find('[data-routew-brand-preview-pill]').css({
+			background: mixWhite(0.91),
+			color: shade(0.85),
+			borderColor: mixWhite(0.78)
+		});
+	}
+
+	$root.on('input change', '.routew-brand-color-input', function () {
+		brandPreview($(this));
+	});
+
+	$root.on('click', '.routew-brand-color-reset', function () {
+		var $btn = $(this);
+		var $input = $btn.closest('.routew-brand-color-field').find('.routew-brand-color-input');
+		$input.val($btn.data('default-color') || $input.data('default') || '#E85D04').trigger('input');
+	});
+
+	applyAll();
+});

@@ -1,0 +1,30 @@
+# Wasmer Edge app configuration.
+# Docs: https://docs.wasmer.io/edge/configuration
+
+kind: wasmer.io/App.v0
+
+# Must match the app name you created in the Wasmer dashboard.
+name: baraa-pharmacy
+
+# Build and run the app from this directory.
+package: .
+
+# Environment variables made available to PHP via getenv().
+env:
+  # Switches wp-config.php to production hardening
+  # (DISALLOW_FILE_EDIT, DISALLOW_FILE_MODS, WP_POST_REVISIONS).
+  WP_ENVIRONMENT_TYPE: "production"
+
+# Persistent storage: WordPress files that must survive redeploys
+# (plugins, themes and uploads) live in this volume.
+volumes:
+  - name: wp-content
+    mount: /app/wp-content
+
+capabilities:
+  # Managed MySQL database. Wasmer injects the connection details into the
+  # app as DB_HOST, DB_PORT, DB_NAME, DB_USERNAME and DB_PASSWORD, which
+  # wp-config.php reads automatically.
+  # WordPress apps only support MySQL.
+  database:
+    engine: mysql
