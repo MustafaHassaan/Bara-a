@@ -11,6 +11,7 @@ $cart_count       = $woocommerce && $woocommerce->cart ? $woocommerce->cart->get
 $cart_total       = $woocommerce && $woocommerce->cart ? $woocommerce->cart->get_cart_total() : '';
 $current_locale   = get_locale();
 $cart_total_plain = wp_strip_all_tags($cart_total);
+$is_arabic        = in_array($current_locale, array('ar', 'ar_AR'));
 
 // شريط عرض الحملة: بيتطبع جوه الهيدر الثابت، وسيبيسر الهيدر بيزيد بمقدار
 // طوله عشان ما يغطّاش أول المحتوى. من غير حملة ما فيش أي تغيير في الهيدر.
@@ -53,7 +54,7 @@ $theme_cookie = 'light';
         <div class="flex flex-col md:flex-row items-center justify-between gap-2">
             <!-- Left: Welcome message -->
             <div class="flex items-center gap-4">
-                <span class="font-medium">أهلا بكم في الموقع الرسمي لصيدليات براءة</span>
+                <span class="font-medium"><?php echo $is_arabic ? 'أهلا بكم في الموقع الرسمي لصيدليات براءة' : 'Welcome to the official website of Baraa Pharmacies'; ?></span>
             </div>
 
             <!-- Center: Hotline -->
@@ -184,24 +185,24 @@ $theme_cookie = 'light';
                 class="hidden lg:flex items-center gap-space-xs px-3 py-2 rounded-lg bg-white/15 hover:bg-white hover:text-[#16A085] text-white border border-white/25 font-label-md text-label-md transition-all shadow-sm font-semibold"
             >
                 <span class="material-symbols-outlined text-[20px]">medical_services</span>
-                <span><?php esc_html_e('استشارة صيدلي', 'baraa-pharmacy'); ?></span>
+                <span><?php echo $is_arabic ? 'استشارة صيدلي' : 'Pharmacist Consultation'; ?></span>
             </a>
 
             <!-- My account -->
             <a
                 class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/15 hover:bg-white hover:text-[#16A085] text-white border border-white/25 font-label-md text-label-md transition-all shadow-sm font-semibold"
                 href="<?php echo esc_url($account_url); ?>"
-                aria-label="<?php esc_attr_e('حسابي', 'baraa-pharmacy'); ?>"
+                aria-label="<?php echo $is_arabic ? 'حسابي' : 'My Account'; ?>"
             >
                 <span class="material-symbols-outlined text-[20px] lg:text-[22px]" aria-hidden="true">person</span>
-                <span class="hidden lg:inline text-xs font-semibold leading-none"><?php esc_html_e('حسابي', 'baraa-pharmacy'); ?></span>
+                <span class="hidden lg:inline text-xs font-semibold leading-none"><?php echo $is_arabic ? 'حسابي' : 'My Account'; ?></span>
             </a>
 
             <!-- Cart -->
             <a
                 class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/15 hover:bg-white hover:text-[#16A085] text-white border border-white/25 transition-all shadow-sm group"
                 href="<?php echo esc_url($cart_url); ?>"
-                aria-label="<?php echo esc_attr(sprintf(__('السلة — %s منتج', 'baraa-pharmacy'), $cart_count)); ?>"
+                aria-label="<?php echo esc_attr(sprintf($is_arabic ? 'السلة — %s منتج' : 'Cart — %s items', $cart_count)); ?>"
             >
                 <div class="relative flex items-center">
                     <span class="material-symbols-outlined text-[20px] lg:text-[22px]">shopping_bag</span>
@@ -210,7 +211,7 @@ $theme_cookie = 'light';
                     </span>
                 </div>
                 <div class="flex flex-col text-right">
-                    <span class="text-[11px] text-white/90 group-hover:text-inherit leading-none"><?php esc_html_e('السلة', 'baraa-pharmacy'); ?></span>
+                    <span class="text-[11px] text-white/90 group-hover:text-inherit leading-none"><?php echo $is_arabic ? 'السلة' : 'Cart'; ?></span>
                     <span id="baraa-cart-total" class="text-xs font-bold leading-tight baraa-cart-total text-white group-hover:text-inherit hidden sm:block" style="<?php echo $cart_total_plain ? '' : 'display:none'; ?>"><?php echo esc_html($cart_total_plain); ?></span>
                 </div>
             </a>
@@ -224,20 +225,20 @@ $theme_cookie = 'light';
         <button
             id="mobile-menu-toggle"
             class="lg:hidden flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-white/20 transition-colors"
-            aria-label="<?php esc_attr_e('القائمة', 'baraa-pharmacy'); ?>"
+            aria-label="<?php echo $is_arabic ? 'القائمة' : 'Menu'; ?>"
         >
             <span class="material-symbols-outlined text-[20px]">menu</span>
         </button>
 
         <nav
             class="hidden lg:flex items-center gap-space-xs font-label-md text-label-md py-1 flex-1"
-            aria-label="<?php esc_attr_e('التنقل الرئيسي', 'baraa-pharmacy'); ?>"
+            aria-label="<?php echo $is_arabic ? 'التنقل الرئيسي' : 'Main Navigation'; ?>"
         >
             <!-- الرئيسية -->
             <a
                 class="px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors <?php echo is_front_page() ? 'bg-[#16A085] text-white font-bold shadow-sm ring-1 ring-white/30' : 'text-white/95 hover:bg-white/20 hover:text-white font-medium'; ?>"
                 href="<?php echo esc_url(home_url('/')); ?>"
-            ><?php esc_html_e('الرئيسية', 'baraa-pharmacy'); ?></a>
+            ><?php echo $is_arabic ? 'الرئيسية' : 'Home'; ?></a>
 
             <!-- تسوق مع dropdown -->
             <div class="relative group" id="shop-dropdown-container">
@@ -248,7 +249,7 @@ $theme_cookie = 'light';
                     aria-expanded="false"
                     aria-haspopup="true"
                 >
-                    <?php esc_html_e('تسوق', 'baraa-pharmacy'); ?>
+                    <?php echo $is_arabic ? 'تسوق' : 'Shop'; ?>
                     <span class="material-symbols-outlined text-[16px]" id="shop-dropdown-icon">expand_more</span>
                 </a>
                 <!-- Dropdown menu -->
@@ -325,13 +326,13 @@ $theme_cookie = 'light';
             <a
                 class="px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors text-white/95 hover:bg-white/20 hover:text-white font-medium"
                 href="<?php echo esc_url(home_url('/deals')); ?>"
-            ><?php esc_html_e('العروض', 'baraa-pharmacy'); ?></a>
+            ><?php echo $is_arabic ? 'العروض' : 'Deals'; ?></a>
 
             <!-- من نحن -->
             <a
                 class="px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors text-white/95 hover:bg-white/20 hover:text-white font-medium"
                 href="<?php echo esc_url(home_url('/about')); ?>"
-            ><?php esc_html_e('من نحن', 'baraa-pharmacy'); ?></a>
+            ><?php echo $is_arabic ? 'من نحن' : 'About Us'; ?></a>
         </nav>
 
         <!-- Online prescription CTA -->
@@ -341,7 +342,7 @@ $theme_cookie = 'light';
             target="_blank" rel="noopener noreferrer"
         >
             <span class="material-symbols-outlined text-[16px]">receipt_long</span>
-            <span><?php esc_html_e('روشتة أونلاين', 'baraa-pharmacy'); ?></span>
+            <span><?php echo $is_arabic ? 'روشتة أونلاين' : 'Online Prescription'; ?></span>
         </a>
     </div>
 
